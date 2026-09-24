@@ -223,8 +223,8 @@ function kpiCard({ label, value, delta = null, hint = "", iconName = "chart" }) 
   return `<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">${label}</span><span class="trust-icon">${icon(iconName)}</span></div><div class="kpi-value">${value}</div><div class="kpi-foot">${deltaHtml(delta)}${hint ? `<span class="muted small">${hint}</span>` : delta != null ? `<span class="muted small">vs. previous period</span>` : ""}</div></div>`;
 }
 
-function tabBar(tabs, active, action) {
-  return `<div class="tab-bar" role="tablist">${tabs.map((tab) => `<button type="button" role="tab" class="tab-bar-item ${tab.id === active ? "active" : ""}" aria-selected="${tab.id === active}" data-action="${action}" data-tab="${tab.id}">${escapeHtml(tab.label)}${tab.count != null ? `<span class="tab-count">${tab.count}</span>` : ""}</button>`).join("")}</div>`;
+function tabBar(tabs, active, action, toned = false) {
+  return `<div class="tab-bar${toned ? " tab-bar-toned" : ""}" role="tablist">${tabs.map((tab) => `<button type="button" role="tab" class="tab-bar-item ${toned ? `tab-tone-${tab.id}` : ""} ${tab.id === active ? "active" : ""}" aria-selected="${tab.id === active}" data-action="${action}" data-tab="${tab.id}">${escapeHtml(tab.label)}${tab.count != null ? `<span class="tab-count">${tab.count}</span>` : ""}</button>`).join("")}</div>`;
 }
 
 function sellerHeader({ eyebrow, title, sub = "", actions = "", back = null }) {
@@ -461,7 +461,7 @@ function dashboardAttention() {
 function storefrontPreview(seller) {
   const listings = myListings().filter((listing) => listingStatus(listing) === "active").slice(0, 2);
   const rows = listings.map((listing) => `<button type="button" class="storefront-listing" data-action="seller-preview-listing" data-id="${listing.id}">${listingThumb(listing)}<span class="attention-copy"><strong>${escapeHtml(listing.title)}</strong><span class="muted small">${money(listing.price)} · ${listing.kind === "service" ? "Book" : "Shop"}</span></span></button>`).join("");
-  return `<button type="button" class="storefront-seller" data-action="seller-preview-profile"><span class="seller-avatar dash-avatar">${escapeHtml(seller.initials)}</span><span class="attention-copy"><strong>${escapeHtml(seller.name)}</strong><span class="muted small">${escapeHtml(seller.handle)} · Student verified</span><span class="storefront-bio">${escapeHtml(seller.bio)}</span></span><span class="storefront-rating">${seller.rating} ★</span></button>${rows}`;
+  return `<button type="button" class="storefront-seller" data-action="seller-preview-profile"><span class="seller-avatar dash-avatar">${escapeHtml(seller.initials)}</span><span class="attention-copy"><strong>${escapeHtml(seller.name)}</strong><span class="storefront-handle"><span class="muted small">${escapeHtml(seller.handle)}</span>${studentVerifiedPill()}</span><span class="storefront-bio">${escapeHtml(seller.bio)}</span></span><span class="storefront-rating">${seller.rating} ★</span></button>${rows}`;
 }
 
 function recentOrderRow(order) {
@@ -505,6 +505,17 @@ function sellerDashboardView() {
 
 function listingOpenSlots(listing) {
   return (listing.slots || []).filter((slot) => slot !== "Choose a time");
+}
+
+function listingTone(listing) {
+  const status = listingStatus(listing);
+  if (status === "soldout") return "soldout";
+  if (status === "draft") return "draft";
+  if (status === "paused") return "paused";
+  const qty = listing.quantityAvailable ?? 0;
+  if (listing.kind === "product" && status === "active" && qty > 0 && qty <= 3) return "low";
+  if (listing.kind === "service" && status === "active" && listingOpenSlots(listing).length === 0) return "low";
+  return "live";
 }
 
 function listingNeedsAttention(listing) {
@@ -552,6 +563,15 @@ function listingManageActions(listing) {
   return `<div class="listing-manage-actions">${buttons}</div>`;
 }
 
+function priceUnitDetail(listing) {
+  const unit = (listing.unit || "").trim();
+  if (!unit) return "";
+  const time = /\b(\d+\s*)?(min|mins|minute|minutes|hr|hrs|hour|hours)\b/i.test(unit);
+  const pack = /\b(set|pack|bundle)\s+of\s+\d+\b/i.test(unit);
+  if (listing.kind === "service") return time ? `/ ${unit}` : "";
+  return pack ? unit : "";
+}
+
 function listingManageCard(listing) {
   const store = getStore(listing.storeId);
   const status = listingStatus(listing);
@@ -559,17 +579,17 @@ function listingManageCard(listing) {
   const fact = listingAvailabilityFact(listing);
   const note = listingNote(listing);
   const kindLabel = listing.kind === "service" ? "Service" : "Product";
-  return `<article class="listing-manage ${listingNeedsAttention(listing) ? "needs-attention" : ""}">
+  return `<article class="listing-manage tone-${listingTone(listing)}">
     <div class="listing-manage-identity">
       ${listingThumb(listing)}
       <div class="listing-manage-copy">
-        <div class="listing-manage-title-row"><h3>${escapeHtml(listing.title)}</h3>${statusPill(status, LISTING_STATUS_LABELS[status])}</div>
+        <div class="listing-manage-title-row"><h3>${escapeHtml(listing.title)}</h3>${statusPill(status, LISTING_STATUS_LABELS[status])}${listingTone(listing) === "low" && listing.kind === "product" ? statusPill("low", "Running low") : ""}</div>
         <p class="listing-manage-meta">${escapeHtml(store?.name || "No store")} · ${kindLabel} · ${escapeHtml(listing.category)}</p>
         ${note ? `<p class="listing-manage-note">${escapeHtml(note)}</p>` : ""}
       </div>
     </div>
     <dl class="listing-manage-facts">
-      <div><dt>Price</dt><dd>${money(listing.price)} <span>${escapeHtml(listing.kind === "service" ? `/ ${listing.unit}` : listing.unit)}</span></dd></div>
+      <div><dt>Price</dt><dd>${money(listing.price)}${priceUnitDetail(listing) ? ` <span>${escapeHtml(priceUnitDetail(listing))}</span>` : ""}</dd></div>
       <div><dt>${escapeHtml(fact.label)}</dt><dd class="${fact.hint === "Running low" || fact.value === "None" || fact.value === "0" ? "is-warning" : ""}">${escapeHtml(fact.value)} <span>${escapeHtml(fact.hint)}</span></dd></div>
       <div><dt>Orders</dt><dd>${fmt(stats.orders)} <span>${fmt(stats.views)} views</span></dd></div>
     </dl>
@@ -580,37 +600,42 @@ function listingManageCard(listing) {
 function sellerListingsView() {
   const all = myListings();
   const ui = state.seller;
-  const tabs = ["all", "active", "paused", "draft", "soldout"].map((id) => ({ id, label: id === "all" ? "All" : id === "draft" ? "Drafts" : LISTING_STATUS_LABELS[id], count: id === "all" ? all.length : all.filter((listing) => listingStatus(listing) === id).length }));
+  const runningLow = (listing) => listingTone(listing) === "low" && listing.kind === "product";
+  const tabs = [
+    { id: "all", label: "All" },
+    { id: "active", label: "Active" },
+    { id: "low", label: "Running low" },
+    { id: "soldout", label: "Sold out" },
+    { id: "draft", label: "Drafts" },
+    { id: "paused", label: "Paused" }
+  ].map((tab) => ({ ...tab, count: tab.id === "all" ? all.length : tab.id === "low" ? all.filter(runningLow).length : all.filter((listing) => listingStatus(listing) === tab.id).length }));
   const search = ui.listingsQuery.trim().toLowerCase();
   const matches = all.filter((listing) => (ui.listingsStore === "all" || listing.storeId === ui.listingsStore)
     && (ui.listingsKind === "all" || listing.kind === ui.listingsKind)
     && (!search || [listing.title, listing.category, listing.description, getStore(listing.storeId)?.name].join(" ").toLowerCase().includes(search)));
-  const filtered = matches.filter((listing) => ui.listingsTab === "all" || listingStatus(listing) === ui.listingsTab);
+  const filtered = matches.filter((listing) => ui.listingsTab === "all" || (ui.listingsTab === "low" ? runningLow(listing) : listingStatus(listing) === ui.listingsTab));
   const storeOptions = [{ id: "all", name: "All stores" }, ...myStores()].map((store) => `<option value="${store.id}" ${ui.listingsStore === store.id ? "selected" : ""}>${escapeHtml(store.name)}</option>`).join("");
   const narrowed = ui.listingsStore !== "all" || ui.listingsKind !== "all" || search;
-  const tabCopy = {
-    all: "Active listings are what buyers see. Drafts, paused, and sold-out listings stay hidden.",
-    active: "Buyers can book or buy these right now.",
-    paused: "Hidden from buyers until you turn them back on.",
-    draft: "Only you can see these. Publish one when it's ready.",
-    soldout: "Buyers see these as unavailable. Restock to sell again."
-  };
   const groups = ui.listingsTab === "all"
     ? [
-        { title: "Needs a look", hint: "Drafts, sold-out items, low stock, and services with no times.", items: filtered.filter(listingNeedsAttention) },
-        { title: "Live", hint: "Buyers can book or buy these.", items: filtered.filter((listing) => listingStatus(listing) === "active" && !listingNeedsAttention(listing)) },
-        { title: "Paused", hint: "Hidden on purpose. Turn one on when you want it back.", items: filtered.filter((listing) => listingStatus(listing) === "paused") }
+        { title: "Needs a look", hint: "", items: filtered.filter(listingNeedsAttention) },
+        { title: "Live", hint: "", items: filtered.filter((listing) => listingStatus(listing) === "active" && !listingNeedsAttention(listing)) },
+        { title: "Paused", hint: "", items: filtered.filter((listing) => listingStatus(listing) === "paused") }
       ].filter((group) => group.items.length)
     : [{ title: "", hint: "", items: filtered }];
+  const columnHead = (items) => {
+    const labels = [...new Set(items.map((listing) => listingAvailabilityFact(listing).label))];
+    const middle = labels.length === 1 ? labels[0] : "Availability";
+    return `<div class="listing-column-head" aria-hidden="true"><span></span><span class="listing-column-labels"><span>Price</span><span>${escapeHtml(middle)}</span><span>Orders</span></span><span></span></div>`;
+  };
   const list = filtered.length
-    ? groups.map((group) => `<section class="listing-group">${group.title ? `<div class="listing-group-head"><h2>${group.title}</h2><p>${group.hint}</p></div>` : ""}<div class="listing-manage-list">${group.items.map(listingManageCard).join("")}</div></section>`).join("")
+    ? groups.map((group) => `<section class="listing-group">${group.title ? `<div class="listing-group-head"><h2>${group.title}</h2>${group.hint ? `<p>${group.hint}</p>` : ""}</div>` : ""}<div class="listing-manage-list">${columnHead(group.items)}${group.items.map(listingManageCard).join("")}</div></section>`).join("")
     : "";
   const empty = all.length
     ? `<div class="empty-state"><div class="empty-shape">⌁</div><h3>Nothing matches.</h3><p class="muted">Try another status, or clear the store, type, and search filters.</p><button class="ghost-button" data-action="seller-clear-listing-filters">Clear filters</button></div>`
     : `<div class="empty-state"><div class="empty-shape">＋</div><h3>No listings yet.</h3><p class="muted">Add a service or product. You can publish it now or keep it as a draft.</p><button class="primary-button" data-action="seller-new-listing">${icon("plus")} New listing</button></div>`;
   return `${sellerHeader({ eyebrow: "Seller Hub", title: "Listings", sub: "What you offer, and whether buyers can see it.", actions: `<button class="primary-button" data-action="seller-new-listing">${icon("plus")} New listing</button>` })}
-    ${tabBar(tabs, ui.listingsTab, "seller-set-listings-tab")}
-    <p class="listings-tab-copy">${tabCopy[ui.listingsTab] || tabCopy.all}</p>
+    ${tabBar(tabs, ui.listingsTab, "seller-set-listings-tab", true)}
     <div class="listings-toolbar">
       <form class="global-search listings-search" data-form="seller-listings-search">${icon("search")}<input id="seller-listings-search-input" name="query" type="search" value="${escapeHtml(ui.listingsQuery)}" placeholder="Search by name or category" aria-label="Search your listings" autocomplete="off" /></form>
       <label class="listings-filter">Store<select id="listings-store-filter" aria-label="Filter by store">${storeOptions}</select></label>
@@ -886,12 +911,12 @@ function sellerAnalyticsView() {
       <section class="seller-card"><div class="seller-card-header"><div><h2>Where buyers come from</h2><p class="muted small">Share of listing views</p></div></div><div class="source-list">${TRAFFIC_SOURCES.map((source) => `<div class="source-row"><span class="source-label"><span class="source-dot" style="background:${source.color}"></span>${source.label}</span><span class="source-track"><span style="width:${source.share}%;background:${source.color}"></span></span><strong>${source.share}%</strong></div>`).join("")}</div></section>
     </div>
     <section class="sell-hero seller-premium"><div class="eyebrow">Premium</div><h2>Turn a good profile into a full storefront.</h2><p>Premium adds featured placement, extra profile sections and a clearer view of who is looking at your listings.</p><button class="primary-button" data-action="seller-premium">See what Premium includes ${icon("arrow")}</button></section>
-    <section class="seller-card analytics-wide"><div class="seller-card-header"><div><h2>Top listings</h2><p class="muted small">All-time performance</p></div><button class="text-button" data-view="seller-listings">Manage listings ${icon("arrow")}</button></div>
+    <section class="seller-card analytics-wide"><div class="seller-card-header"><div><h2>Top listings</h2><p class="muted small">All-time performance</p><button class="text-button" data-view="seller-listings">Manage listings ${icon("arrow")}</button></div></div>
       <div class="seller-table top-table"><div class="seller-table-head"><span>Listing</span><span>Views</span><span>Saves</span><span>Orders</span><span>Conversion</span></div>${listings.map((listing) => { const stats = statsFor(listing.id); return `<div class="seller-row"><div class="cell cell-main"><button type="button" class="row-title" data-action="seller-edit-listing" data-id="${listing.id}">${listingThumb(listing)}<span><span class="activity-title">${escapeHtml(listing.title)}</span><span class="activity-sub">${money(listing.price)} · ${LISTING_STATUS_LABELS[listingStatus(listing)]}</span></span></button></div><div class="cell" data-label="Views"><strong>${fmt(stats.views)}</strong></div><div class="cell" data-label="Saves"><strong>${fmt(stats.saves)}</strong></div><div class="cell" data-label="Orders"><strong>${fmt(stats.orders)}</strong></div><div class="cell" data-label="Conversion"><strong>${stats.views ? ((stats.orders / stats.views) * 100).toFixed(1) : "0.0"}%</strong></div></div>`; }).join("")}</div>
     </section>
     <div class="analytics-grid">
       <section class="seller-card"><div class="seller-card-header"><div><h2>Store comparison</h2><p class="muted small">Last ${range} days</p></div></div><div class="store-compare">${storeTotals.map(({ store, totals }) => `<div class="store-compare-row"><div class="store-logo-small ${store.accent}" aria-hidden="true">${store.emoji}</div><div class="store-compare-copy"><strong>${escapeHtml(store.name)}</strong><span class="muted small">${fmt(totals.orders)} orders · ${fmt(totals.views)} views · ${fmt(store.followers)} followers</span><span class="source-track"><span style="width:${(totals.earnings / maxStoreEarnings) * 100}%;background:var(--${store.accent})"></span></span></div><strong>$${fmt(totals.earnings)}</strong></div>`).join("")}</div></section>
-      <section class="seller-card"><div class="seller-card-header"><div><h2>Ratings</h2><p class="muted small">${ratingTotal} reviews across your stores</p></div><button class="text-button" data-view="seller-reviews">Reviews ${icon("arrow")}</button></div><div class="rating-breakdown">${[5, 4, 3, 2, 1].map((stars) => `<div class="rating-row"><span>${stars} ★</span><span class="source-track"><span style="width:${(RATING_BREAKDOWN[stars] / ratingTotal) * 100}%;background:#e7a900"></span></span><span class="muted small">${RATING_BREAKDOWN[stars]}</span></div>`).join("")}</div></section>
+      <section class="seller-card"><div class="seller-card-header"><div><h2>Ratings</h2><p class="muted small">${ratingTotal} reviews across your stores</p><button class="text-button" data-view="seller-reviews">Reviews ${icon("arrow")}</button></div></div><div class="rating-breakdown">${[5, 4, 3, 2, 1].map((stars) => `<div class="rating-row"><span>${stars} ★</span><span class="source-track"><span style="width:${(RATING_BREAKDOWN[stars] / ratingTotal) * 100}%;background:#e7a900"></span></span><span class="muted small">${RATING_BREAKDOWN[stars]}</span></div>`).join("")}</div></section>
     </div>`;
 }
 
@@ -971,7 +996,7 @@ function sellerProfileSections() {
 function sellerProfilePublic(seller) {
   const responses = ["under an hour", "a few hours", "same day", "a day"];
   return `<form class="settings-form" data-form="seller-save-profile">
-    <div class="seller-hero seller-hero-preview"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div><div class="eyebrow">Student seller</div><h2>${escapeHtml(seller.name)}</h2><p class="muted" style="margin:0">${escapeHtml(seller.campus)} · ${escapeHtml(seller.handle)}</p><div class="seller-stats"><span><strong>${seller.rating}</strong> ★</span><span><strong>${seller.reviews}</strong> reviews</span><span><strong>${seller.completed}</strong> completed</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div></div></div><span class="verified-badge">${icon("verified")} Student verified</span></div>
+    <div class="seller-hero seller-hero-preview"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div>${studentVerifiedPill()}<h2>${escapeHtml(seller.name)}</h2><p class="muted" style="margin:0">${escapeHtml(seller.campus)} · ${escapeHtml(seller.handle)}</p><div class="seller-stats"><span><strong>${seller.rating}</strong> ★</span><span><strong>${seller.reviews}</strong> reviews</span><span><strong>${seller.completed}</strong> completed</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div></div></div></div>
     <div class="form-grid">
       <div class="field"><label for="profile-name">Display name</label><input id="profile-name" name="name" required maxlength="48" value="${escapeHtml(seller.name)}" /></div>
       <div class="field"><label for="profile-handle">Handle</label><input id="profile-handle" name="handle" required maxlength="24" value="${escapeHtml(seller.handle)}" /></div>
@@ -1029,7 +1054,7 @@ function storeManageCard(store) {
   const active = listings.filter((listing) => listingStatus(listing) === "active").length;
   return `<article class="store-manage-card">
     <div class="store-card-banner ${store.accent}"><span class="store-card-previews" aria-hidden="true">${listings.slice(0, 3).map((listing) => `<span>${listing.emoji}</span>`).join("")}</span></div>
-    <span class="store-card-logo ${store.accent}" aria-hidden="true">${store.emoji}</span>
+    <span class="store-card-logo" aria-hidden="true">${escapeHtml(getSeller(store.sellerId).initials)}</span>
     <div class="store-card-body">
       <span class="store-card-name">${escapeHtml(store.name)}</span>
       <span class="store-card-owner">${escapeHtml(store.handle)}</span>

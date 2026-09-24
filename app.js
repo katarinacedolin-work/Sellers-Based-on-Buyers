@@ -385,6 +385,7 @@ const conversations = [
 ];
 
 const state = {
+  mode: "buyer",
   view: "home",
   activeKind: "all",
   category: "All",
@@ -439,8 +440,10 @@ const state = {
   }
 };
 
-const allListings = () => [...services, ...products, ...state.userListings];
-const getListing = (id) => allListings().find((listing) => listing.id === id);
+const everyListing = () => [...services, ...products, ...state.userListings];
+const isPublicListing = (listing) => !listing.status || listing.status === "active";
+const allListings = () => everyListing().filter(isPublicListing);
+const getListing = (id) => everyListing().find((listing) => listing.id === id);
 const getList = (id) => state.lists.find((list) => list.id === id);
 const getSelectedList = () => getList(state.selectedListId) || state.lists[0];
 const isListingSaved = (listingId) => state.lists.some((list) => list.listingIds.includes(listingId));
@@ -1133,7 +1136,7 @@ function youView() {
       <button class="quick-action" data-action="open-help"><span class="trust-icon">${icon("help")}</span><strong>Get help</strong><span>Support and safety</span></button>
     </div>
   </section>
-  <section class="section sell-hero profile-sell-hero"><div class="eyebrow">For student sellers</div><h2>Turn what you know into what you earn.</h2><p>List a service, sell something you are done with or build a reputation on campus.</p><button class="primary-button" data-view="sell">Start selling ${icon("arrow")}</button></section>`;
+  <section class="section sell-hero profile-sell-hero"><div class="eyebrow">For student sellers</div><h2>Turn what you know into what you earn.</h2><p>List a service, sell something you are done with or build a reputation on campus. The Seller Hub demo opens as Maya Chen, an established campus seller.</p><div class="button-row"><button class="primary-button" data-action="switch-mode">Open Seller Hub ${icon("arrow")}</button><button class="ghost-button sell-hero-ghost" data-view="sell">List something quickly</button></div></section>`;
 }
 
 function sellView() {
@@ -1162,7 +1165,12 @@ function sellForm(kind) {
     ? ["New", "Made to order", "Digital download"].map((condition) => `<option>${condition}</option>`).join("")
     : ["Like new", "Good condition", "Fair condition"].map((condition) => `<option>${condition}</option>`).join("");
   const stepLabel = service ? "Step 2 of 2" : "Step 3 of 3";
-  return `<form class="form-card" data-form="publish-listing"><div class="progress-steps"><span class="progress-step active"></span><span class="progress-step active"></span>${service ? "" : `<span class="progress-step active"></span>`}</div><div class="eyebrow">${stepLabel} · ${service ? "Service details" : merchandiseTypeLabel(state.sellMerchandiseType)}</div><h3>${service ? "Make the offer clear." : isNewProduct ? "Show buyers what makes it original." : "Give it a good second home."}</h3><p class="muted small">This is a prototype form — publishing adds a demo listing to your local session only.</p><div class="form-grid"><div class="field full"><label for="listing-title">Title</label><input id="listing-title" name="title" required placeholder="${service ? "e.g. Beginner guitar lesson" : isNewProduct ? "e.g. Hand-painted campus tote" : "e.g. White desk chair"}" /></div><div class="field"><label for="listing-category">Category</label><select id="listing-category" name="category">${categoryOptions}</select></div><div class="field"><label for="listing-price">Price</label><input id="listing-price" name="price" type="number" min="1" required placeholder="${service ? "35" : "20"}" /></div>${service ? `<div class="field"><label for="listing-duration">Duration</label><select id="listing-duration" name="duration"><option>30 min</option><option>45 min</option><option>60 min</option><option>90 min</option></select></div>` : `<div class="field"><label for="listing-quantity">Quantity</label><input id="listing-quantity" name="quantity" type="number" min="1" value="1" /></div><div class="field"><label for="listing-condition">${isNewProduct ? "Availability" : "Condition"}</label><select id="listing-condition" name="condition">${conditionOptions}</select></div>`}<div class="field full"><label for="listing-description">Description</label><textarea id="listing-description" name="description" required placeholder="${isNewProduct ? "What did you make or source, and what should a buyer know?" : "What should another student know before they choose this?"}"></textarea><span class="field-note">${isNewProduct ? "Explain materials, what is included and whether it is ready now or made to order." : "Use real details, clear expectations and an honest condition and handoff plan."}</span></div></div><div class="button-row" style="margin-top: 18px"><button class="primary-button" type="submit">Publish demo listing ${icon("arrow")}</button><button class="ghost-button" type="button" data-action="cancel-sell">Cancel</button></div></form>`;
+  const sellerMode = state.mode === "seller";
+  const storeField = sellerMode ? `<div class="field full"><label for="listing-store">Store</label><select id="listing-store" name="storeId">${storesForSeller(SELLER_ID).map((store) => `<option value="${store.id}">${escapeHtml(store.emoji)} ${escapeHtml(store.name)}</option>`).join("")}</select></div>` : "";
+  const submitButtons = sellerMode
+    ? `<button class="primary-button" type="submit" name="intent" value="publish">Publish listing ${icon("arrow")}</button><button class="ghost-button" type="submit" name="intent" value="draft">Save as draft</button><button class="ghost-button" type="button" data-view="seller-listings">Cancel</button>`
+    : `<button class="primary-button" type="submit">Publish demo listing ${icon("arrow")}</button><button class="ghost-button" type="button" data-action="cancel-sell">Cancel</button>`;
+  return `<form class="form-card" data-form="publish-listing"><div class="progress-steps"><span class="progress-step active"></span><span class="progress-step active"></span>${service ? "" : `<span class="progress-step active"></span>`}</div><div class="eyebrow">${stepLabel} · ${service ? "Service details" : merchandiseTypeLabel(state.sellMerchandiseType)}</div><h3>${service ? "Make the offer clear." : isNewProduct ? "Show buyers what makes it original." : "Give it a good second home."}</h3><p class="muted small">This is a prototype form — publishing adds a demo listing to your local session only.</p><div class="form-grid">${storeField}<div class="field full"><label for="listing-title">Title</label><input id="listing-title" name="title" required placeholder="${service ? "e.g. Beginner guitar lesson" : isNewProduct ? "e.g. Hand-painted campus tote" : "e.g. White desk chair"}" /></div><div class="field"><label for="listing-category">Category</label><select id="listing-category" name="category">${categoryOptions}</select></div><div class="field"><label for="listing-price">Price</label><input id="listing-price" name="price" type="number" min="1" required placeholder="${service ? "35" : "20"}" /></div>${service ? `<div class="field"><label for="listing-duration">Duration</label><select id="listing-duration" name="duration"><option>30 min</option><option>45 min</option><option>60 min</option><option>90 min</option></select></div>` : `<div class="field"><label for="listing-quantity">Quantity</label><input id="listing-quantity" name="quantity" type="number" min="1" value="1" /></div><div class="field"><label for="listing-condition">${isNewProduct ? "Availability" : "Condition"}</label><select id="listing-condition" name="condition">${conditionOptions}</select></div>`}<div class="field full"><label for="listing-description">Description</label><textarea id="listing-description" name="description" required placeholder="${isNewProduct ? "What did you make or source, and what should a buyer know?" : "What should another student know before they choose this?"}"></textarea><span class="field-note">${isNewProduct ? "Explain materials, what is included and whether it is ready now or made to order." : "Use real details, clear expectations and an honest condition and handoff plan."}</span></div></div><div class="button-row" style="margin-top: 18px">${submitButtons}</div></form>`;
 }
 
 function renderModal(content) {
@@ -1190,6 +1198,8 @@ function render() {
   if (state.view === "lists") markup = myListsView();
   if (state.view === "stores") markup = storesView();
   if (state.view === "store") markup = storeView(getStore(state.selectedStoreId));
+  if (state.view.startsWith("seller-")) markup = renderSellerView();
+  else if (state.mode === "seller") markup = sellerPreviewBanner() + markup;
   main.innerHTML = markup;
   updateNavigation();
   if (searchCaret !== null) {
@@ -1202,16 +1212,24 @@ function render() {
   }
 }
 
+function activeConversations() {
+  return state.mode === "seller" ? sellerConversations : conversations;
+}
+
+function activeNotifications() {
+  return state.mode === "seller" ? sellerNotifications : notifications;
+}
+
 function unreadInboxCount() {
-  return conversations.filter((conversation) => conversation.unread).length;
+  return activeConversations().filter((conversation) => conversation.unread).length;
 }
 
 function unreadNotificationCount() {
-  return notifications.filter((notification) => notification.unread).length;
+  return activeNotifications().filter((notification) => notification.unread).length;
 }
 
 function getNotification(id) {
-  return notifications.find((notification) => notification.id === id);
+  return activeNotifications().find((notification) => notification.id === id);
 }
 
 function closeNotificationsPopover() {
@@ -1221,8 +1239,8 @@ function closeNotificationsPopover() {
 
 function notificationPopoverMarkup() {
   const unread = unreadNotificationCount();
-  const rows = notifications.map((notification) => `<button type="button" class="notification-popover-row ${notification.unread ? "unread" : ""}" data-action="open-notification" data-id="${notification.id}"><span class="activity-thumb ${notification.accent}">${notification.emoji}</span><span class="notification-popover-copy"><span class="notification-popover-top"><strong>${escapeHtml(notification.title)}</strong><span class="muted small">${escapeHtml(notification.time)}</span></span><span class="notification-popover-body muted">${escapeHtml(notification.body)}</span></span>${notification.unread ? `<span class="unread-dot" aria-label="Unread"></span>` : ""}</button>`).join("");
-  return `<div class="notification-popover-header"><div><strong>Notifications</strong>${unread ? `<span class="muted small">${unread} unread</span>` : ""}</div><button type="button" class="text-button" data-action="mark-all-notifications-read">Mark all read</button></div><div class="notification-popover-list">${rows}</div><div class="notification-popover-footer"><button type="button" class="ghost-button" data-action="close-notifications">Close</button></div>`;
+  const rows = activeNotifications().map((notification) => `<button type="button" class="notification-popover-row ${notification.unread ? "unread" : ""}" data-action="open-notification" data-id="${notification.id}"><span class="activity-thumb ${notification.accent}">${notification.emoji}</span><span class="notification-popover-copy"><span class="notification-popover-top"><strong>${escapeHtml(notification.title)}</strong><span class="muted small">${escapeHtml(notification.time)}</span></span><span class="notification-popover-body muted">${escapeHtml(notification.body)}</span></span>${notification.unread ? `<span class="unread-dot" aria-label="Unread"></span>` : ""}</button>`).join("");
+  return `<div class="notification-popover-header"><div><strong>Notifications</strong>${unread ? `<span class="muted small">${unread} unread</span>` : ""}</div><button type="button" class="text-button" data-action="mark-all-notifications-read">Mark all read</button></div><div class="notification-popover-list">${rows}</div><div class="notification-popover-footer">${state.mode === "seller" ? `<button type="button" class="text-button" data-view="seller-notifications">View all ${icon("arrow")}</button>` : ""}<button type="button" class="ghost-button" data-action="close-notifications">Close</button></div>`;
 }
 
 function updateHeaderChrome() {
@@ -1233,7 +1251,7 @@ function updateHeaderChrome() {
       badge.textContent = unreadMessages > 9 ? "9+" : String(unreadMessages);
       badge.hidden = unreadMessages === 0;
     }
-    button.classList.toggle("active", state.view === "inbox");
+    button.classList.toggle("active", state.view === button.dataset.view);
     button.setAttribute("aria-label", unreadMessages ? `Messages, ${unreadMessages} unread` : "Messages");
   });
   const unreadNotes = unreadNotificationCount();
@@ -1247,6 +1265,7 @@ function updateHeaderChrome() {
     button.setAttribute("aria-expanded", state.notificationsOpen ? "true" : "false");
     button.setAttribute("aria-label", unreadNotes ? `Notifications, ${unreadNotes} unread` : "Notifications");
   });
+  if (state.mode === "seller") updateSellerChrome();
   const popover = document.querySelector("#notification-popover");
   if (!popover) return;
   if (state.notificationsOpen) {
@@ -1260,9 +1279,10 @@ function updateHeaderChrome() {
 }
 
 function updateNavigation() {
+  const sellerNavTarget = state.mode === "seller" ? sellerNavView(state.view) : null;
   document.querySelectorAll("[data-view]").forEach((button) => {
     const view = button.dataset.view;
-    const active = view === state.view || (state.view === "search" && view === "home") || (state.view === "store" && view === "stores") || (state.view === "settings" && view === "you" && button.classList.contains("profile-nav-button"));
+    const active = view === state.view || view === sellerNavTarget || (state.view === "search" && view === "home") || (state.view === "store" && view === "stores") || (state.view === "settings" && view === "you" && button.classList.contains("profile-nav-button"));
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
@@ -1286,6 +1306,34 @@ function openSellerConversation(sellerId = "maya-chen") {
   return setView("inbox", { selectedConversationId: conversation.id });
 }
 
+function syncModeChrome() {
+  const seller = state.mode === "seller";
+  document.body.dataset.mode = state.mode;
+  const profileSeller = getSeller(SELLER_ID);
+  document.querySelectorAll(".profile-nav-button").forEach((button) => {
+    button.dataset.view = seller ? "seller-profile" : "you";
+    button.textContent = seller ? profileSeller.initials : "KC";
+    button.classList.toggle("seller-avatar-button", seller);
+    button.setAttribute("aria-label", seller ? "Your seller profile" : "Your profile");
+  });
+  document.querySelectorAll(".messages-nav-button").forEach((button) => { button.dataset.view = seller ? "seller-inbox" : "inbox"; });
+  document.querySelectorAll(".mode-switch").forEach((button) => {
+    const label = seller ? "Switch to buying" : "Switch to selling";
+    button.querySelector(".mode-switch-label").textContent = label;
+    button.setAttribute("aria-label", label);
+    button.classList.toggle("selling", seller);
+  });
+}
+
+function setMode(mode) {
+  state.mode = mode === "seller" ? "seller" : "buyer";
+  state.notificationsOpen = false;
+  document.querySelector("#modal-root").innerHTML = "";
+  syncModeChrome();
+  setView(state.mode === "seller" ? "seller-dashboard" : "home");
+  showToast(state.mode === "seller" ? `Seller Hub · signed in as ${getSeller(SELLER_ID).name} (demo).` : "Back to buying as Katarina.");
+}
+
 document.addEventListener("click", (event) => {
   const target = event.target.closest("button, [data-action]");
   if (!target) return;
@@ -1298,12 +1346,14 @@ document.addEventListener("click", (event) => {
     state.category = "All";
     if (view === "search") state.activeKind = "all";
     if (view === "shop") state.shopType = "all";
-    if (view === "sell") { state.sellKind = null; state.sellMerchandiseType = null; }
+    if (view === "sell" || view === "seller-new") { state.sellKind = null; state.sellMerchandiseType = null; }
     if (view === "stores") { state.storesFilter = "All"; state.storesQuery = ""; }
     setView(view);
     return;
   }
   if (!action) return;
+  if (action === "switch-mode") return setMode(state.mode === "seller" ? "buyer" : "seller");
+  if (state.mode === "seller" && handleSellerAction(action, target, event)) return;
   if (action === "go-home") return setView("home");
   if (action === "toggle-notifications") {
     state.notificationsOpen = !state.notificationsOpen;
@@ -1312,7 +1362,7 @@ document.addEventListener("click", (event) => {
   }
   if (action === "close-notifications") return closeNotificationsPopover();
   if (action === "mark-all-notifications-read") {
-    notifications.forEach((notification) => { notification.unread = false; });
+    activeNotifications().forEach((notification) => { notification.unread = false; });
     showToast("All notifications marked as read.");
     updateHeaderChrome();
     return;
@@ -1454,6 +1504,7 @@ document.addEventListener("click", (event) => {
     const listing = getListing(target.dataset.id);
     const order = { id: `order-${Date.now()}`, listingId: listing.id, status: listing.kind === "service" ? "Upcoming" : "Awaiting confirmation", date: listing.kind === "service" ? state.selectedSlot || listing.slots[0] : "Pickup details coming next", kind: listing.kind };
     state.orders.unshift(order);
+    sellerReceiveBuyerOrder(order, listing);
     state.selectedOrderId = order.id;
     return setView("order");
   }
@@ -1491,6 +1542,7 @@ document.addEventListener("click", (event) => {
 document.addEventListener("submit", (event) => {
   const form = event.target;
   event.preventDefault();
+  if (state.mode === "seller" && handleSellerSubmit(form, event)) return;
   if (form.dataset.form === "global-search") {
     const query = new FormData(form).get("query")?.toString().trim() || "";
     state.query = query;
@@ -1516,6 +1568,7 @@ document.addEventListener("submit", (event) => {
     const conversationId = state.selectedConversationId;
     state.messages[conversationId] = state.messages[conversationId] || [];
     state.messages[conversationId].push({ who: "me", text, time: "now" });
+    if (typeof sellerReceiveBuyerMessage === "function") sellerReceiveBuyerMessage(conversationId, text);
     input.value = "";
     render();
     showToast("Message sent in the demo.");

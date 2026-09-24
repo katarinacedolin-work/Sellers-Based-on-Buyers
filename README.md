@@ -26,5 +26,6 @@ Then open `http://localhost:4173`.
 - Demo seller onboarding and listing creation
 - Notifications, support, report and verification dialogs
 - Responsive desktop and mobile navigation
+- Seller Hub mode (toggle from the header or You page, or open `/#seller`): signed in as Maya Chen, with a Dashboard, Listings manager and editor, Orders list/calendar and detail, Analytics charts, Messages with quick replies, a Notifications page, Profile, Stores, Reviews and Payouts. Edits share the same demo listings as the buyer marketplace.
 
 All content is local demo data. No backend, payment processor, database, authentication provider, external images or integrations are connected.

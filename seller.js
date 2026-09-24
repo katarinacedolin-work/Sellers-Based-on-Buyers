@@ -503,39 +503,78 @@ function sellerDashboardView() {
 
 /* ---------- Listings ---------- */
 
-function listingStockCell(listing) {
+function listingOpenSlots(listing) {
+  return (listing.slots || []).filter((slot) => slot !== "Choose a time");
+}
+
+function listingNeedsAttention(listing) {
+  const status = listingStatus(listing);
+  if (status === "draft" || status === "soldout") return true;
+  if (status !== "active") return false;
+  if (listing.kind === "service") return listingOpenSlots(listing).length === 0;
+  const qty = listing.quantityAvailable ?? 0;
+  return qty > 0 && qty <= 3;
+}
+
+function listingNote(listing) {
+  const status = listingStatus(listing);
+  if (status === "draft") return "Not published. Buyers can't see it.";
+  if (status === "paused") return "Paused. Hidden from your store.";
+  if (status === "soldout") return "Sold out. Restock to sell it again.";
+  if (listing.kind === "service" && listingOpenSlots(listing).length === 0) return "No open times, so buyers can't book.";
+  const qty = listing.quantityAvailable ?? 0;
+  if (listing.kind === "product" && status === "active" && qty > 0 && qty <= 3) return `Only ${qty} left.`;
+  return "";
+}
+
+function listingAvailabilityFact(listing) {
   if (listing.kind === "service") {
-    const slots = (listing.slots || []).filter((slot) => slot !== "Choose a time");
-    return slots.length ? `<strong>${escapeHtml(slots[0])}</strong><span class="muted small">${plural(slots.length, "open slot")}</span>` : `<span class="muted small">No slots yet</span>`;
+    const slots = listingOpenSlots(listing);
+    return { label: "Next opening", value: slots.length ? slots[0] : "None", hint: slots.length ? plural(slots.length, "open time") : "Add a time to take bookings" };
   }
   const qty = listing.quantityAvailable ?? 0;
-  return `<strong class="${qty > 0 && qty <= 3 ? "low-stock" : ""}">${qty} in stock</strong>${qty > 0 && qty <= 3 ? `<span class="muted small">Running low</span>` : ""}`;
+  return { label: "In stock", value: String(qty), hint: qty === 0 ? "Nothing left to sell" : qty <= 3 ? "Running low" : "Ready to sell" };
 }
 
-function listingRowActions(listing) {
+function listingManageActions(listing) {
   const status = listingStatus(listing);
-  const toggle = status === "draft"
-    ? `<button type="button" class="icon-button" data-action="seller-toggle-listing-status" data-id="${listing.id}" aria-label="Publish ${escapeHtml(listing.title)}" title="Publish">${icon("check")}</button>`
-    : status === "soldout"
-      ? `<button type="button" class="icon-button" data-action="seller-edit-listing" data-id="${listing.id}" aria-label="Restock ${escapeHtml(listing.title)}" title="Restock">${icon("plus")}</button>`
-      : `<button type="button" class="icon-button" data-action="seller-toggle-listing-status" data-id="${listing.id}" aria-label="${status === "paused" ? "Activate" : "Pause"} ${escapeHtml(listing.title)}" title="${status === "paused" ? "Activate" : "Pause"}">${icon(status === "paused" ? "play" : "pause")}</button>`;
-  return `<div class="row-actions"><button type="button" class="icon-button" data-action="seller-edit-listing" data-id="${listing.id}" aria-label="Edit ${escapeHtml(listing.title)}" title="Edit">${icon("edit")}</button><button type="button" class="icon-button" data-action="seller-preview-listing" data-id="${listing.id}" aria-label="Preview ${escapeHtml(listing.title)}" title="View as buyer">${icon("eye")}</button>${toggle}<button type="button" class="icon-button" data-action="seller-duplicate-listing" data-id="${listing.id}" aria-label="Duplicate ${escapeHtml(listing.title)}" title="Duplicate">${icon("copy")}</button><button type="button" class="icon-button danger" data-action="seller-delete-listing" data-id="${listing.id}" aria-label="Delete ${escapeHtml(listing.title)}" title="Delete">${icon("trash")}</button></div>`;
+  const id = listing.id;
+  const edit = `<button type="button" class="ghost-button compact" data-action="seller-edit-listing" data-id="${id}">${icon("edit")} Edit</button>`;
+  const statusAction = status === "draft"
+    ? `<button type="button" class="primary-button compact" data-action="seller-toggle-listing-status" data-id="${id}">${icon("check")} Publish</button>`
+    : status === "paused"
+      ? `<button type="button" class="primary-button compact" data-action="seller-toggle-listing-status" data-id="${id}">${icon("play")} Turn on</button>`
+      : status === "soldout"
+        ? `<button type="button" class="primary-button compact" data-action="seller-edit-listing" data-id="${id}">${icon("plus")} Restock</button>`
+        : `<button type="button" class="ghost-button compact" data-action="seller-toggle-listing-status" data-id="${id}">${icon("pause")} Pause</button>`;
+  const more = `<details class="listing-more"><summary>More</summary><div class="listing-more-menu"><button type="button" data-action="seller-preview-listing" data-id="${id}">${icon("eye")} View as buyer</button><button type="button" data-action="seller-duplicate-listing" data-id="${id}">${icon("copy")} Duplicate</button><button type="button" class="is-danger" data-action="seller-delete-listing" data-id="${id}">${icon("trash")} Delete</button></div></details>`;
+  const buttons = status === "soldout" ? `${statusAction}${more}` : status === "active" ? `${edit}${statusAction}${more}` : `${statusAction}${edit}${more}`;
+  return `<div class="listing-manage-actions">${buttons}</div>`;
 }
 
-function listingRow(listing) {
-  const stats = statsFor(listing.id);
+function listingManageCard(listing) {
   const store = getStore(listing.storeId);
   const status = listingStatus(listing);
-  return `<div class="seller-row">
-    <div class="cell cell-main"><button type="button" class="row-title" data-action="seller-edit-listing" data-id="${listing.id}">${listingThumb(listing)}<span><span class="activity-title">${escapeHtml(listing.title)}</span><span class="activity-sub">${escapeHtml(store?.name || "No store")} · ${listing.kind === "service" ? "Service" : "Product"} · ${escapeHtml(listing.category)}</span></span></button></div>
-    <div class="cell" data-label="Price"><strong>${money(listing.price)}</strong><span class="muted small">${escapeHtml(listing.kind === "service" ? `/ ${listing.unit}` : listing.unit)}</span></div>
-    <div class="cell" data-label="${listing.kind === "service" ? "Next slot" : "Stock"}">${listingStockCell(listing)}</div>
-    <div class="cell" data-label="Views"><strong>${fmt(stats.views)}</strong></div>
-    <div class="cell" data-label="Saves"><strong>${fmt(stats.saves)}</strong></div>
-    <div class="cell" data-label="Orders"><strong>${fmt(stats.orders)}</strong></div>
-    <div class="cell" data-label="Status">${statusPill(status, LISTING_STATUS_LABELS[status])}</div>
-    <div class="cell cell-actions">${listingRowActions(listing)}</div>
-  </div>`;
+  const stats = statsFor(listing.id);
+  const fact = listingAvailabilityFact(listing);
+  const note = listingNote(listing);
+  const kindLabel = listing.kind === "service" ? "Service" : "Product";
+  return `<article class="listing-manage ${listingNeedsAttention(listing) ? "needs-attention" : ""}">
+    <div class="listing-manage-identity">
+      ${listingThumb(listing)}
+      <div class="listing-manage-copy">
+        <div class="listing-manage-title-row"><h3>${escapeHtml(listing.title)}</h3>${statusPill(status, LISTING_STATUS_LABELS[status])}</div>
+        <p class="listing-manage-meta">${escapeHtml(store?.name || "No store")} · ${kindLabel} · ${escapeHtml(listing.category)}</p>
+        ${note ? `<p class="listing-manage-note">${escapeHtml(note)}</p>` : ""}
+      </div>
+    </div>
+    <dl class="listing-manage-facts">
+      <div><dt>Price</dt><dd>${money(listing.price)} <span>${escapeHtml(listing.kind === "service" ? `/ ${listing.unit}` : listing.unit)}</span></dd></div>
+      <div><dt>${escapeHtml(fact.label)}</dt><dd class="${fact.hint === "Running low" || fact.value === "None" || fact.value === "0" ? "is-warning" : ""}">${escapeHtml(fact.value)} <span>${escapeHtml(fact.hint)}</span></dd></div>
+      <div><dt>Orders</dt><dd>${fmt(stats.orders)} <span>${fmt(stats.views)} views</span></dd></div>
+    </dl>
+    ${listingManageActions(listing)}
+  </article>`;
 }
 
 function sellerListingsView() {
@@ -543,22 +582,42 @@ function sellerListingsView() {
   const ui = state.seller;
   const tabs = ["all", "active", "paused", "draft", "soldout"].map((id) => ({ id, label: id === "all" ? "All" : id === "draft" ? "Drafts" : LISTING_STATUS_LABELS[id], count: id === "all" ? all.length : all.filter((listing) => listingStatus(listing) === id).length }));
   const search = ui.listingsQuery.trim().toLowerCase();
-  const filtered = all.filter((listing) => (ui.listingsTab === "all" || listingStatus(listing) === ui.listingsTab)
-    && (ui.listingsStore === "all" || listing.storeId === ui.listingsStore)
+  const matches = all.filter((listing) => (ui.listingsStore === "all" || listing.storeId === ui.listingsStore)
     && (ui.listingsKind === "all" || listing.kind === ui.listingsKind)
-    && (!search || [listing.title, listing.category, listing.description].join(" ").toLowerCase().includes(search)));
-  const storeChips = [{ id: "all", name: "All stores", emoji: "" }, ...myStores()].map((store) => `<button type="button" class="filter-button ${ui.listingsStore === store.id ? "active" : ""}" data-action="seller-set-listings-store" data-id="${store.id}">${store.emoji ? `${store.emoji} ` : ""}${escapeHtml(store.name)}</button>`).join("");
-  const hasFilters = ui.listingsStore !== "all" || ui.listingsKind !== "all" || search || ui.listingsTab !== "all";
-  return `${sellerHeader({ eyebrow: "Seller Hub", title: "Listings", sub: "Everything you offer across your stores. Paused and draft listings are hidden from buyers.", actions: `<button class="primary-button" data-action="seller-new-listing">${icon("plus")} New listing</button>` })}
+    && (!search || [listing.title, listing.category, listing.description, getStore(listing.storeId)?.name].join(" ").toLowerCase().includes(search)));
+  const filtered = matches.filter((listing) => ui.listingsTab === "all" || listingStatus(listing) === ui.listingsTab);
+  const storeOptions = [{ id: "all", name: "All stores" }, ...myStores()].map((store) => `<option value="${store.id}" ${ui.listingsStore === store.id ? "selected" : ""}>${escapeHtml(store.name)}</option>`).join("");
+  const narrowed = ui.listingsStore !== "all" || ui.listingsKind !== "all" || search;
+  const tabCopy = {
+    all: "Active listings are what buyers see. Drafts, paused, and sold-out listings stay hidden.",
+    active: "Buyers can book or buy these right now.",
+    paused: "Hidden from buyers until you turn them back on.",
+    draft: "Only you can see these. Publish one when it's ready.",
+    soldout: "Buyers see these as unavailable. Restock to sell again."
+  };
+  const groups = ui.listingsTab === "all"
+    ? [
+        { title: "Needs a look", hint: "Drafts, sold-out items, low stock, and services with no times.", items: filtered.filter(listingNeedsAttention) },
+        { title: "Live", hint: "Buyers can book or buy these.", items: filtered.filter((listing) => listingStatus(listing) === "active" && !listingNeedsAttention(listing)) },
+        { title: "Paused", hint: "Hidden on purpose. Turn one on when you want it back.", items: filtered.filter((listing) => listingStatus(listing) === "paused") }
+      ].filter((group) => group.items.length)
+    : [{ title: "", hint: "", items: filtered }];
+  const list = filtered.length
+    ? groups.map((group) => `<section class="listing-group">${group.title ? `<div class="listing-group-head"><h2>${group.title}</h2><p>${group.hint}</p></div>` : ""}<div class="listing-manage-list">${group.items.map(listingManageCard).join("")}</div></section>`).join("")
+    : "";
+  const empty = all.length
+    ? `<div class="empty-state"><div class="empty-shape">⌁</div><h3>Nothing matches.</h3><p class="muted">Try another status, or clear the store, type, and search filters.</p><button class="ghost-button" data-action="seller-clear-listing-filters">Clear filters</button></div>`
+    : `<div class="empty-state"><div class="empty-shape">＋</div><h3>No listings yet.</h3><p class="muted">Add a service or product. You can publish it now or keep it as a draft.</p><button class="primary-button" data-action="seller-new-listing">${icon("plus")} New listing</button></div>`;
+  return `${sellerHeader({ eyebrow: "Seller Hub", title: "Listings", sub: "What you offer, and whether buyers can see it.", actions: `<button class="primary-button" data-action="seller-new-listing">${icon("plus")} New listing</button>` })}
     ${tabBar(tabs, ui.listingsTab, "seller-set-listings-tab")}
-    <div class="seller-toolbar">
-      <form class="global-search seller-search" data-form="seller-listings-search">${icon("search")}<input id="seller-listings-search-input" name="query" type="search" value="${escapeHtml(ui.listingsQuery)}" placeholder="Search your listings" aria-label="Search your listings" autocomplete="off" /></form>
-      <div class="seller-chip-row">${storeChips}</div>
-      <div class="segmented"><button class="segment ${ui.listingsKind === "all" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="all">All</button><button class="segment ${ui.listingsKind === "service" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="service">Services</button><button class="segment ${ui.listingsKind === "product" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="product">Products</button></div>
+    <p class="listings-tab-copy">${tabCopy[ui.listingsTab] || tabCopy.all}</p>
+    <div class="listings-toolbar">
+      <form class="global-search listings-search" data-form="seller-listings-search">${icon("search")}<input id="seller-listings-search-input" name="query" type="search" value="${escapeHtml(ui.listingsQuery)}" placeholder="Search by name or category" aria-label="Search your listings" autocomplete="off" /></form>
+      <label class="listings-filter">Store<select id="listings-store-filter" aria-label="Filter by store">${storeOptions}</select></label>
+      <div class="listings-filter listings-filter-type"><span>Type</span><div class="segmented" role="group" aria-label="Listing type"><button type="button" class="segment ${ui.listingsKind === "all" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="all">All</button><button type="button" class="segment ${ui.listingsKind === "service" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="service">Services</button><button type="button" class="segment ${ui.listingsKind === "product" ? "active" : ""}" data-action="seller-set-listings-kind" data-kind="product">Products</button></div></div>
     </div>
-    <div class="section-header seller-result-row"><span class="result-count">${plural(filtered.length, "listing")}</span>${hasFilters ? `<button class="text-button" data-action="seller-clear-listing-filters">Clear filters</button>` : ""}</div>
-    ${filtered.length ? `<div class="seller-table listings-table"><div class="seller-table-head"><span>Listing</span><span>Price</span><span>Stock / next slot</span><span>Views</span><span>Saves</span><span>Orders</span><span>Status</span><span></span></div>${filtered.map(listingRow).join("")}</div>`
-      : `<div class="empty-state"><div class="empty-shape">⌁</div><h3>No listings match.</h3><p class="muted">Try another tab or clear your filters.</p><button class="ghost-button" data-action="seller-clear-listing-filters">Clear filters</button></div>`}`;
+    <div class="section-header seller-result-row"><span class="result-count">${narrowed || ui.listingsTab !== "all" ? `${filtered.length} of ${all.length}` : plural(filtered.length, "listing")}</span>${narrowed || ui.listingsTab !== "all" ? `<button class="text-button" data-action="seller-clear-listing-filters">Show everything</button>` : ""}</div>
+    ${list || empty}`;
 }
 
 function openListingEditor(id) {
@@ -1379,6 +1438,12 @@ function handleSellerSubmit(form, event) {
   }
   return false;
 }
+
+document.addEventListener("change", (event) => {
+  if (state.mode !== "seller" || event.target.id !== "listings-store-filter") return;
+  state.seller.listingsStore = event.target.value;
+  render();
+});
 
 document.addEventListener("input", (event) => {
   if (state.mode !== "seller") return;

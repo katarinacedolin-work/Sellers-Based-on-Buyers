@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3157ff" />
+    <title>Campus Connect — Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+      <header class="desktop-header">
+        <button class="brand-button" data-action="go-home" aria-label="Campus Connect home, SDSU">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+          <span class="brand-wordmark-group">
+            <span class="brand-wordmark">campus connect</span>
+            <span class="brand-campus-separator" aria-hidden="true">·</span>
+            <img class="brand-campus-logo" src="sdsu-logo.svg" alt="SDSU" width="56" height="19" />
+          </span>
+        </button>
+
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <button class="nav-link" data-view="home">Home</button>
+          <button class="nav-link" data-view="book">Book</button>
+          <button class="nav-link" data-view="shop">Shop</button>
+          <button class="nav-link" data-view="stores">Stores</button>
+          <button class="nav-link" data-view="deals">Aztec Deals</button>
+        </nav>
+
+        <div class="header-actions">
+          <div class="header-popover-anchor">
+            <button type="button" class="icon-button notifications-nav-button" data-action="toggle-notifications" aria-label="Notifications, 2 unread" aria-expanded="false" aria-controls="notification-popover">
+              <span class="icon" data-icon="bell" aria-hidden="true"></span><span class="header-badge notification-badge">2</span>
+            </button>
+            <div id="notification-popover" class="notification-popover" role="dialog" aria-label="Notifications" hidden></div>
+          </div>
+          <button type="button" class="icon-button inbox-nav-button messages-nav-button" data-view="inbox" aria-label="Messages, 2 unread">
+            <span class="icon" data-icon="chat" aria-hidden="true"></span><span class="header-badge inbox-badge">2</span>
+          </button>
+          <button class="avatar avatar-small profile-nav-button" data-view="you" aria-label="Your profile">KC</button>
+        </div>
+      </header>
+
+      <main id="app-main" tabindex="-1"></main>
+
+      <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <button class="mobile-nav-link" data-view="home"><span class="icon" data-icon="home" aria-hidden="true"></span><span>Home</span></button>
+        <button class="mobile-nav-link" data-view="book"><span class="icon" data-icon="calendar" aria-hidden="true"></span><span>Book</span></button>
+        <button class="mobile-nav-link" data-view="shop"><span class="icon" data-icon="bag" aria-hidden="true"></span><span>Shop</span></button>
+        <button class="mobile-nav-link" data-view="stores"><span class="icon" data-icon="store" aria-hidden="true"></span><span>Stores</span></button>
+        <button class="mobile-nav-link" data-view="deals"><span class="icon" data-icon="ticket" aria-hidden="true"></span><span>Deals</span></button>
+      </nav>
+    </div>
+
+    <div id="modal-root"></div>
+    <script src="icons.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

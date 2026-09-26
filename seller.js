@@ -174,6 +174,56 @@ const myListings = () => everyListing().filter((listing) => listing.sellerId ===
 const listingStatus = (listing) => listing?.status || "active";
 const getSellerOrder = (id) => sellerOrders.find((order) => order.id === id);
 const ordersByStatus = (status) => sellerOrders.filter((order) => order.status === status);
+const ORDER_CLOCK = new Date(2026, 8, 25, 15, 0, 0);
+const RECENCY_MONTHS = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+
+function recencyMinutes(text) {
+  if (!text) return null;
+  const value = String(text).trim().toLowerCase();
+  if (value === "now" || value.includes("just now")) return 0;
+  const relative = value.match(/(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours)\b/);
+  if (relative) return Number(relative[1]) * (relative[2].startsWith("h") ? 60 : 1);
+  const month = value.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2})\b/);
+  const clock = value.match(/(\d{1,2}):(\d{2})\s*(am|pm)/);
+  const weekday = value.match(/\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*\b/);
+  let at = null;
+  if (month) at = new Date(ORDER_CLOCK.getFullYear(), RECENCY_MONTHS[month[1].slice(0, 3)], Number(month[2]), 12, 0, 0);
+  else if (value.includes("yesterday")) at = new Date(ORDER_CLOCK.getFullYear(), ORDER_CLOCK.getMonth(), ORDER_CLOCK.getDate() - 1, 12, 0, 0);
+  else if (value.includes("today") || clock) at = new Date(ORDER_CLOCK.getFullYear(), ORDER_CLOCK.getMonth(), ORDER_CLOCK.getDate());
+  else if (weekday) {
+    const names = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    const delta = (ORDER_CLOCK.getDay() - names.indexOf(weekday[1].slice(0, 3)) + 7) % 7 || 7;
+    at = new Date(ORDER_CLOCK.getFullYear(), ORDER_CLOCK.getMonth(), ORDER_CLOCK.getDate() - delta, 12, 0, 0);
+  }
+  if (!at) return null;
+  if (clock) {
+    let hours = Number(clock[1]) % 12;
+    if (clock[3] === "pm") hours += 12;
+    at.setHours(hours, Number(clock[2]), 0, 0);
+  }
+  return Math.max(0, Math.round((ORDER_CLOCK - at) / 60000));
+}
+
+function orderRecency(order) {
+  const texts = [order.placed, order.activity];
+  if (order.when && /delivered|picked up|session held|cancelled/i.test(order.when)) texts.push(order.when);
+  sellerNotifications.forEach((notification) => {
+    const aboutOrder = notification.action === "order" && notification.orderId === order.id;
+    const aboutThread = notification.action === "inbox" && notification.conversationId && notification.conversationId === order.conversationId;
+    if (aboutOrder || aboutThread) texts.push(notification.time);
+  });
+  const scores = texts.map(recencyMinutes).filter((score) => score != null);
+  return scores.length ? Math.min(...scores) : Number.POSITIVE_INFINITY;
+}
+
+function ordersForTab(tab) {
+  const orders = tab === "all" ? [...sellerOrders] : ordersByStatus(tab);
+  if (tab !== "all") return orders;
+  return orders
+    .map((order, index) => ({ order, index, recency: orderRecency(order) }))
+    .sort((a, b) => a.recency - b.recency || a.index - b.index)
+    .map((entry) => entry.order);
+}
 const isOpenOrder = (order) => ["requested", "confirmed", "ready"].includes(order.status);
 const getSellerConversation = (id) => sellerConversations.find((conversation) => conversation.id === id);
 const pendingPayout = () => sellerOrders.filter((order) => ["confirmed", "ready"].includes(order.status)).reduce((sum, order) => sum + order.amount, 0);
@@ -769,6 +819,7 @@ function sellerNewListingView() {
 /* ---------- Orders ---------- */
 
 const ORDER_TABS = [
+  { id: "all", label: "All" },
   { id: "requested", label: "Requests" },
   { id: "confirmed", label: "Upcoming" },
   { id: "ready", label: "Ready for pickup" },
@@ -778,7 +829,7 @@ const ORDER_TABS = [
 
 function orderRow(order) {
   const listing = getListing(order.listingId);
-  return `<button type="button" class="seller-row seller-row-button" data-action="seller-open-order" data-id="${order.id}">
+  return `<button type="button" class="seller-row seller-row-button tone-${order.status}" data-action="seller-open-order" data-id="${order.id}">
     <span class="cell cell-main"><span class="row-title">${listingThumb(listing)}<span><span class="activity-title">${escapeHtml(orderListingTitle(order))}</span><span class="activity-sub">${order.kind === "service" ? "Booking" : `Order × ${order.qty}`} · CC-${order.id.slice(-4).toUpperCase()}</span></span></span></span>
     <span class="cell" data-label="Buyer"><span class="buyer-cell">${buyerAvatar(order)} ${escapeHtml(order.buyer)}</span></span>
     <span class="cell" data-label="When"><strong>${escapeHtml(orderWhen(order))}</strong><span class="muted small">Placed ${escapeHtml(order.placed)}</span></span>
@@ -798,13 +849,13 @@ function ordersWeekView() {
 
 function sellerOrdersView() {
   const ui = state.seller;
-  const tabs = ORDER_TABS.map((tab) => ({ ...tab, count: ordersByStatus(tab.id).length }));
-  const orders = ordersByStatus(ui.ordersTab);
-  const emptyCopy = { requested: "No new requests right now.", confirmed: "Nothing upcoming yet.", ready: "No pickups waiting.", completed: "Completed orders will collect here.", cancelled: "No cancellations. Nice." };
+  const tabs = ORDER_TABS.map((tab) => ({ ...tab, count: tab.id === "all" ? sellerOrders.length : ordersByStatus(tab.id).length }));
+  const orders = ordersForTab(ui.ordersTab);
+  const emptyCopy = { all: "No orders yet.", requested: "No new requests right now.", confirmed: "Nothing upcoming yet.", ready: "No pickups waiting.", completed: "Completed orders will collect here.", cancelled: "No cancellations. Nice." };
   const layoutToggle = `<div class="segmented"><button class="segment ${ui.ordersLayout === "list" ? "active" : ""}" data-action="seller-set-orders-layout" data-layout="list">List</button><button class="segment ${ui.ordersLayout === "week" ? "active" : ""}" data-action="seller-set-orders-layout" data-layout="week">Week</button></div>`;
   const body = ui.ordersLayout === "week"
     ? ordersWeekView()
-    : `${tabBar(tabs, ui.ordersTab, "seller-set-orders-tab")}${orders.length ? `<div class="seller-table orders-table"><div class="seller-table-head"><span>Item</span><span>Buyer</span><span>When</span><span>Amount</span><span>Status</span><span></span></div>${orders.map(orderRow).join("")}</div>` : `<div class="empty-state"><div class="empty-shape">✓</div><h3>${emptyCopy[ui.ordersTab]}</h3><p class="muted">New activity shows up here and in your notifications.</p></div>`}`;
+    : `${tabBar(tabs, ui.ordersTab, "seller-set-orders-tab", true)}${orders.length ? `<div class="seller-table orders-table"><div class="seller-table-head"><span>Item</span><span>Buyer</span><span>When</span><span>Amount</span><span>Status</span><span></span></div>${orders.map(orderRow).join("")}</div>` : `<div class="empty-state"><div class="empty-shape">✓</div><h3>${emptyCopy[ui.ordersTab]}</h3><p class="muted">New activity shows up here and in your notifications.</p></div>`}`;
   return `${sellerHeader({ eyebrow: "Seller Hub", title: "Orders", sub: "Accept requests, prep pickups and keep every booking on schedule.", actions: layoutToggle })}${body}`;
 }
 
@@ -861,6 +912,7 @@ function sellerOrderView() {
 
 function setOrderStatus(order, status, message) {
   order.status = status;
+  order.activity = "Just now";
   if (status === "completed") {
     sellerPayouts.available += order.amount;
     statsFor(order.listingId).orders += 1;

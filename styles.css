@@ -1048,12 +1048,12 @@ body[data-mode="seller"] .seller-only { display: revert !important; }
   font-weight: 800;
   white-space: nowrap;
 }
-.status-pill.s-requested { background: var(--butter); }
+.status-pill.s-requested { background: #e4d4ff; color: #5b3d91; }
 .status-pill.s-draft { background: #e4d4ff; color: #5b3d91; }
-.status-pill.s-confirmed { background: var(--sky); }
-.status-pill.s-ready, .status-pill.s-active { background: var(--mint); }
-.status-pill.s-completed { background: #e5d9ff; }
-.status-pill.s-cancelled { background: var(--soft); color: var(--muted); }
+.status-pill.s-confirmed { background: var(--butter); color: #6a4b08; }
+.status-pill.s-ready, .status-pill.s-active { background: var(--mint); color: #1d7a4a; }
+.status-pill.s-completed { background: #e7e6e0; color: #4a4a45; }
+.status-pill.s-cancelled { background: #ffd4d4; color: #8d242b; }
 .status-pill.s-paused { background: #e7e6e0; color: #4a4a45; }
 .status-pill.s-soldout { background: #ffd4d4; color: #8d242b; }
 .status-pill.s-low { background: var(--butter); color: #6a4b08; }
@@ -1086,11 +1086,26 @@ body[data-mode="seller"] .seller-only { display: revert !important; }
 .tab-bar-toned .tab-tone-draft.active { background: #6b45a8; border-color: #6b45a8; color: #fff; }
 .tab-bar-toned .tab-tone-soldout { background: #fff1f1; border-color: #f0c4c6; color: #bd3d42; }
 .tab-bar-toned .tab-tone-soldout.active { background: #bd3d42; border-color: #bd3d42; color: #fff; }
+.tab-bar-toned .tab-tone-requested { background: #f6f0ff; border-color: #d8c6f5; color: #6b45a8; }
+.tab-bar-toned .tab-tone-requested.active { background: #6b45a8; border-color: #6b45a8; color: #fff; }
+.tab-bar-toned .tab-tone-confirmed { background: #fffbeb; border-color: #ead89a; color: #8a5a12; }
+.tab-bar-toned .tab-tone-confirmed.active { background: #c49212; border-color: #c49212; color: #fff; }
+.tab-bar-toned .tab-tone-ready { background: #f4fbf7; border-color: #c9ead8; color: #1d7a4a; }
+.tab-bar-toned .tab-tone-ready.active { background: #1d7a4a; border-color: #1d7a4a; color: #fff; }
+.tab-bar-toned .tab-tone-completed { background: #f3f3f1; border-color: #dddcd6; color: #4a4a45; }
+.tab-bar-toned .tab-tone-completed.active { background: #5c5c56; border-color: #5c5c56; color: #fff; }
+.tab-bar-toned .tab-tone-cancelled { background: #fff1f1; border-color: #f0c4c6; color: #bd3d42; }
+.tab-bar-toned .tab-tone-cancelled.active { background: #bd3d42; border-color: #bd3d42; color: #fff; }
 .tab-bar-toned .tab-tone-active .tab-count,
 .tab-bar-toned .tab-tone-low .tab-count,
 .tab-bar-toned .tab-tone-paused .tab-count,
 .tab-bar-toned .tab-tone-draft .tab-count,
-.tab-bar-toned .tab-tone-soldout .tab-count { background: rgba(255,255,255,.7); color: inherit; }
+.tab-bar-toned .tab-tone-soldout .tab-count,
+.tab-bar-toned .tab-tone-requested .tab-count,
+.tab-bar-toned .tab-tone-confirmed .tab-count,
+.tab-bar-toned .tab-tone-ready .tab-count,
+.tab-bar-toned .tab-tone-completed .tab-count,
+.tab-bar-toned .tab-tone-cancelled .tab-count { background: rgba(255,255,255,.7); color: inherit; }
 .tab-bar-toned .tab-bar-item.active .tab-count { background: rgba(255,255,255,.22); color: #fff; }
 
 .seller-card {
@@ -1326,7 +1341,7 @@ body[data-mode="seller"] .seller-only { display: revert !important; }
 .seller-table { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
 .orders-table .activity-thumb {
   background: linear-gradient(180deg, #fff 0%, #f4f4f1 100%);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line, var(--line));
 }
 .seller-table-head {
   display: grid;
@@ -1357,6 +1372,17 @@ body[data-mode="seller"] .seller-only { display: revert !important; }
 }
 .seller-row:last-child, .seller-row-button:last-child { border-bottom: 0; }
 .seller-row-button:hover, .seller-row:hover { background: #fafaf4; }
+.orders-table .seller-row-button { --card-line: var(--line); border-bottom-color: color-mix(in srgb, var(--card-line) 70%, #fff); }
+.orders-table .seller-row-button.tone-requested { --card-line: #d8c6f5; background: #f6f0ff; }
+.orders-table .seller-row-button.tone-confirmed { --card-line: #ead89a; background: #fffbeb; }
+.orders-table .seller-row-button.tone-ready { --card-line: #c9ead8; background: #f4fbf7; }
+.orders-table .seller-row-button.tone-completed { --card-line: #dddcd6; background: #f6f6f4; }
+.orders-table .seller-row-button.tone-cancelled { --card-line: #f0c4c6; background: #fff1f1; }
+.orders-table .seller-row-button.tone-requested:hover { background: #efe6ff; }
+.orders-table .seller-row-button.tone-confirmed:hover { background: #fff4cc; }
+.orders-table .seller-row-button.tone-ready:hover { background: #e7f6ee; }
+.orders-table .seller-row-button.tone-completed:hover { background: #efefec; }
+.orders-table .seller-row-button.tone-cancelled:hover { background: #ffe4e4; }
 .cell { min-width: 0; display: grid; gap: 2px; }
 .cell-main { min-width: 0; }
 .row-title {
@@ -1438,11 +1464,18 @@ button[disabled] { opacity: .45; pointer-events: none; }
   color: inherit;
 }
 .week-event strong { font-size: 12px; }
-.week-event.s-requested { background: #fff2b8; }
-.week-event.s-confirmed { background: #d7f2ff; }
+.week-event.s-requested { background: #efe6ff; }
+.week-event.s-confirmed { background: #fff4cc; }
 .week-empty { color: var(--muted); font-size: 11px; }
 
+.order-main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
 .order-main-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.order-main .order-detail-card { max-width: none; width: 100%; margin: 8px 0 0; }
 .order-timeline { display: flex; gap: 0; margin: 0 0 18px; padding: 0; list-style: none; }
 .order-timeline li { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; font-size: 11px; font-weight: 800; color: var(--muted); text-align: center; }
 .order-timeline li:not(:last-child)::after { content: ""; position: absolute; top: 9px; left: calc(50% + 12px); right: calc(-50% + 12px); height: 2px; background: var(--line); }

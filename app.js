@@ -67,6 +67,22 @@ const services = [
   {
     id: "ari-thumbnails", kind: "service", category: "Tech", title: "YouTube thumbnail design", seller: "Ari Patel", initials: "AP", sellerId: "ari-patel", storeId: "ari-edits", rating: "4.8", reviews: 6, completed: 9, price: 20, unit: "per thumbnail", accent: "coral", emoji: "🖼️", availability: "Next opening · Tue", campus: "SDSU", verified: true,
     description: "Bold, readable thumbnails built from your footage. Two concepts and one round of tweaks.", meeting: "Digital delivery", response: "Usually replies same day", slots: ["Tue · 10:00 AM", "Thu · 10:00 AM"]
+  },
+  {
+    id: "sdsu-safe-ride", kind: "service", category: "Help", title: "SDSU Safe Ride", seller: "SDSU Safe Ride", initials: "SR", sellerId: "sdsu-safe-ride", rating: "4.9", reviews: 42, completed: 86, price: 0, unit: "ride", accent: "coral", emoji: "🚐", tag: "School-provided", availability: "Tonight · 7:00 PM–3:30 AM", campus: "SDSU", verified: true, schoolProvided: true,
+    description: "A free ride at more than 30 campus locations for SDSU students, faculty and staff. Request Monday through Friday from 7:00 p.m. to 3:30 a.m. in the SDSU Safe app.", meeting: "30+ campus pickup spots", response: "Usually replies in the app", slots: ["Tonight · 7:00 PM", "Tonight · 9:00 PM", "Tonight · 11:00 PM", "Tonight · 1:00 AM"]
+  },
+  {
+    id: "as-headshots", kind: "service", category: "Create", title: "Free professional headshots", seller: "A.S. Career Advantage", initials: "AS", sellerId: "as-career-advantage", rating: "4.8", reviews: 24, completed: 61, price: 0, unit: "walk-in", accent: "sky", emoji: "🪪", tag: "School-provided", availability: "Tue & Fri · 8:30–10:30 AM", campus: "SDSU", verified: true, schoolProvided: true,
+    description: "Free professional headshots from Associated Students Career Advantage. Current SDSU students only. Walk-ins welcome Tuesdays and Fridays, 8:30–10:30 a.m.", meeting: "A.S. Career Advantage studio", response: "Walk-ins welcome", slots: ["Tue · 8:30 AM", "Tue · 9:30 AM", "Fri · 8:30 AM", "Fri · 9:30 AM"]
+  },
+  {
+    id: "mslc-office-hours", kind: "service", category: "Learn", title: "Course office hours", seller: "Math & Science Learning Center", initials: "MS", sellerId: "mslc", storeId: "mslc", rating: "4.9", reviews: 31, completed: 74, price: 0, unit: "drop-in", accent: "mint", emoji: "📗", tag: "No appointment", availability: "Drop in today", campus: "SDSU", verified: true, schoolProvided: true,
+    description: "Free drop-in office hours for your course. No appointment needed. Check the MSLC schedule and come by Love Library Room 328.", meeting: "Love Library Room 328", response: "Drop in during posted hours", slots: ["Today · drop-in", "Tomorrow · drop-in", "Wed · drop-in"]
+  },
+  {
+    id: "mslc-tutoring", kind: "service", category: "Learn", title: "Undergraduate tutoring", seller: "Math & Science Learning Center", initials: "MS", sellerId: "mslc", storeId: "mslc", rating: "4.8", reviews: 28, completed: 65, price: 0, unit: "drop-in", accent: "sky", emoji: "📐", tag: "Free tutoring", availability: "Drop in today", campus: "SDSU", verified: true, schoolProvided: true,
+    description: "Work with an undergraduate tutor at the Math & Science Learning Center. Free, drop-in help for math and science courses at Love Library Room 328.", meeting: "Love Library Room 328", response: "Drop in during posted hours", slots: ["Today · drop-in", "Tomorrow · drop-in", "Thu · drop-in"]
   }
 ];
 
@@ -161,7 +177,10 @@ const sellers = {
   "emily-park": { id: "emily-park", name: "Emily Park", initials: "EP", handle: "@emilyreads", campus: "SDSU · Senior · Engineering", verified: true, bio: "Passing along the STEM textbooks that got me through, notes included.", rating: "4.8", reviews: 5, completed: 7, response: "next day", accent: "sky", storeIds: ["emily-book-swap"] },
   "chris-nguyen": { id: "chris-nguyen", name: "Chris Nguyen", initials: "CN", handle: "@aztecthrift", campus: "SDSU · Junior · Marketing", verified: true, bio: "I dig through thrift stores for vintage Aztecs gear so you do not have to.", rating: "4.9", reviews: 17, completed: 21, response: "an hour", accent: "coral", storeIds: ["aztec-thrift"] },
   "riley-kim": { id: "riley-kim", name: "Riley Kim", initials: "RK", handle: "@rileyclay", campus: "SDSU · Senior · Studio Art", verified: true, bio: "Ceramics major making small-batch mugs and planters, and teaching friends the wheel.", rating: "4.9", reviews: 12, completed: 18, response: "a day", accent: "mint", storeIds: ["riley-clay"] },
-  "taylor-brooks": { id: "taylor-brooks", name: "Taylor Brooks", initials: "TB", handle: "@taylordorm", campus: "SDSU · Sophomore · Biology", verified: true, bio: "Small dorm essentials I no longer need, priced to move.", rating: "4.7", reviews: 3, completed: 4, response: "same day", accent: "sky", storeIds: ["dorm-drop"] }
+  "taylor-brooks": { id: "taylor-brooks", name: "Taylor Brooks", initials: "TB", handle: "@taylordorm", campus: "SDSU · Sophomore · Biology", verified: true, bio: "Small dorm essentials I no longer need, priced to move.", rating: "4.7", reviews: 3, completed: 4, response: "same day", accent: "sky", storeIds: ["dorm-drop"] },
+  "sdsu-safe-ride": { id: "sdsu-safe-ride", name: "SDSU Safe Ride", initials: "SR", handle: "@sdsusafe", campus: "SDSU · School-provided", verified: true, schoolProvided: true, bio: "Free late-night rides for SDSU students, faculty and staff from more than 30 campus locations.", rating: "4.9", reviews: 42, completed: 86, response: "in the SDSU Safe app", accent: "coral", storeIds: [] },
+  "as-career-advantage": { id: "as-career-advantage", name: "A.S. Career Advantage", initials: "AS", handle: "@ascareers", campus: "SDSU · Associated Students", verified: true, schoolProvided: true, bio: "Free professional headshots and career support for current SDSU students.", rating: "4.8", reviews: 24, completed: 61, response: "walk-in hours", accent: "sky", storeIds: [] },
+  "mslc": { id: "mslc", name: "Math & Science Learning Center", initials: "MS", handle: "@sdsu.mslc", campus: "SDSU · Love Library 328", verified: true, schoolProvided: true, bio: "A free, drop-in tutoring center for math and science courses. No appointment needed.", rating: "4.9", reviews: 38, completed: 120, response: "during drop-in hours", accent: "mint", storeIds: ["mslc"] }
 };
 
 const stores = [
@@ -359,6 +378,22 @@ const stores = [
     reviewsSample: [
       { author: "Mo S.", rating: 5, text: "Fan is super quiet, exactly as described.", listingId: "mini-fan" }
     ]
+  },
+  {
+    id: "mslc", sellerId: "mslc", name: "Math & Science Learning Center", handle: "@sdsu.mslc", emoji: "📐", accent: "mint", chip: "shop",
+    tagline: "Free drop-in tutoring at Love Library 328",
+    about: "The MSLC is a free, drop-in tutoring center for math and science courses. Come for your course's office hours or work with an undergraduate tutor. No appointment needed.",
+    announcement: "Fall 2026: drop-in hours in Love Library Room 328. Check the office-hour and tutoring schedules before you come.",
+    rating: "4.9", reviews: 38, sales: 120, followers: 540,
+    policies: { cancellation: "Drop-in only — no booking to cancel. Come during posted hours.", pickup: "Meet in Love Library Room 328.", hours: "Drop-in during posted Fall 2026 office hours and tutoring schedules" },
+    collections: [
+      { name: "Office hours", listingIds: ["mslc-office-hours"] },
+      { name: "Tutoring", listingIds: ["mslc-tutoring"] }
+    ],
+    reviewsSample: [
+      { author: "Priya S.", rating: 5, text: "Showed up between classes and actually understood the worksheet after.", listingId: "mslc-tutoring" },
+      { author: "Luis M.", rating: 5, text: "Office hours in Love Library 328 saved my Chem exam.", listingId: "mslc-office-hours" }
+    ]
   }
 ];
 
@@ -369,6 +404,20 @@ const aztecDeals = [
   { id: "fit-club", merchant: "Aztec Fit Club", title: "First class free", offer: "Spin or yoga intro", code: "AZTEC-MOVE", emoji: "💪", accent: "mint", expires: "Apr 18" },
   { id: "print-shop", merchant: "Campus Print Lab", title: "$5 off poster prints", offer: "Up to 24×36", code: "AZTEC-PRINT5", emoji: "🖼️", accent: "lilac", expires: "May 30" },
   { id: "nail-bar", merchant: "Glamour Bar", title: "10% off gel sets", offer: "Student ID required", code: "AZTEC-GLOW10", emoji: "💅", accent: "coral", expires: "Apr 25" }
+];
+
+const aztecFundraisers = [
+  { id: "dg-bake", host: "Delta Gamma", title: "Philanthropy bake sale", when: "Fri · 11 AM–2 PM", where: "Love Library steps", detail: "Cookies and coffee. Proceeds go to Service for Sight.", emoji: "🍪", accent: "butter" },
+  { id: "swe-wash", host: "Society of Women Engineers", title: "Car wash", when: "Sat · 10 AM–1 PM", where: "Parking Structure 12", detail: "$10 suggested. Supports the conference fund.", emoji: "🚗", accent: "sky" },
+  { id: "dance-raffle", host: "Aztec Dance Team", title: "Raffle tickets", when: "All week", where: "Campanile walk", detail: "$5 a ticket. Drawing Friday at 4 PM.", emoji: "🎟️", accent: "coral" },
+  { id: "rha-merch", host: "Residence Hall Association", title: "Dorm merch table", when: "Wed · 12–4 PM", where: "Student Union courtyard", detail: "Hoodies and stickers. Funds hall programs.", emoji: "👕", accent: "lilac" }
+];
+
+const aztecPopups = [
+  { id: "flower-stand", host: "Bloom & Co.", title: "Flower stand", when: "Thu · 10 AM–3 PM", where: "Campanile", detail: "Bouquets and single stems. Cash and card.", emoji: "💐", accent: "coral" },
+  { id: "vintage-rack", host: "Aztec Thrift", title: "Vintage clothing rack", when: "Fri · 1–5 PM", where: "Student Union lawn", detail: "One-day rack of campus sweats and tees.", emoji: "🧥", accent: "butter" },
+  { id: "boba-cart", host: "Tapiocha", title: "Boba cart", when: "Tue & Thu · 11 AM–2 PM", where: "Love Library plaza", detail: "Student line. Most drinks under $6.", emoji: "🧋", accent: "mint" },
+  { id: "grad-caps", host: "A.S. Campus Events", title: "Grad cap decorating", when: "Sat · 12–3 PM", where: "Aztec Student Union", detail: "Free supplies while they last. Students only.", emoji: "🎓", accent: "sky" }
 ];
 
 const notifications = [
@@ -407,6 +456,7 @@ const state = {
   selectedConversationId: "maya",
   selectedDate: "Today",
   selectedSlot: "Today · 4:00 PM",
+  showAllSlots: false,
   quantity: 1,
   lists: [
     { id: "list-favorites", name: "Favorites", listingIds: ["maya-portraits"] },
@@ -438,7 +488,8 @@ const state = {
     notifyDeals: false,
     profileVisible: true,
     showCampus: true
-  }
+  },
+  paymentMethods: []
 };
 
 const everyListing = () => [...services, ...products, ...state.userListings];
@@ -461,6 +512,25 @@ const removeListingFromList = (listId, listingId) => {
 };
 const getSeller = (id) => sellers[id] || { id, name: "You", initials: "KC", handle: "@you", campus: "SDSU · Student", verified: true, bio: "A student seller on Campus Connect.", rating: "New", reviews: 0, completed: 0, response: "soon", accent: "lilac", storeIds: [] };
 const studentVerifiedPill = () => `<span class="verified-pill">${icon("verified")} Student verified</span>`;
+
+function schoolBadgeHtml(variant = "caption") {
+  const label = "School-provided service";
+  if (variant === "icon") return `<span class="school-badge compact" title="${label}">${icon("school", 16)}</span>`;
+  if (variant === "pill") return `<span class="school-badge inline">${icon("school", 14)} ${label}</span>`;
+  return `<span class="school-badge">${icon("school", 13)} ${label}</span>`;
+}
+
+function identityMark(entity, labeled = false) {
+  if (entity?.schoolProvided) return schoolBadgeHtml(labeled ? "pill" : "icon");
+  if (!entity?.verified) return "";
+  return labeled
+    ? `<span class="verified-check">${icon("verified")} Student verified</span>`
+    : `<span class="verified-check" title="Student verified">${icon("verified")}</span>`;
+}
+
+function identityPill(entity) {
+  return entity?.schoolProvided ? schoolBadgeHtml("pill") : studentVerifiedPill();
+}
 const getStore = (id) => stores.find((store) => store.id === id);
 const storesForSeller = (sellerId) => stores.filter((store) => store.sellerId === sellerId);
 const storeListings = (store) => allListings().filter((listing) => listing.storeId === store.id);
@@ -473,7 +543,12 @@ const storeMatchesQuery = (store, query) => {
   const haystack = [store.name, store.handle, store.tagline, getSeller(store.sellerId).name, ...store.collections.map((collection) => collection.name), ...storeListings(store).flatMap((listing) => [listing.title, listing.category])];
   return haystack.join(" ").toLowerCase().includes(search);
 };
-const money = (amount) => `$${amount.toFixed(2)}`;
+const money = (amount) => Number(amount) === 0 ? "Free" : `$${Number(amount).toFixed(2)}`;
+
+function listingPriceHtml(listing) {
+  const unit = listing.kind === "service" && listing.price && listing.unit ? ` <small>/ ${escapeHtml(listing.unit)}</small>` : "";
+  return `<span class="price">${money(listing.price)}${unit}</span>`;
+}
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
 
 function setView(view, extra = {}) {
@@ -505,8 +580,8 @@ function listPageListingCard(listing, listId) {
       <div class="listing-body">
         <div class="listing-title">${escapeHtml(listing.title)}</div>
         ${listingCardMetaHtml(listing)}
-        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${listing.verified ? `<span class="verified-check" title="Student verified">${icon("verified")}</span>` : ""}</div>
-        <div class="listing-meta"><span class="price">${money(listing.price)} <small>${listing.kind === "service" ? `/ ${escapeHtml(listing.unit)}` : ""}</small></span><span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
+        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${identityMark(listing)}</div>
+        <div class="listing-meta">${listingPriceHtml(listing)}<span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
       </div>
     </button>
   </article>`;
@@ -545,6 +620,7 @@ const serviceCertificationByCategory = {
 
 function listingCertificationLabel(listing) {
   if (listing.kind !== "service") return "";
+  if (listing.schoolProvided) return "School-provided service";
   const certification =
     listing.certification ||
     sellerCertifications[listing.sellerId] ||
@@ -578,12 +654,15 @@ function listingCardMetaHtml(listing) {
 }
 
 function listingVisual(listing, detail = false) {
-  const bottomTagLabel = listing.kind === "service" ? listingCertificationLabel(listing) : listingConditionLabel(listing);
+  const caption = listing.schoolProvided
+    ? schoolBadgeHtml()
+    : (() => {
+        const bottomTagLabel = listing.kind === "service" ? listingCertificationLabel(listing) : listingConditionLabel(listing);
+        return bottomTagLabel ? `<span class="visual-caption">${escapeHtml(bottomTagLabel)}</span>` : "";
+      })();
   return detail
-    ? `<div class="detail-visual ${listing.accent}"><span class="detail-figure" aria-hidden="true">${listing.emoji}</span></div>`
-    : `<div class="listing-visual ${listing.accent}">
-        ${bottomTagLabel ? `<span class="visual-caption">${escapeHtml(bottomTagLabel)}</span>` : ""}
-      </div>`;
+    ? `<div class="detail-visual ${listing.accent}">${listing.schoolProvided ? schoolBadgeHtml() : ""}<span class="detail-figure" aria-hidden="true">${listing.emoji}</span></div>`
+    : `<div class="listing-visual ${listing.accent}">${caption}</div>`;
 }
 
 function listingCard(listing) {
@@ -594,8 +673,8 @@ function listingCard(listing) {
       <div class="listing-body">
         <div class="listing-title">${escapeHtml(listing.title)}</div>
         ${listingCardMetaHtml(listing)}
-        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${listing.verified ? `<span class="verified-check" title="Student verified">${icon("verified")}</span>` : ""}</div>
-        <div class="listing-meta"><span class="price">${money(listing.price)} <small>${listing.kind === "service" ? `/ ${escapeHtml(listing.unit)}` : ""}</small></span><span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
+        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${identityMark(listing)}</div>
+        <div class="listing-meta">${listingPriceHtml(listing)}<span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
       </div>
     </button>
   </article>`;
@@ -628,14 +707,48 @@ function dealFlipCard(deal) {
   </article>`;
 }
 
+function campusEventCard(event, kind) {
+  const label = kind === "fundraiser" ? "Fundraiser" : "Pop-up";
+  return `<article class="deal-flip-card campus-event-card">
+    <div class="deal-flip-scene">
+      <button type="button" class="deal-flip-trigger" data-action="flip-deal" aria-pressed="false" aria-label="Details for ${escapeHtml(event.title)}">
+        <span class="deal-flip-inner">
+          <span class="deal-face deal-front">
+            <span class="deal-photo ${event.accent}"><span class="deal-photo-emoji" aria-hidden="true">${event.emoji}</span></span>
+            <span class="deal-front-body">
+              <span class="deal-merchant">${escapeHtml(event.host)}</span>
+              <span class="deal-title">${escapeHtml(event.title)}</span>
+              <span class="deal-offer muted">${escapeHtml(event.when)}</span>
+            </span>
+            <span class="deal-flip-hint">Tap for details</span>
+          </span>
+          <span class="deal-face deal-back">
+            <span class="deal-back-eyebrow">${label}</span>
+            <span class="deal-title">${escapeHtml(event.title)}</span>
+            <span class="deal-back-note">${escapeHtml(event.where)}</span>
+            <span class="deal-expires">${escapeHtml(event.detail)}</span>
+            <span class="deal-back-note">${escapeHtml(event.when)}</span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </article>`;
+}
+
+function dealsSection(title, copy, cards) {
+  return `<section class="deals-section"><div class="section-header section-header-shelf"><h2>${title}</h2></div><p class="lede deals-section-copy">${copy}</p><div class="deals-grid">${cards}</div></section>`;
+}
+
 function aztecDealsView() {
   return `<div class="deals-page">
     <div class="deals-hero">
       <div class="eyebrow">SDSU exclusive</div>
       <h1>Aztec Deals</h1>
-      <p class="lede">Flip a card to reveal your campus discount code. Each deal is student-only and ready to use in person or online.</p>
+      <p class="lede">Student discounts, campus fundraisers, and short-run pop-ups. Flip a discount card for the code.</p>
     </div>
-    <div class="deals-grid">${aztecDeals.map(dealFlipCard).join("")}</div>
+    ${dealsSection("Student discounts", "Show the code in person or online. Student ID when they ask.", aztecDeals.map(dealFlipCard).join(""))}
+    ${dealsSection("Fundraisers", "Orgs raising money on campus this week.", aztecFundraisers.map((event) => campusEventCard(event, "fundraiser")).join(""))}
+    ${dealsSection("Pop-ups", "Stands and one-day shops around SDSU.", aztecPopups.map((event) => campusEventCard(event, "popup")).join(""))}
   </div>`;
 }
 
@@ -648,10 +761,17 @@ function scrollSectionLink(link) {
   return `<button class="text-button" ${attrs.join(" ")}>${escapeHtml(link.label)} ${icon("arrow")}</button>`;
 }
 
-const professionalServiceIds = ["mia-headshots", "ari-video", "ari-thumbnails", "noah-calculus", "noah-linear", "maya-events"];
-
-function professionalServicesList() {
-  return professionalServiceIds.map(getListing).filter(Boolean);
+function schoolProvidedSection() {
+  const ride = getListing("sdsu-safe-ride");
+  const tutoringShop = getStore("mslc");
+  const headshots = getListing("as-headshots");
+  const cards = [
+    ride ? listingCard(ride) : "",
+    tutoringShop ? storeCard(tutoringShop) : "",
+    headshots ? listingCard(headshots) : ""
+  ].filter(Boolean);
+  if (!cards.length) return "";
+  return `<section class="section section-home-shelf section-browse-shelf"><div class="section-header section-header-shelf"><h2>School-provided services</h2></div><div class="home-scroll-row listing-scroll-row">${cards.join("")}</div></section>`;
 }
 
 function listingScrollSection(title, listings, link, sectionClass = "") {
@@ -753,7 +873,7 @@ function browseView(kind = "all") {
       ? state.shopType === "new" ? "Originals, new goods and made-to-order items from students." : state.shopType === "resale" ? "Useful items getting a second life at your school." : "Shop new and student-made goods or find useful pre-owned items at your school."
       : "Browse services and products from students at your school.";
   const professionalShelf = activeKind === "service" && state.bookType !== "chore" && !state.query.trim() && state.category === "All"
-    ? listingScrollSection("Professional Services", professionalServicesList(), null, "section-browse-shelf")
+    ? schoolProvidedSection()
     : "";
   const resultsHeader = activeKind === "service"
     ? `<div class="section-header section-header-shelf section-browse-main"><h2>Recommended</h2><button class="text-button" data-action="sort-results">Sort ${icon("chevron-down")}</button></div>`
@@ -788,6 +908,34 @@ function browseView(kind = "all") {
     ${activeKind === "service" || activeKind === "product" ? "" : browseResults}`;
 }
 
+const LATER_SLOTS = ["Mon · 11:00 AM", "Tue · 4:30 PM", "Thu · 7:00 PM", "Fri · 3:00 PM", "Sat · 9:30 AM", "Sun · 2:00 PM"];
+
+function listingTimeSlots(listing) {
+  const slots = [...(listing?.slots || [])];
+  if (!slots.length) return slots;
+  LATER_SLOTS.forEach((slot) => {
+    if (slots.length >= 6 || slots.includes(slot)) return;
+    slots.push(slot);
+  });
+  return slots;
+}
+
+function slotPicker(listing) {
+  const slots = listingTimeSlots(listing);
+  const visible = state.showAllSlots ? slots : slots.slice(0, 3);
+  const times = visible.map((slot) => `<button type="button" class="option-button ${state.selectedSlot === slot ? "active" : ""}" data-action="select-slot" data-slot="${escapeHtml(slot)}">${escapeHtml(slot)}</button>`).join("");
+  const toggle = slots.length > 3
+    ? `<button type="button" class="text-button see-more-times" data-action="toggle-more-slots">${state.showAllSlots ? "Show fewer times" : "See more times"} ${icon("chevron-down", 14)}</button>`
+    : "";
+  return `<div class="time-options">${times}</div>${toggle}`;
+}
+
+function trustBadges(entity, rating) {
+  const badge = entity?.schoolProvided ? schoolBadgeHtml("pill") : entity?.verified ? studentVerifiedPill() : "";
+  const score = rating ? `<span class="trust-rating">${icon("star", 16)} ${escapeHtml(rating)}</span>` : "";
+  return badge || score ? `<span class="trust-symbols">${badge}${score}</span>` : "";
+}
+
 function listingDetailView(listing) {
   if (!listing) return homeView();
   const service = listing.kind === "service";
@@ -797,15 +945,14 @@ function listingDetailView(listing) {
   const returnStore = getStore(state.detailReturn);
   const moreFromStore = store ? storeListings(store).filter((entry) => entry.id !== listing.id).slice(0, 8) : [];
   const sellerCard = store
-    ? `<div class="seller-card sold-by-card"><div class="seller-card-main"><div class="store-logo-small ${store.accent}" aria-hidden="true">${store.emoji}</div><div><div class="small muted">Sold by</div><div class="seller-name">${escapeHtml(store.name)}</div><div class="seller-sub">Run by <button type="button" class="inline-link" data-action="open-seller" data-id="${listing.sellerId}">${escapeHtml(listing.seller)}</button>${listing.verified ? ` <span class="verified-check" title="Student verified">${icon("verified")}</span>` : ""} · ${store.rating} ★ store rating</div></div></div><button class="text-button" data-action="open-store" data-id="${store.id}">Visit store ${icon("arrow")}</button></div>`
-    : `<div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(listing.initials)}</div><div><div class="seller-name">${escapeHtml(listing.seller)} ${listing.verified ? `<span class="verified-check">${icon("verified")} Student verified</span>` : ""}</div><div class="seller-sub">${escapeHtml(listing.campus)} · ${listing.rating} ★ from ${listing.reviews} reviews</div></div></div><button class="text-button" data-action="open-seller" data-id="${listing.sellerId}">View profile ${icon("arrow")}</button></div>`;
+    ? `<div class="seller-card sold-by-card"><div class="seller-card-main"><div class="store-logo-small ${store.accent}" aria-hidden="true">${store.emoji}</div><div><div class="small muted">Sold by</div><div class="seller-name">${escapeHtml(store.name)}</div><div class="seller-sub">Run by <button type="button" class="inline-link" data-action="open-seller" data-id="${listing.sellerId}">${escapeHtml(listing.seller)}</button> ${trustBadges(listing, listing.rating)}</div></div></div><button class="text-button visit-store-button" data-action="open-store" data-id="${store.id}">Visit store ${icon("arrow")}</button></div>`
+    : `<div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(listing.initials)}</div><div><div class="seller-name">${escapeHtml(listing.seller)}</div><div class="seller-sub">${escapeHtml(listing.campus)}</div>${trustBadges(listing, listing.rating)}</div></div><button class="text-button" data-action="open-seller" data-id="${listing.sellerId}">View profile ${icon("arrow")}</button></div>`;
   return `<div class="page-top-row"><button class="back-button" data-action="back-from-detail">${icon("chevron-left")} Back to ${returnStore ? escapeHtml(returnStore.name) : service ? "Book" : "Shop"}</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button><button class="ghost-button" data-action="toggle-save" data-id="${listing.id}">${icon("heart")} ${saved ? "In a list" : "Save"}</button></div></div>
     <div class="detail-layout"><div class="detail-gallery">${listingVisual(listing, true)}<div class="small muted" style="margin-top: 10px">Demo imagery — the real product would use seller-approved portfolio or product photos.</div></div>
       <div class="detail-copy"><div class="eyebrow">${escapeHtml(listing.category)} · ${service ? "Service" : escapeHtml(merchandiseTypeLabel(listing) || "Product")}</div><h1>${escapeHtml(listing.title)}</h1><p class="lede">${escapeHtml(listing.description)}</p>
-        <div class="detail-actions"><button class="primary-button" data-action="primary-listing-action" data-id="${listing.id}">${service ? "Check availability" : "Buy now"} ${icon("arrow")}</button><button class="icon-button" data-action="message-seller" data-seller="${listing.sellerId}" aria-label="Message seller">${icon("chat")}</button></div>
+        <div class="detail-actions"><button class="primary-button" data-action="primary-listing-action" data-id="${listing.id}">${service ? "Book this time" : "Buy now"} ${icon("arrow")}</button><button class="icon-button" data-action="message-seller" data-seller="${listing.sellerId}" aria-label="Message seller">${icon("chat")}</button></div>
         ${sellerCard}
-        ${service ? `<div class="detail-block"><h3>When can it happen?</h3><p class="muted small">Pick a slot that works for you. The seller confirms the appointment after checkout.</p><div class="date-options">${["Today", "Tomorrow", "Sat", "Sun"].map((date, index) => `<button class="option-button date-button ${state.selectedDate === date ? "active" : ""}" data-action="select-date" data-date="${date}"><strong>${index === 0 ? "12" : index === 1 ? "13" : index === 2 ? "14" : "15"}</strong><span>${date}</span></button>`).join("")}</div><div class="time-options">${listing.slots.map((slot) => `<button class="option-button ${state.selectedSlot === slot ? "active" : ""}" data-action="select-slot" data-slot="${slot}">${escapeHtml(slot)}</button>`).join("")}</div></div>` : `<div class="detail-block"><h3>Pickup details</h3><div class="info-row"><span class="trust-icon">${icon("check")}</span><div><strong>${escapeHtml(listing.availability)}</strong><span>${escapeHtml(listing.meeting)}</span></div></div><div class="info-row"><span class="trust-icon">${icon("verified")}</span><div><strong>Keep the handoff simple</strong><span>Meet in a public or approved campus location and keep messages in the app.</span></div></div><div class="quantity-control"><button data-action="decrease-quantity" aria-label="Decrease quantity">${icon("minus")}</button><output>${state.quantity}</output><button data-action="increase-quantity" aria-label="Increase quantity">${icon("plus")}</button></div><span class="small muted" style="margin-left: 10px">${listing.quantityAvailable} available</span></div>`}
-        <div class="detail-block"><h3>Trust details</h3><div class="info-row"><span class="trust-icon">${icon("verified")}</span><div><strong>${listing.verified ? "Student verified" : "School email verified"}</strong><span>This badge reflects the defined student-status check — not quality or university endorsement.</span></div></div><div class="info-row"><span class="trust-icon">${icon("star")}</span><div><strong>${listing.rating} from ${listing.reviews} completed transactions</strong><span>Reviews are tied to completed bookings or handoffs.</span></div></div><div class="trust-note">${service ? "Cancellation terms are shown before payment. If something changes, use the order page or support." : "Price, quantity and pickup terms are shown before payment. Never send payment details in chat."}</div></div>
+        ${service ? `<div class="detail-block"><h3>When can it happen?</h3><p class="muted small">Pick a slot that works for you. The seller confirms the appointment after checkout.</p><div class="date-options">${["Today", "Tomorrow", "Sat", "Sun"].map((date, index) => `<button class="option-button date-button ${state.selectedDate === date ? "active" : ""}" data-action="select-date" data-date="${date}"><strong>${index === 0 ? "12" : index === 1 ? "13" : index === 2 ? "14" : "15"}</strong><span>${date}</span></button>`).join("")}</div>${slotPicker(listing)}</div>` : `<div class="detail-block"><h3>Pickup details</h3><div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(listing.availability)}</strong></div><div class="info-row info-row-line"><span class="trust-icon">${icon("handshake")}</span><strong>Meet in public and message in the app</strong></div><div class="quantity-control"><button data-action="decrease-quantity" aria-label="Decrease quantity">${icon("minus")}</button><output>${state.quantity}</output><button data-action="increase-quantity" aria-label="Increase quantity">${icon("plus")}</button></div><span class="small muted" style="margin-left: 10px">${listing.quantityAvailable} available</span></div>`}
       </div>
     </div>
     ${moreFromStore.length ? listingScrollSection(`More from ${escapeHtml(store.name)}`, moreFromStore, { action: "open-store", id: store.id, label: "Visit store" }) : ""}`;
@@ -816,7 +963,7 @@ function sellerView(seller) {
   const sellerStores = storesForSeller(seller.id);
   const firstName = seller.name.split(" ")[0];
   return `<div class="page-top-row"><button class="ghost-button" data-action="share-seller">${icon("share")} Share profile</button></div>
-    <section class="seller-hero"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div>${studentVerifiedPill()}<h1>${escapeHtml(seller.name)}</h1><p class="muted" style="margin-bottom:0">${escapeHtml(seller.campus)} · ${escapeHtml(seller.handle)}</p><div class="seller-stats"><span><strong>${seller.rating}</strong> ★ rating</span><span><strong>${seller.reviews}</strong> reviews</span><span><strong>${seller.completed}</strong> completed</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div></div></div></section>
+    <section class="seller-hero"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div>${identityPill(seller)}<h1>${escapeHtml(seller.name)}</h1><p class="muted" style="margin-bottom:0">${escapeHtml(seller.campus)} · ${escapeHtml(seller.handle)}</p><div class="seller-stats"><span><strong>${seller.rating}</strong> ★ rating</span><span><strong>${seller.reviews}</strong> reviews</span><span><strong>${seller.completed}</strong> completed</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div></div></div></section>
     <section class="section" style="margin-top: 28px"><p class="lede">${escapeHtml(seller.bio)}</p></section>
     ${sellerStores.length ? `<section class="section seller-stores"><div class="section-header section-header-shelf"><h2>${sellerStores.length === 1 ? "Store" : "Stores"} by ${escapeHtml(firstName)}</h2></div><div class="store-grid">${sellerStores.map(storeCard).join("")}</div></section>` : ""}
     <div class="seller-tabs"><button class="seller-tab active">All listings (${listingSet.length})</button><button class="seller-tab" data-action="seller-reviews">Reviews (${seller.reviews})</button></div>
@@ -824,6 +971,7 @@ function sellerView(seller) {
 }
 
 function storeKindChips(store) {
+  if (store.chip === "shop") return `<span class="store-kind-chip">${icon("bag", 13)} Shop</span>`;
   const kinds = storeKinds(store);
   return `${kinds.has("service") ? `<span class="store-kind-chip">${icon("calendar", 13)} Book</span>` : ""}${kinds.has("product") ? `<span class="store-kind-chip">${icon("bag", 13)} Shop</span>` : ""}`;
 }
@@ -842,7 +990,7 @@ function storeCard(store) {
       </span>
       <span class="store-card-logo" aria-hidden="true">${escapeHtml(seller.initials)}</span>
       <span class="store-card-body">
-        <span class="store-card-name">${escapeHtml(store.name)}${seller.verified ? `<span class="verified-check" title="Student verified">${icon("verified")}</span>` : ""}</span>
+        <span class="store-card-name">${escapeHtml(store.name)}${identityMark(seller)}</span>
         <span class="store-card-owner">by ${escapeHtml(seller.name)}</span>
         <span class="store-card-tagline">${escapeHtml(store.tagline)}</span>
         <span class="store-card-meta"><span class="rating">${icon("star", 14)} ${store.rating} <span class="muted">(${store.reviews})</span></span><span class="muted">${count} ${count === 1 ? "listing" : "listings"}</span></span>
@@ -901,7 +1049,7 @@ function storeAboutTab(store, seller) {
       </div>
     </div>
     <aside class="store-about-side">
-      <div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div><div class="small muted">Run by</div><div class="seller-name">${escapeHtml(seller.name)} ${seller.verified ? `<span class="verified-check">${icon("verified")}</span>` : ""}</div><div class="seller-sub">${escapeHtml(seller.campus)}</div></div></div><button class="text-button" data-action="open-seller" data-id="${seller.id}">Profile ${icon("arrow")}</button></div>
+      <div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(seller.initials)}</div><div><div class="small muted">Run by</div><div class="seller-name">${escapeHtml(seller.name)} ${identityMark(seller)}</div><div class="seller-sub">${escapeHtml(seller.campus)}</div></div></div><button class="text-button" data-action="open-seller" data-id="${seller.id}">Profile ${icon("arrow")}</button></div>
       ${otherStores.length ? `<div class="store-about-more"><h3>More stores by ${escapeHtml(seller.name.split(" ")[0])}</h3><div class="store-grid store-grid-compact">${otherStores.map(storeCard).join("")}</div></div>` : ""}
     </aside>
   </div>`;
@@ -925,10 +1073,10 @@ function storeView(store) {
       <div class="store-hero-body">
         <div class="store-hero-logo ${store.accent}" aria-hidden="true">${store.emoji}</div>
         <div class="store-hero-info">
-          <div class="store-hero-kicker">${studentVerifiedPill()}<span>${escapeHtml(store.handle)}</span></div>
+          <div class="store-hero-kicker">${identityPill(seller)}<span>${escapeHtml(store.handle)}</span></div>
           <h1>${escapeHtml(store.name)}</h1>
           <p class="store-hero-tagline">${escapeHtml(store.tagline)}</p>
-          <button type="button" class="store-owner-link" data-action="open-seller" data-id="${seller.id}"><span class="mini-avatar">${escapeHtml(seller.initials)}</span><span>Run by <strong>${escapeHtml(seller.name)}</strong></span>${seller.verified ? `<span class="verified-check" title="Student verified">${icon("verified")}</span>` : ""}</button>
+          <button type="button" class="store-owner-link" data-action="open-seller" data-id="${seller.id}"><span class="mini-avatar">${escapeHtml(seller.initials)}</span><span>Run by <strong>${escapeHtml(seller.name)}</strong></span>${identityMark(seller)}</button>
           <div class="seller-stats"><span><strong>${store.rating}</strong> ★ rating</span><span><strong>${store.reviews}</strong> reviews</span><span><strong>${store.sales}</strong> sales</span><span><strong>${followers}</strong> followers</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div>
         </div>
         <div class="store-hero-actions">
@@ -977,8 +1125,8 @@ function checkoutView(listing) {
   const total = listing.price * (service ? 1 : state.quantity);
   return `<div class="page-top-row"><button class="back-button" data-action="back-from-checkout">${icon("chevron-left")} Back to listing</button><span class="small muted">Demo checkout · no payment is processed</span></div>
     <div class="checkout-layout"><section class="checkout-panel"><div class="eyebrow">${service ? "Book" : "Shop"}</div><h1>${service ? "Review your booking." : "Review your order."}</h1><p class="lede">${service ? "Make sure the time, price and cancellation terms look right before you confirm." : "Make sure the seller, quantity and pickup details look right before you confirm."}</p>
-      <div class="step-list"><div class="step"><span class="step-number">1</span><div><strong>${escapeHtml(listing.title)}</strong><p>${escapeHtml(listing.seller)} · ${money(listing.price)} ${service ? `/ ${escapeHtml(listing.unit)}` : "each"}</p></div></div>${service ? `<div class="step"><span class="step-number">2</span><div><strong>${escapeHtml(state.selectedSlot || listing.slots[0])}</strong><p>${escapeHtml(listing.meeting)} · ${escapeHtml(listing.unit)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Cancellation terms</strong><p>Free cancellation up to 24 hours before the appointment. Support is available from your order page.</p></div></div>` : `<div class="step"><span class="step-number">2</span><div><strong>${state.quantity} ${state.quantity === 1 ? "item" : "items"}</strong><p>${escapeHtml(listing.availability)} · ${escapeHtml(listing.meeting)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Local handoff</strong><p>We will show the pickup details after the seller confirms the order.</p></div></div>`}</div>
-      <div class="button-row stretch"><button class="primary-button" data-action="confirm-order" data-id="${listing.id}">Confirm & pay ${money(total)} ${icon("arrow")}</button><button class="ghost-button" data-action="open-help">Questions about this order?</button></div>
+      <div class="step-list"><div class="step"><span class="step-number">1</span><div><strong>${escapeHtml(listing.title)}</strong><p>${escapeHtml(listing.seller)} · ${listing.price ? `${money(listing.price)}${service ? ` / ${escapeHtml(listing.unit)}` : " each"}` : "Free"}</p></div></div>${service ? `<div class="step"><span class="step-number">2</span><div><strong>${escapeHtml(state.selectedSlot || listing.slots[0])}</strong><p>${escapeHtml(listing.meeting)} · ${escapeHtml(listing.unit)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Cancellation terms</strong><p>Free cancellation up to 24 hours before the appointment. Support is available from your order page.</p></div></div>` : `<div class="step"><span class="step-number">2</span><div><strong>${state.quantity} ${state.quantity === 1 ? "item" : "items"}</strong><p>${escapeHtml(listing.availability)} · ${escapeHtml(listing.meeting)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Local handoff</strong><p>We will show the pickup details after the seller confirms the order.</p></div></div>`}</div>
+      <div class="button-row stretch"><button class="primary-button" data-action="confirm-order" data-id="${listing.id}">${listing.price ? `Confirm & pay ${money(total)}` : "Confirm · Free"} ${icon("arrow")}</button><button class="ghost-button" data-action="open-help">Questions about this order?</button></div>
     </section><aside class="summary-card"><div class="summary-visual"><div class="summary-thumb ${listing.accent}">${listing.emoji}</div><div><strong>${escapeHtml(listing.title)}</strong><div class="small muted">${escapeHtml(listing.seller)}</div></div></div><div class="summary-line"><span>${service ? "Service" : `Item × ${state.quantity}`}</span><strong>${money(total)}</strong></div><div class="summary-line"><span>Platform fee</span><strong>$0.00</strong></div><div class="summary-line total"><span>Total</span><strong>${money(total)}</strong></div><p class="checkout-disclaimer">This is a prototype only. No real account, order or payment is created.</p></aside></div>`;
 }
 
@@ -1051,6 +1199,7 @@ function myListsView() {
 
 const SETTINGS_SECTIONS = [
   { id: "account", label: "Account", hint: "Name and campus", icon: "user" },
+  { id: "payment", label: "Payment", hint: "Cards for checkout", icon: "wallet" },
   { id: "notifications", label: "Notifications", hint: "Messages, orders, deals", icon: "bell" },
   { id: "privacy", label: "Privacy & safety", hint: "Who can see you", icon: "shield" }
 ];
@@ -1083,6 +1232,45 @@ function settingsAccountPanel() {
     <p class="field-note">Campus email and school come from student verification. Changes stay in this demo session.</p>
     <div class="button-row" style="margin-top: 16px"><button class="primary-button" type="submit">Save account ${icon("check")}</button></div>
   </form>`;
+}
+
+function cardBrand(digits) {
+  if (digits.startsWith("34") || digits.startsWith("37")) return "Amex";
+  if (digits.startsWith("4")) return "Visa";
+  if (digits.startsWith("5")) return "Mastercard";
+  if (digits.startsWith("6")) return "Discover";
+  return "Card";
+}
+
+function settingsPaymentPanel() {
+  const methods = state.paymentMethods;
+  const cards = methods.length
+    ? `<div class="payment-list">${methods.map((method) => `<article class="payment-card ${method.isDefault ? "is-default" : ""}">
+        <div class="payment-card-copy">
+          <strong>${escapeHtml(method.brand)} ···· ${escapeHtml(method.last4)}</strong>
+          <p class="muted small">${escapeHtml(method.name)} · Expires ${escapeHtml(method.exp)}${method.isDefault ? " · Default" : ""}</p>
+        </div>
+        <div class="button-row">
+          ${method.isDefault ? "" : `<button type="button" class="ghost-button compact" data-action="set-default-payment" data-id="${method.id}">Make default</button>`}
+          <button type="button" class="ghost-button compact" data-action="remove-payment" data-id="${method.id}">Remove</button>
+        </div>
+      </article>`).join("")}</div>`
+    : `<div class="payment-empty"><strong>No card saved yet</strong><p class="muted small">Add one to use at checkout. This demo keeps it in the session only.</p></div>`;
+  return `<div class="settings-group">
+    <h2>Payment</h2>
+    <p class="muted small">Save a card for campus bookings and pickups. Only the last four digits stay on this page, and nothing is charged.</p>
+    ${cards}
+    <form class="settings-form" data-form="save-payment">
+      <h3>Add a card</h3>
+      <div class="form-grid">
+        <div class="field full"><label for="card-name">Name on card</label><input id="card-name" name="name" required maxlength="48" autocomplete="cc-name" placeholder="Katarina Cedolin" /></div>
+        <div class="field full"><label for="card-number">Card number</label><input id="card-number" name="number" required inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" /></div>
+        <div class="field"><label for="card-exp">Expiration</label><input id="card-exp" name="exp" required inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" /></div>
+      </div>
+      <p class="field-note">The full number is not stored. A security code is never asked for here.</p>
+      <div class="button-row" style="margin-top: 16px"><button class="primary-button" type="submit">Save card ${icon("check")}</button></div>
+    </form>
+  </div>`;
 }
 
 function settingsNotificationsPanel() {
@@ -1118,7 +1306,7 @@ function settingsPrivacyPanel() {
 function settingsView() {
   const section = SETTINGS_SECTIONS.find((item) => item.id === state.settingsSection) || SETTINGS_SECTIONS[0];
   const nav = SETTINGS_SECTIONS.map((item) => `<button type="button" class="settings-nav-item ${item.id === section.id ? "active" : ""}" data-action="set-settings-section" data-section="${item.id}"><span class="trust-icon">${icon(item.icon)}</span><span class="settings-nav-copy"><span class="settings-nav-label">${item.label}</span><span class="muted small">${item.hint}</span></span></button>`).join("");
-  const panel = section.id === "notifications" ? settingsNotificationsPanel() : section.id === "privacy" ? settingsPrivacyPanel() : settingsAccountPanel();
+  const panel = section.id === "payment" ? settingsPaymentPanel() : section.id === "notifications" ? settingsNotificationsPanel() : section.id === "privacy" ? settingsPrivacyPanel() : settingsAccountPanel();
   return `<div class="settings-page"><div class="page-top-row"><div><div class="eyebrow">Your account</div><h1 style="margin-bottom: 6px">Settings</h1><p class="muted" style="margin:0">How Campus Connect works for you on campus.</p></div><button class="ghost-button" data-view="you">${icon("chevron-left")} Back to You</button></div>
   <div class="settings-layout">
     <aside class="settings-nav" aria-label="Settings sections">${nav}</aside>
@@ -1470,7 +1658,7 @@ document.addEventListener("click", (event) => {
   if (action === "open-listing") {
     document.querySelector("#modal-root").innerHTML = "";
     const detailReturn = state.view === "store" ? state.selectedStoreId : state.view === "listing" ? state.detailReturn : null;
-    return setView("listing", { selectedListingId: target.dataset.id, selectedDate: "Today", detailReturn });
+    return setView("listing", { selectedListingId: target.dataset.id, selectedDate: "Today", showAllSlots: false, detailReturn });
   }
   if (action === "open-seller") return setView("seller", { selectedSellerId: target.dataset.id });
   if (action === "open-store") {
@@ -1501,8 +1689,9 @@ document.addEventListener("click", (event) => {
   if (action === "message-store") { const store = getStore(target.dataset.id); return openSellerConversation(store?.sellerId); }
   if (action === "share-store") { showToast("Store link copied — demo only."); return; }
   if (action === "primary-listing-action") { const listing = getListing(target.dataset.id); return setView("checkout", { selectedListingId: target.dataset.id, quantity: listing?.kind === "product" ? state.quantity : 1 }); }
-  if (action === "select-date") { const listing = getListing(state.selectedListingId); state.selectedDate = target.dataset.date; state.selectedSlot = listing?.slots?.find((slot) => slot.startsWith(target.dataset.date)) || listing?.slots?.[0] || ""; return render(); }
+  if (action === "select-date") { const listing = getListing(state.selectedListingId); state.selectedDate = target.dataset.date; state.selectedSlot = listingTimeSlots(listing).find((slot) => slot.startsWith(target.dataset.date)) || listingTimeSlots(listing)[0] || ""; return render(); }
   if (action === "select-slot") { state.selectedSlot = target.dataset.slot; return render(); }
+  if (action === "toggle-more-slots") { state.showAllSlots = !state.showAllSlots; return render(); }
   if (action === "increase-quantity") { const listing = getListing(state.selectedListingId); state.quantity = Math.min(listing?.quantityAvailable || 1, state.quantity + 1); return render(); }
   if (action === "decrease-quantity") { state.quantity = Math.max(1, state.quantity - 1); return render(); }
   if (action === "back-from-detail") {
@@ -1541,6 +1730,20 @@ document.addEventListener("click", (event) => {
     state.settings[key] = !state.settings[key];
     const labels = { notifyMessages: "Message notifications", notifyOrders: "Order notifications", notifyDeals: "Aztec Deals", profileVisible: "Profile visibility", showCampus: "Campus on your profile" };
     showToast(`${labels[key] || "Setting"} ${state.settings[key] ? "on" : "off"}.`);
+    return render();
+  }
+  if (action === "set-default-payment") {
+    const id = target.dataset.id;
+    state.paymentMethods.forEach((method) => { method.isDefault = method.id === id; });
+    showToast("Default card updated.");
+    return render();
+  }
+  if (action === "remove-payment") {
+    const id = target.dataset.id;
+    const removed = state.paymentMethods.find((method) => method.id === id);
+    state.paymentMethods = state.paymentMethods.filter((method) => method.id !== id);
+    if (removed?.isDefault && state.paymentMethods[0]) state.paymentMethods[0].isDefault = true;
+    showToast("Card removed.");
     return render();
   }
   if (action === "sign-out") { showToast("This prototype stays signed in as your student account."); return; }
@@ -1600,6 +1803,27 @@ document.addEventListener("submit", (event) => {
     if (state.view === "lists") render();
     else setView("lists");
     return;
+  }
+  if (form.dataset.form === "save-payment") {
+    const data = new FormData(form);
+    const name = data.get("name")?.toString().trim() || "";
+    const digits = (data.get("number")?.toString() || "").replace(/\D/g, "");
+    const exp = (data.get("exp")?.toString() || "").trim();
+    const expMatch = exp.match(/^(0[1-9]|1[0-2])\s*\/\s*(\d{2})$/);
+    if (!name || digits.length < 13 || digits.length > 19 || !expMatch) {
+      showToast("Check the name, card number, and expiration.", "error");
+      return;
+    }
+    const month = Number(expMatch[1]);
+    const year = Number(expMatch[2]);
+    if (year < 26 || (year === 26 && month < 10)) {
+      showToast("That card is expired.", "error");
+      return;
+    }
+    const method = { id: `card-${Date.now()}`, brand: cardBrand(digits), last4: digits.slice(-4), exp: `${expMatch[1]}/${expMatch[2]}`, name, isDefault: state.paymentMethods.length === 0 };
+    state.paymentMethods.push(method);
+    showToast(`${method.brand} ending in ${method.last4} saved for this session.`);
+    return render();
   }
   if (form.dataset.form === "save-account") {
     const name = new FormData(form).get("displayName")?.toString().trim() || "";

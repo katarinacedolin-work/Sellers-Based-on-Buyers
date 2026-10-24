@@ -886,7 +886,7 @@ function sellerOrderView() {
   const payoutLine = order.status === "completed" ? "Added to your balance" : order.status === "cancelled" ? "No payout · refunded" : "Released after completion";
   return `${sellerHeader({ eyebrow: `${order.kind === "service" ? "Booking" : "Order"} · CC-${order.id.slice(-4).toUpperCase()}`, title: escapeHtml(orderListingTitle(order)), sub: `${escapeHtml(order.buyer)} · placed ${escapeHtml(order.placed)}`, back: { action: "seller-back-to-orders", label: "Back to orders" }, actions: `<button class="ghost-button" data-action="seller-message-buyer" data-id="${order.id}">${icon("chat")} Message buyer</button>` })}
     <div class="order-layout">
-      <section class="seller-card order-main">
+      <section class="order-panel">
         <div class="order-main-top"><div class="summary-visual" style="border:0;padding:0">${listing ? `<div class="summary-thumb ${listing.accent}">${listing.emoji}</div>` : ""}<div><strong>${escapeHtml(orderListingTitle(order))}</strong><div class="small muted">${escapeHtml(getStore(listing?.storeId)?.name || "")}</div></div></div>${statusPill(order.status, orderStatusLabel(order))}</div>
         ${orderTimeline(order)}
         <div class="order-detail-card seller-order-details">

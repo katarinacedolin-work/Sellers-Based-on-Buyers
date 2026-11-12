@@ -554,29 +554,6 @@ function createMockDb() {
     { id: "tpost-dana", kind: "request", event: "Comedy night", name: "Dana Kim", initials: "DK", accent: "mint", mine: false, messages: [] }
   ];
 
-  const deals = [
-    { id: "aztec-cafe", merchant: "Aztec Cafe", title: "Free drink upgrade", offer: "Medium → large any day", code: "AZTEC-SIP26", emoji: "☕", accent: "butter", expires: "Apr 30" },
-    { id: "campus-books", merchant: "Campus Bookstore", title: "15% off textbooks", offer: "In-store pickup only", code: "AZTEC-READ15", emoji: "📚", accent: "sky", expires: "May 15" },
-    { id: "union-bowl", merchant: "Student Union Bowl", title: "Buy one, get one slice", offer: "After 8 PM · dine-in", code: "AZTEC-PIZZA", emoji: "🍕", accent: "coral", expires: "Jun 1" },
-    { id: "fit-club", merchant: "Aztec Fit Club", title: "First class free", offer: "Spin or yoga intro", code: "AZTEC-MOVE", emoji: "💪", accent: "mint", expires: "Apr 18" },
-    { id: "print-shop", merchant: "Campus Print Lab", title: "$5 off poster prints", offer: "Up to 24×36", code: "AZTEC-PRINT5", emoji: "🖼️", accent: "lilac", expires: "May 30" },
-    { id: "nail-bar", merchant: "Glamour Bar", title: "10% off gel sets", offer: "Student ID required", code: "AZTEC-GLOW10", emoji: "💅", accent: "coral", expires: "Apr 25" }
-  ];
-
-  const fundraisers = [
-    { id: "dg-bake", host: "Delta Gamma", title: "Philanthropy bake sale", when: "Fri · 11 AM–2 PM", where: "Love Library steps", detail: "Cookies and coffee. Proceeds go to Service for Sight.", emoji: "🍪", accent: "butter" },
-    { id: "swe-wash", host: "Society of Women Engineers", title: "Car wash", when: "Sat · 10 AM–1 PM", where: "Parking Structure 12", detail: "$10 suggested. Supports the conference fund.", emoji: "🚗", accent: "sky" },
-    { id: "dance-raffle", host: "Aztec Dance Team", title: "Raffle tickets", when: "All week", where: "Campanile walk", detail: "$5 a ticket. Drawing Friday at 4 PM.", emoji: "🎟️", accent: "coral" },
-    { id: "rha-merch", host: "Residence Hall Association", title: "Dorm merch table", when: "Wed · 12–4 PM", where: "Student Union courtyard", detail: "Hoodies and stickers. Funds hall programs.", emoji: "👕", accent: "lilac" }
-  ];
-
-  const popups = [
-    { id: "flower-stand", host: "Bloom & Co.", title: "Flower stand", when: "Thu · 10 AM–3 PM", where: "Campanile", detail: "Bouquets and single stems. Cash and card.", emoji: "💐", accent: "coral" },
-    { id: "vintage-rack", host: "Aztec Thrift", title: "Vintage clothing rack", when: "Fri · 1–5 PM", where: "Student Union lawn", detail: "One-day rack of campus sweats and tees.", emoji: "🧥", accent: "butter" },
-    { id: "boba-cart", host: "Tapiocha", title: "Boba cart", when: "Tue & Thu · 11 AM–2 PM", where: "Love Library plaza", detail: "Student line. Most drinks under $6.", emoji: "🧋", accent: "mint" },
-    { id: "grad-caps", host: "A.S. Campus Events", title: "Grad cap decorating", when: "Sat · 12–3 PM", where: "Aztec Student Union", detail: "Free supplies while they last. Students only.", emoji: "🎓", accent: "sky" }
-  ];
-
   /* ---------- The buyer demo account: Katarina Cedolin ---------- */
 
   const mayaThread = [
@@ -587,13 +564,8 @@ function createMockDb() {
 
   const buyer = {
     id: MOCK_BUYER_ID,
-    account: { displayName: "Katarina Cedolin", email: "kcedolin@sdsu.edu", school: "San Diego State University", notifyMessages: true, notifyOrders: true, notifyDeals: false, profileVisible: true, showCampus: true },
+    account: { displayName: "Katarina Cedolin", email: "kcedolin@sdsu.edu", school: "San Diego State University", notifyMessages: true, notifyOrders: true, notifyHousing: false, profileVisible: true, showCampus: true },
     paymentMethods: [],
-    lists: [
-      { id: "list-favorites", name: "Favorites", listingIds: ["maya-portraits"] },
-      { id: "list-dorm", name: "Dorm wishlist", listingIds: ["desk-lamp"] }
-    ],
-    followedStoreIds: ["maya-makes-photo", "riley-clay"],
     orders: [
       { id: "order-maya", listingId: "maya-portraits", kind: "service", status: "confirmed", date: inDays(0), time: "4:00 PM", quantity: 1, total: 65, placedAt: minutesAgo(3 * HOUR), sellerOrderId: "so-1001" },
       { id: "order-lamp", listingId: "desk-lamp", kind: "product", status: "ready", note: "Pickup by Friday", quantity: 1, total: 24, placedAt: minutesAgo(DAY + 2 * HOUR) }
@@ -671,8 +643,7 @@ function createMockDb() {
     { id: "sn-msg-omar", unread: true, category: "messages", title: "Omar Khan sent a message", body: "“On my way to Art North now!”", at: minutesAgo(HOUR), emoji: "💬", accent: "sky", action: "inbox", conversationId: "sc-omar" },
     { id: "sn-low-stock", unread: false, category: "store", title: "Running low", body: "Campus photo print (8×10) has 3 left in stock.", at: minutesAgo(3 * HOUR), emoji: "📦", accent: "coral", action: "listing", listingId: "maya-prints" },
     { id: "sn-review-marcus", unread: false, category: "reviews", title: "New 4★ review", body: "Marcus T. reviewed the Lightroom preset pack.", at: minutesAgo(DAY + HOUR), emoji: "⭐", accent: "butter", action: "reviews" },
-    { id: "sn-payout", unread: false, category: "payouts", title: "Payout sent", body: "$186.00 is on its way to checking ••4821.", at: pastMonday(0), emoji: "💸", accent: "mint", action: "payouts" },
-    { id: "sn-followers", unread: false, category: "store", title: "12 new followers", body: "Maya Makes Photo had its best week this semester.", at: minutesAgo(5 * DAY), emoji: "📸", accent: "coral", action: "store", storeId: "maya-makes-photo" }
+    { id: "sn-payout", unread: false, category: "payouts", title: "Payout sent", body: "$186.00 is on its way to checking ••4821.", at: pastMonday(0), emoji: "💸", accent: "mint", action: "payouts" }
   ];
 
   const reviewAges = [2 * DAY, 7 * DAY, DAY];
@@ -773,9 +744,6 @@ function createMockDb() {
     housing,
     chores: openChores,
     ticketPosts,
-    deals,
-    fundraisers,
-    popups,
     supportCases: [],
     reports: [],
     buyer,

@@ -22,15 +22,12 @@ const data = {
   housing: [],
   chores: [],
   ticketPosts: [],
-  deals: { deals: [], fundraisers: [], popups: [] },
   conversations: [],
   notifications: [],
 
   /* The buyer's account. */
   account: { displayName: "" },
   paymentMethods: [],
-  lists: [],
-  followedStoreIds: [],
   orders: [],
 
   /* The seller's account. */
@@ -56,13 +53,10 @@ const LOADERS = {
   housing: api.getHousing,
   chores: api.getChores,
   ticketPosts: api.getTicketPosts,
-  deals: api.getDeals,
   conversations: api.getConversations,
   notifications: api.getNotifications,
   account: api.getAccount,
   paymentMethods: api.getPaymentMethods,
-  lists: api.getLists,
-  followedStoreIds: api.getFollowedStoreIds,
   orders: api.getOrders,
   sellerOrders: api.getSellerOrders,
   listingStats: api.getListingStats,
@@ -76,7 +70,7 @@ const LOADERS = {
 
 /** What each page fetches when it opens. */
 const SHARED_DATA = ["session", "categories", "listings", "sellers", "stores", "conversations", "notifications"];
-const BUYER_DATA = [...SHARED_DATA, "schoolServices", "agents", "jobs", "housing", "chores", "ticketPosts", "deals", "account", "paymentMethods", "lists", "followedStoreIds", "orders"];
+const BUYER_DATA = [...SHARED_DATA, "schoolServices", "agents", "jobs", "housing", "chores", "ticketPosts", "account", "paymentMethods", "orders"];
 const SELLER_DATA = [...SHARED_DATA, "sellerOrders", "listingStats", "analytics", "reviews", "sellerSettings", "schedule", "calendar", "payouts"];
 
 /** Fetches the named parts of `data` again: `await load("listings", "stores")`. */
@@ -119,7 +113,6 @@ const state = {
   boardReturn: null,
   selectedOrderId: null,
   selectedConversationId: null,
-  selectedListId: null,
 
   /* Buyer: one store page. */
   storeTab: "shop",
@@ -178,12 +171,6 @@ const storesForSeller = (sellerId) => data.stores.filter((store) => store.seller
 const storeListings = (store) => allListings().filter((listing) => listing.storeId === store.id);
 const storeKinds = (store) => new Set(storeListings(store).map((listing) => listing.kind));
 const storeCategories = (store) => [...new Set(storeListings(store).map((listing) => listing.category))];
-const isFollowing = (storeId) => data.followedStoreIds.includes(storeId);
-
-const getList = (id) => data.lists.find((list) => list.id === id);
-const selectedList = () => getList(state.selectedListId) || data.lists[0];
-const isListingSaved = (listingId) => data.lists.some((list) => list.listingIds.includes(listingId));
-const savedListingCount = () => new Set(data.lists.flatMap((list) => list.listingIds)).size;
 
 const selectedConversation = () => data.conversations.find((conversation) => conversation.id === state.selectedConversationId) || data.conversations[0];
 const unreadCount = (items) => items.filter((item) => item.unread).length;

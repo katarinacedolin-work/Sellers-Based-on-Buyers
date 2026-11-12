@@ -9,7 +9,7 @@ const update = (changes) => (target) => {
 };
 
 const STORE_PAGE_DEFAULTS = { storeTab: "shop", storeCollection: "All", storeQuery: "", storeKind: "all" };
-const ACCOUNT_SETTING_LABELS = { notifyMessages: "Message notifications", notifyOrders: "Order notifications", notifyDeals: "Housing & subleases", profileVisible: "Profile visibility", showCampus: "Campus on your profile" };
+const ACCOUNT_SETTING_LABELS = { notifyMessages: "Message notifications", notifyOrders: "Order notifications", notifyHousing: "Housing & subleases", profileVisible: "Profile visibility", showCampus: "Campus on your profile" };
 
 /** Opens a listing page. A service also needs its open times, which are fetched first. */
 async function openListing(id, detailReturn = null) {
@@ -53,21 +53,6 @@ Object.assign(ACTIONS, {
   },
   "open-school-service": (target) => setView("school-service", { selectedSchoolServiceId: target.dataset.id, schoolServiceReturn: state.view === "school-service" ? state.schoolServiceReturn : state.view }),
   "back-from-school-service": () => setView(["search", "home"].includes(state.schoolServiceReturn) ? state.schoolServiceReturn : "book", { selectedSchoolServiceId: null }),
-  "flip-deal": (target) => {
-    const card = target.closest(".deal-flip-card");
-    if (!card) return;
-    const open = card.classList.toggle("is-flipped");
-    target.setAttribute("aria-pressed", open);
-  },
-  "copy-deal-code": async (target) => {
-    const code = target.dataset.code || "";
-    try {
-      await navigator.clipboard.writeText(code);
-      showToast(`Copied ${code}.`);
-    } catch {
-      showToast(code);
-    }
-  },
 
   /* Listings, booking and checkout */
 
@@ -119,14 +104,6 @@ Object.assign(ACTIONS, {
   "set-stores-filter": update((target) => ({ storesFilter: target.dataset.filter })),
   "clear-stores-filters": update(() => ({ storesFilter: "All", storesQuery: "" })),
   "search-stores": (target) => setView("stores", { storesFilter: "All", storesQuery: target.dataset.query }),
-  "open-following": () => setView("stores", { storesFilter: "Following", storesQuery: "" }),
-  "toggle-follow-store": async (target) => {
-    const store = getStore(target.dataset.id);
-    const following = !isFollowing(store.id);
-    await api.setStoreFollowed(store.id, following);
-    await refresh("followedStoreIds", "stores");
-    showToast(following ? `Following ${store.name}. You will find it under Stores → Following.` : `Unfollowed ${store.name}.`);
-  },
 
   /* Messages */
 
@@ -135,42 +112,6 @@ Object.assign(ACTIONS, {
   "message-agent": (target) => openConversation({ agentId: target.dataset.id }),
   "message-board-item": (target) => openConversation(target.dataset.kind === "job" ? { jobId: target.dataset.id } : { housingId: target.dataset.id }),
   "select-conversation": update((target) => ({ selectedConversationId: target.dataset.id })),
-
-  /* Lists */
-
-  "toggle-save": (target) => openSaveToListModal(target.dataset.id),
-  "open-create-list": () => openCreateListModal(),
-  "open-add-to-list": () => openAddToListModal(),
-  "select-list": update((target) => ({ selectedListId: target.dataset.id })),
-  "toggle-listing-in-list": async (target) => {
-    const { listId, id } = target.dataset;
-    const list = getList(listId);
-    const saved = list.listingIds.includes(id);
-    await (saved ? api.removeFromList(listId, id) : api.addToList(listId, id));
-    await refresh("lists");
-    openSaveToListModal(id);
-    showToast(`${saved ? "Removed from" : "Added to"} ${list.name}.`);
-  },
-  "add-listing-to-list": async (target) => {
-    const { listId, id } = target.dataset;
-    await api.addToList(listId, id);
-    await refresh("lists");
-    openAddToListModal();
-    showToast(`Added ${getListing(id).title} to ${getList(listId).name}.`);
-  },
-  "remove-from-list": async (target) => {
-    const { listId, id } = target.dataset;
-    await api.removeFromList(listId, id);
-    await refresh("lists");
-    showToast(`Removed ${getListing(id).title} from ${getList(listId).name}.`);
-  },
-  "delete-list": async (target) => {
-    const list = getList(target.dataset.id);
-    await api.deleteList(list.id);
-    state.selectedListId = null;
-    await refresh("lists");
-    showToast(`${list.name} deleted.`);
-  },
 
   /* Job Board and Housing */
 
@@ -282,14 +223,6 @@ Object.assign(FORMS, {
     state.ticketPostKind = null;
     await refresh("ticketPosts");
     showToast("Posted in the ticket chat.");
-  },
-
-  "create-list": async ({ name }) => {
-    const list = await api.createList(name);
-    await load("lists");
-    closeModal();
-    setView("lists", { selectedListId: list.id });
-    showToast(`Created “${list.name}”.`);
   },
 
   "save-account": async ({ displayName }) => {

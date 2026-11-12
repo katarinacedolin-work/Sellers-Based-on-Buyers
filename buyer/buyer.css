@@ -76,7 +76,6 @@
 .school-service-card .seller-line { margin-top: 2px; }
 .detail-actions .school-service-link { flex: 1; }
 .listing-card { position: relative; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: #fff; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-.listing-card > .save-button { position: absolute; top: 13px; right: 13px; z-index: 2; }
 .listing-card:hover { transform: translateY(-3px); border-color: #d4d3cd; box-shadow: var(--shadow-small); }
 .listing-card-button { display: block; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; color: inherit; }
 .listing-visual { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 195px; padding: 13px; overflow: hidden; }
@@ -88,8 +87,6 @@
 .visual-top { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
 .visual-tag, .verified-badge, .status-pill { display: inline-flex; align-items: center; gap: 5px; min-height: 24px; padding: 0 8px; border-radius: 999px; background: rgba(255, 255, 255, .82); color: var(--ink); font-size: 10px; font-weight: 900; }
 .visual-tag { backdrop-filter: blur(5px); }
-.save-button { display: grid; place-items: center; width: 31px; height: 31px; border: 0; border-radius: 50%; background: rgba(255,255,255,.8); color: var(--ink); }
-.save-button.saved { background: var(--ink); color: #fff; }
 .visual-figure { align-self: center; margin-top: 4px; font-size: 74px; line-height: 1; filter: drop-shadow(0 7px 8px rgba(21,21,21,.14)); }
 .visual-caption { align-self: flex-end; margin-top: auto; max-width: 80%; padding: 7px 9px; border-radius: 10px; background: rgba(255,255,255,.76); color: var(--ink); font-size: 11px; font-weight: 900; line-height: 1.15; }
 .school-badge, .agent-badge { display: inline-flex; align-items: center; gap: 5px; align-self: flex-end; margin-top: auto; max-width: 100%; min-height: 26px; padding: 0 10px 0 7px; border: 1.5px solid var(--sdsu-red); border-radius: 999px; background: #fff; color: var(--sdsu-red); font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }
@@ -374,7 +371,6 @@
 .store-card-banner { position: relative; display: flex; align-items: center; justify-content: flex-end; height: 96px; padding: 0 16px; overflow: hidden; }
 .store-card-previews, .store-hero-previews { display: flex; gap: 6px; opacity: .9; }
 .store-card-previews span { font-size: 30px; line-height: 1; filter: drop-shadow(0 5px 6px rgba(21,21,21,.12)); }
-.store-following-tag { position: absolute; top: 10px; left: 10px; }
 .store-card-logo { position: absolute; top: 62px; left: 16px; display: grid; place-items: center; width: 60px; height: 60px; border: 4px solid #fff; border-radius: 50%; background: var(--cobalt); color: #fff; font-size: 16px; font-weight: 900; letter-spacing: -.03em; box-shadow: 0 6px 16px rgba(21,21,21,.1); }
 .store-card-body { display: flex; flex-direction: column; gap: 4px; padding: 34px 16px 16px; }
 .store-card-name { display: inline-flex; align-items: center; gap: 5px; font-size: 17px; font-weight: 900; letter-spacing: -.03em; line-height: 1.2; }
@@ -423,8 +419,6 @@
 .store-owner-link { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font-size: 13px; }
 .store-owner-link:hover { border-color: var(--cobalt); background: #f4f5ff; }
 .store-hero-actions { display: flex; align-items: center; gap: 10px; }
-.follow-button.following { border-color: var(--cobalt); background: #eef0ff; color: var(--cobalt); }
-.follow-button.following:hover { background: #e3e7ff; }
 .store-announcement { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding: 12px 16px; border-radius: 14px; background: #fff8dc; color: var(--ink); font-size: 14px; font-weight: 700; }
 .store-announcement .trust-icon { width: 30px; height: 30px; flex-basis: 30px; border-radius: 9px; background: #fff; color: #a07a00; }
 
@@ -485,25 +479,6 @@
 .order-detail-card { width: 100%; max-width: 500px; margin: 25px 0; padding: 16px; border-radius: 14px; background: var(--warm-white); text-align: left; }
 .order-detail-row { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; color: var(--muted); font-size: 13px; }
 .order-detail-row strong { color: var(--ink); text-align: right; }
-
-.lists-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 560px; overflow: hidden; border: 1px solid var(--line); border-radius: 23px; background: #fff; }
-.lists-sidebar { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
-.lists-sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 22px 18px 14px; border-bottom: 1px solid var(--line); }
-.lists-sidebar-header h2 { margin: 0; font-size: 22px; }
-.lists-sidebar-body { flex: 1; overflow: auto; }
-.list-row { display: flex; align-items: center; width: 100%; padding: 14px 18px; border: 0; border-bottom: 1px solid #f0f0eb; background: #fff; text-align: left; cursor: pointer; }
-.list-row:hover, .list-row.active { background: #f4f5ff; }
-.list-row.active { box-shadow: inset 3px 0 0 var(--cobalt); }
-.list-row-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.list-row-name { font-weight: 900; font-size: 13px; }
-.list-row-count { font-size: 11px; }
-.lists-panel { display: flex; flex-direction: column; min-width: 0; padding: 22px; }
-.lists-panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
-.lists-panel-header h2 { margin: 0 0 4px; font-size: clamp(24px, 2.5vw, 32px); }
-.list-empty { min-height: 280px; margin-top: 8px; }
-.list-save-state { font-weight: 800; font-size: 12px; color: var(--cobalt); }
-.list-save-state.in-list { color: var(--ink); }
-.notification-list.list-picker { max-height: 420px; overflow: auto; }
 
 .inbox-layout { display: grid; grid-template-columns: 310px minmax(0, 1fr); min-height: 600px; overflow: hidden; border: 1px solid var(--line); border-radius: 23px; background: #fff; }
 .conversation-list { border-right: 1px solid var(--line); }
@@ -630,41 +605,6 @@
 .sell-hero-ghost { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.24); color: #fff; }
 .sell-hero-ghost:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.4); }
 
-.deals-page { padding-bottom: 12px; }
-.deals-hero { max-width: 640px; margin-bottom: 8px; }
-.deals-section { margin-top: 36px; }
-.deals-section-copy { max-width: 40em; margin: -4px 0 16px; }
-.campus-event-card { min-height: 330px; }
-.deals-hero h1 { margin-bottom: 10px; font-size: clamp(36px, 4.8vw, 54px); }
-.deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
-.deal-flip-card { position: relative; min-height: 360px; }
-.deal-flip-scene { height: 100%; perspective: 1100px; }
-.deal-flip-trigger { display: block; width: 100%; height: 100%; min-height: 330px; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
-.deal-flip-trigger:focus-visible { outline: 3px solid rgba(49, 87, 255, 0.35); outline-offset: 4px; border-radius: 18px; }
-.deal-flip-inner { position: relative; display: block; width: 100%; min-height: 330px; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.4, .2, .2, 1); }
-.deal-flip-card.is-flipped .deal-flip-inner { transform: rotateY(180deg); }
-.deal-face { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fff; backface-visibility: hidden; box-shadow: var(--shadow-small); }
-.deal-front { transform: rotateY(0deg); }
-.deal-back { transform: rotateY(180deg); align-items: center; justify-content: center; padding: 24px; text-align: center; background: linear-gradient(160deg, #eef0ff, #fff); }
-.deal-photo { display: grid; place-items: center; flex: 1; min-height: 190px; padding: 20px; }
-.deal-photo.coral { background: linear-gradient(135deg, #ffd9d5, var(--coral)); }
-.deal-photo.lilac { background: linear-gradient(135deg, #e5d9ff, var(--lilac)); }
-.deal-photo.butter { background: linear-gradient(135deg, #fff2b8, var(--butter)); }
-.deal-photo.sky { background: linear-gradient(135deg, #d7f2ff, var(--sky)); }
-.deal-photo.mint { background: linear-gradient(135deg, #e1f9eb, var(--mint)); }
-.deal-photo-emoji { font-size: 88px; line-height: 1; filter: drop-shadow(0 8px 10px rgba(21, 21, 21, .12)); }
-.deal-front-body { padding: 14px 16px 12px; border-top: 1px solid var(--line); }
-.deal-merchant { display: block; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--cobalt); }
-.deal-title { display: block; margin-top: 4px; font-size: 18px; font-weight: 900; letter-spacing: -.03em; line-height: 1.2; }
-.deal-offer { display: block; margin-top: 4px; font-size: 13px; }
-.deal-flip-hint { padding: 0 16px 14px; font-size: 11px; font-weight: 800; color: var(--muted); }
-.deal-back-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cobalt); }
-.deal-code { margin: 12px 0 8px; font-size: clamp(22px, 3vw, 30px); font-weight: 900; letter-spacing: .12em; color: var(--ink); }
-.deal-back-note { font-size: 14px; color: var(--muted); }
-.deal-expires { margin-top: 10px; font-size: 12px; font-weight: 800; color: var(--ink); }
-.deal-copy-button { position: absolute; left: 50%; bottom: 18px; z-index: 2; min-height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font-size: 12px; font-weight: 800; opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: opacity .2s ease, transform .2s ease; box-shadow: var(--shadow-small); }
-.deal-flip-card.is-flipped .deal-copy-button { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-
 @media (max-width: 1120px) {
   .listing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .listing-grid-recommended { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -681,7 +621,6 @@
   .profile-top { grid-template-columns: 1fr; }
   .profile-help-grid { grid-template-columns: 1fr 1fr; }
   .inbox-layout { grid-template-columns: 260px minmax(0, 1fr); }
-  .lists-layout { grid-template-columns: 240px minmax(0, 1fr); }
   .settings-layout { grid-template-columns: 230px minmax(0, 1fr); }
   .store-reviews, .store-about { grid-template-columns: 1fr; }
   .store-hero-body { flex-wrap: wrap; }
@@ -725,17 +664,12 @@
   .seller-hero-main { align-items: flex-start; }
   .seller-hero .seller-avatar { width: 58px; height: 58px; flex-basis: 58px; }
   .seller-hero h1 { font-size: 36px; }
-  .lists-layout { display: block; min-height: 0; }
   .settings-layout { display: block; min-height: 0; }
   .settings-nav { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
   .settings-nav-item { flex: 0 0 auto; min-width: 180px; }
   .settings-nav-item.active { box-shadow: inset 0 -3px 0 var(--cobalt); }
   .settings-panel { padding: 18px; }
   .settings-signout { align-items: flex-start; flex-direction: column; }
-  .lists-sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
-  .lists-panel { padding: 16px; }
-  .lists-panel-header .button-row { width: 100%; }
-  .lists-panel-header .primary-button { flex: 1; }
   .tickets-layout { grid-template-columns: 1fr; }
   .chat-panel.ticket-chat { position: static; height: 70vh; max-height: 70vh; min-height: 0; }
   .inbox-layout { display: block; min-height: 0; }
@@ -760,7 +694,6 @@
   .store-hero-logo { flex-basis: 84px; width: 84px; height: 84px; margin-top: -42px; border-radius: 24px; font-size: 38px; }
   .store-hero-info { padding-top: 0; }
   .store-hero-info h1 { font-size: 34px; }
-  .store-hero-actions .follow-button { flex: 1; }
   .store-toolbar { position: static; }
   .store-toolbar-row { flex-direction: column; align-items: stretch; }
   .store-toolbar-row .segmented .segment { flex: 1; }

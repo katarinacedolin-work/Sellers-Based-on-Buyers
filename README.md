@@ -30,7 +30,7 @@ Buyer and seller pages share the same stack. Switching modes hands the mock data
 
 ## What is implemented
 
-**Buyer:** Home, Book/Shop/Search, listing detail with booking or quantity, demo checkout, orders (including ticket QR), sellers and stores, school services, jobs, housing, tickets, Aztec Deals, chore board (offer → auto-approve → pay), inbox, lists, You, settings, quick sell.
+**Buyer:** Home, Book/Shop/Search, listing detail with booking or quantity, demo checkout, orders (including ticket QR), sellers and stores, school services, jobs, housing, tickets, chore board (offer → auto-approve → pay), inbox, You, settings, quick sell.
 
 **Seller Hub:** Dashboard, listings manager and editor, new listing, orders list/week and detail, ticket scan, analytics, inbox, notifications, profile (availability, calendar connect, verification), weekly hours, store editor, reviews, payouts. Preview any listing/store/profile as a buyer.
 

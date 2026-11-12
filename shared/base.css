@@ -174,9 +174,6 @@ body[data-mode="seller"] .inbox-badge { background: var(--coral); color: var(--i
 }
 .svg-icon { overflow: visible; }
 .trust-icon .svg-icon { width: 18px; height: 18px; }
-.save-button .svg-icon { width: 16px; height: 16px; }
-.save-button.saved .svg-icon { color: var(--coral); }
-.save-button.saved .svg-icon path { fill: currentColor; stroke: currentColor; }
 .verified-check .icon-verified { width: 16px; height: 16px; flex-shrink: 0; color: var(--cobalt); }
 .verified-badge .icon-verified { width: 15px; height: 15px; flex-shrink: 0; color: var(--cobalt); }
 .primary-button .icon-verified { color: #fff; --verified-mark: var(--cobalt); }

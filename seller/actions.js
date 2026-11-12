@@ -180,8 +180,6 @@ Object.assign(ACTIONS, {
   "message-seller": previewReadOnly,
   "message-store": previewReadOnly,
   "primary-listing-action": previewReadOnly,
-  "toggle-save": previewReadOnly,
-  "toggle-follow-store": previewReadOnly,
   "confirm-order": previewReadOnly,
   "start-checkout": previewReadOnly,
 
@@ -409,13 +407,6 @@ Object.assign(ACTIONS, {
   "seller-edit-store": (target) => openStoreEditor(target.dataset.id || myStore()?.id),
   "seller-share-store": (target) => shareLink(`store/${target.dataset.id || myStore()?.id}`),
   "seller-post-announcement": () => openAnnouncementModal(),
-
-  "seller-add-collection": () => {
-    const name = document.querySelector("#seller-new-collection")?.value.trim();
-    if (!name) return showToast("Give the collection a name first.", "error");
-    state.seller.draft.collections.push({ name, listingIds: [] });
-    render();
-  },
 
   "seller-remove-collection": (target) => {
     state.seller.draft?.collections.splice(Number(target.dataset.index), 1);

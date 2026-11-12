@@ -2,26 +2,6 @@
 
 /* ---------- Listing cards ---------- */
 
-function listingSaveButton(listing) {
-  const saved = isListingSaved(listing.id);
-  return `<button type="button" class="save-button ${saved ? "saved" : ""}" data-action="toggle-save" data-id="${listing.id}" aria-label="${saved ? "Manage lists" : "Save to a list"}">${icon("heart")}</button>`;
-}
-
-function listPageListingCard(listing, listId) {
-  return `<article class="listing-card">
-    <button type="button" class="save-button" data-action="remove-from-list" data-list-id="${listId}" data-id="${listing.id}" aria-label="Remove from list">${icon("close")}</button>
-    <button type="button" class="listing-card-button" data-action="open-listing" data-id="${listing.id}">
-      ${listingVisual(listing)}
-      <div class="listing-body">
-        <div class="listing-title">${escapeHtml(listing.title)}</div>
-        ${listingCardMetaHtml(listing)}
-        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${identityMark(listing)}</div>
-        <div class="listing-meta">${listingPriceHtml(listing)}<span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
-      </div>
-    </button>
-  </article>`;
-}
-
 function listingConditionLabel(listing) {
   if (listing.kind !== "product") return "";
   return listing.condition || "Good condition";
@@ -108,7 +88,6 @@ function listingVisual(listing, detail = false) {
 function listingCard(listing) {
   if (listing.kind === "ticket") return ticketListingCard(listing);
   return `<article class="listing-card">
-    ${listingSaveButton(listing)}
     <button type="button" class="listing-card-button" data-action="open-listing" data-id="${listing.id}">
       ${listingVisual(listing)}
       <div class="listing-body">
@@ -188,83 +167,7 @@ function homeView() {
 
   <section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>Recommended</h2><button class="text-button" data-view="search">Browse more ${icon("arrow")}</button></div><div class="listing-grid listing-grid-recommended">${recommended.map(listingCard).join("")}</div></section>
 
-  <section class="section sell-hero"><div class="eyebrow">Campus perks</div><h2>Aztec Deals are live this week.</h2><p>Student discounts, fundraisers and short-run pop-ups around SDSU.</p><button class="primary-button" data-view="deals">See Aztec Deals ${icon("arrow")}</button></section>
   <section class="section sell-hero"><div class="eyebrow">For student sellers</div><h2>Turn what you know into what you earn.</h2><p>List a service, sell something you are done with or build a reputation on campus.</p><button class="primary-button" data-view="sell">Start selling ${icon("arrow")}</button></section>`;
-}
-
-/* ---------- Aztec Deals ---------- */
-
-function dealFlipCard(deal) {
-  return `<article class="deal-flip-card">
-    <div class="deal-flip-scene">
-      <button type="button" class="deal-flip-trigger" data-action="flip-deal" aria-pressed="false" aria-label="Reveal code for ${escapeHtml(deal.title)}">
-        <span class="deal-flip-inner">
-          <span class="deal-face deal-front">
-            <span class="deal-photo ${deal.accent}"><span class="deal-photo-emoji" aria-hidden="true">${deal.emoji}</span></span>
-            <span class="deal-front-body">
-              <span class="deal-merchant">${escapeHtml(deal.merchant)}</span>
-              <span class="deal-title">${escapeHtml(deal.title)}</span>
-              <span class="deal-offer muted">${escapeHtml(deal.offer)}</span>
-            </span>
-            <span class="deal-flip-hint">Tap to reveal code</span>
-          </span>
-          <span class="deal-face deal-back">
-            <span class="deal-back-eyebrow">Aztec Deal</span>
-            <span class="deal-code">${escapeHtml(deal.code)}</span>
-            <span class="deal-back-note">Show this code at checkout</span>
-            <span class="deal-expires">Valid through ${escapeHtml(deal.expires)}</span>
-          </span>
-        </span>
-      </button>
-    </div>
-    <button type="button" class="deal-copy-button" data-action="copy-deal-code" data-code="${escapeHtml(deal.code)}">Copy code</button>
-  </article>`;
-}
-
-function campusEventCard(event, kind) {
-  const label = kind === "fundraiser" ? "Fundraiser" : "Pop-up";
-  return `<article class="deal-flip-card campus-event-card">
-    <div class="deal-flip-scene">
-      <button type="button" class="deal-flip-trigger" data-action="flip-deal" aria-pressed="false" aria-label="Details for ${escapeHtml(event.title)}">
-        <span class="deal-flip-inner">
-          <span class="deal-face deal-front">
-            <span class="deal-photo ${event.accent}"><span class="deal-photo-emoji" aria-hidden="true">${event.emoji}</span></span>
-            <span class="deal-front-body">
-              <span class="deal-merchant">${escapeHtml(event.host)}</span>
-              <span class="deal-title">${escapeHtml(event.title)}</span>
-              <span class="deal-offer muted">${escapeHtml(event.when)}</span>
-            </span>
-            <span class="deal-flip-hint">Tap for details</span>
-          </span>
-          <span class="deal-face deal-back">
-            <span class="deal-back-eyebrow">${label}</span>
-            <span class="deal-title">${escapeHtml(event.title)}</span>
-            <span class="deal-back-note">${escapeHtml(event.where)}</span>
-            <span class="deal-expires">${escapeHtml(event.detail)}</span>
-            <span class="deal-back-note">${escapeHtml(event.when)}</span>
-          </span>
-        </span>
-      </button>
-    </div>
-  </article>`;
-}
-
-function dealsSection(title, copy, cards) {
-  return `<section class="deals-section"><div class="section-header section-header-shelf"><h2>${title}</h2></div><p class="lede deals-section-copy">${copy}</p><div class="deals-grid">${cards}</div></section>`;
-}
-
-function dealsView() {
-  const { deals, fundraisers, popups } = data.deals;
-  return `<div class="deals-page">
-    <div class="deals-hero">
-      <div class="eyebrow">SDSU exclusive</div>
-      <h1>Aztec Deals</h1>
-      <p class="lede">Student discounts, campus fundraisers, and short-run pop-ups. Flip a discount card for the code.</p>
-    </div>
-    ${dealsSection("Student discounts", "Show the code in person or online. Student ID when they ask.", deals.map(dealFlipCard).join(""))}
-    ${dealsSection("Fundraisers", "Orgs raising money on campus this week.", fundraisers.map((event) => campusEventCard(event, "fundraiser")).join(""))}
-    ${dealsSection("Pop-ups", "Stands and one-day shops around SDSU.", popups.map((event) => campusEventCard(event, "popup")).join(""))}
-  </div>`;
 }
 
 /* ---------- Book, Shop and Search ---------- */
@@ -452,7 +355,7 @@ function listingDetailView(listing) {
       : `<div class="detail-block"><h3>Pickup details</h3><div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(listing.availability)}</strong></div><div class="info-row info-row-line"><span class="trust-icon">${icon("handshake")}</span><strong>Meet in public and message in the app</strong></div><div class="quantity-control"><button data-action="decrease-quantity" aria-label="Decrease quantity">${icon("minus")}</button><output>${state.quantity}</output><button data-action="increase-quantity" aria-label="Increase quantity">${icon("plus")}</button></div><span class="small muted" style="margin-left: 10px">${listing.quantityAvailable} available</span></div>`;
   const moreFromBoard = onBoard ? allListings().filter((entry) => isChoreListing(entry) && entry.id !== listing.id).slice(0, 8) : [];
   const moreFromStore = store ? storeListings(store).filter((entry) => entry.id !== listing.id).slice(0, 8) : [];
-  return `<div class="page-top-row"><button class="back-button" data-action="back-from-detail">${icon("chevron-left")} Back to ${backLabel}</button><div class="button-row"><button class="ghost-button" data-action="share" data-path="listing/${listing.id}">${icon("share")} Share</button><button class="ghost-button" data-action="toggle-save" data-id="${listing.id}">${icon("heart")} ${isListingSaved(listing.id) ? "In a list" : "Save"}</button></div></div>
+  return `<div class="page-top-row"><button class="back-button" data-action="back-from-detail">${icon("chevron-left")} Back to ${backLabel}</button><div class="button-row"><button class="ghost-button" data-action="share" data-path="listing/${listing.id}">${icon("share")} Share</button></div></div>
     <div class="detail-layout"><div class="detail-gallery">${listingVisual(listing, true)}<div class="small muted" style="margin-top: 10px">Demo imagery — the real product would use seller-approved portfolio or product photos.</div></div>
       <div class="detail-copy"><div class="eyebrow">${ticket ? kindLabel : `${escapeHtml(listing.category)} · ${kindLabel}`}</div><h1>${escapeHtml(listing.title)}</h1>${ticket ? `<p class="ticket-detail-when">${escapeHtml(ticketSchedule(listing))}</p>` : ""}<p class="lede">${escapeHtml(listing.description)}</p>
         <div class="detail-actions"><button class="primary-button" data-action="start-checkout" data-id="${listing.id}" ${unavailable ? "disabled" : ""}>${buyLabel} ${unavailable ? "" : icon("arrow")}</button>${onBoard ? "" : `<button class="icon-button" data-action="message-seller" data-seller="${listing.sellerId}" data-listing="${listing.id}" aria-label="Message seller">${icon("chat")}</button>`}</div>
@@ -575,9 +478,7 @@ function storeCard(store) {
   const count = storeListings(store).length;
   return `<article class="store-card">
     <button type="button" class="store-card-button" data-action="open-store" data-id="${store.id}">
-      <span class="store-card-banner ${store.accent}">
-        ${isFollowing(store.id) ? `<span class="visual-tag store-following-tag">${icon("check", 12)} Following</span>` : ""}
-      </span>
+      <span class="store-card-banner ${store.accent}"></span>
       <span class="store-card-logo" aria-hidden="true">${escapeHtml(seller.initials)}</span>
       <span class="store-card-body">
         <span class="store-card-name">${escapeHtml(store.name)}${identityMark(seller)}</span>
@@ -647,7 +548,6 @@ function storeView(store) {
   if (!store) return storesView();
   const seller = getSeller(store.sellerId);
   const listings = storeListings(store);
-  const following = isFollowing(store.id);
   const tabs = [
     { id: "shop", label: `Shop (${listings.length})` },
     { id: "reviews", label: `Reviews (${store.reviews})` },
@@ -665,11 +565,10 @@ function storeView(store) {
           <h1>${escapeHtml(store.name)}</h1>
           <p class="store-hero-tagline">${escapeHtml(store.tagline)}</p>
           <button type="button" class="store-owner-link" data-action="open-seller" data-id="${seller.id}"><span class="mini-avatar">${escapeHtml(seller.initials)}</span><span>Run by <strong>${escapeHtml(seller.name)}</strong></span>${identityMark(seller)}</button>
-          <div class="seller-stats"><span><strong>${store.rating}</strong> ★ rating</span><span><strong>${store.reviews}</strong> reviews</span><span><strong>${store.sales}</strong> sales</span><span><strong>${store.followers}</strong> followers</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div>
+          <div class="seller-stats"><span><strong>${store.rating}</strong> ★ rating</span><span><strong>${store.reviews}</strong> reviews</span><span><strong>${store.sales}</strong> sales</span><span>Replies in <strong>${escapeHtml(seller.response)}</strong></span></div>
         </div>
         <div class="store-hero-actions">
-          <button type="button" class="${following ? "ghost-button" : "primary-button"} follow-button ${following ? "following" : ""}" data-action="toggle-follow-store" data-id="${store.id}" aria-pressed="${following}">${following ? `${icon("check")} Following` : `${icon("plus")} Follow`}</button>
-          <button type="button" class="icon-button" data-action="message-store" data-id="${store.id}" aria-label="Message ${escapeHtml(store.name)}">${icon("chat")}</button>
+          <button type="button" class="ghost-button" data-action="message-store" data-id="${store.id}">${icon("chat")} Message</button>
         </div>
       </div>
     </section>
@@ -686,7 +585,6 @@ function storesView() {
   const storeCategoryNames = new Set(data.stores.flatMap(storeCategories));
   const filters = [
     { id: "All", label: "All stores", icon: "grid", dot: "cobalt" },
-    { id: "Following", label: `Following (${data.followedStoreIds.length})`, icon: "heart", dot: "coral" },
     { id: "service", label: "Book", icon: "calendar", dot: "sky" },
     { id: "product", label: "Shop", icon: "bag", dot: "butter" },
     ...data.categories.filter((category) => storeCategoryNames.has(category.name)).map((category) => ({ id: category.name, label: category.name, icon: category.icon, dot: category.dot }))
@@ -694,22 +592,18 @@ function storesView() {
   const activeFilter = state.storesFilter;
   const filtered = data.stores.filter((store) => {
     const matchesFilter = activeFilter === "All"
-      || (activeFilter === "Following" ? isFollowing(store.id)
-        : activeFilter === "service" || activeFilter === "product" ? storeKinds(store).has(activeFilter)
-          : storeCategories(store).includes(activeFilter));
+      || (activeFilter === "service" || activeFilter === "product" ? storeKinds(store).has(activeFilter)
+        : storeCategories(store).includes(activeFilter));
     return matchesFilter && storeMatchesQuery(store, state.storesQuery);
   }).sort((a, b) => b.followers - a.followers);
-  const emptyFollowing = activeFilter === "Following" && !data.followedStoreIds.length;
-  return `<div class="browse-header"><div><div class="eyebrow">Stores</div><h1>Shop by student store.</h1><p class="lede">Every store is run by a student-verified seller. Follow the ones you love so they are easy to find again.</p></div></div>
+  return `<div class="browse-header"><div><div class="eyebrow">Stores</div><h1>Shop by student store.</h1><p class="lede">Every store is run by a student-verified seller.</p></div></div>
     <div class="browse-filters">
       <form class="global-search browse-page-search">${icon("search")}<input id="stores-search-input" data-live="storesQuery" type="search" value="${escapeHtml(state.storesQuery)}" placeholder="Search stores, sellers or what they sell" aria-label="Search stores" autocomplete="off" /></form>
       <div class="filter-bar">${filters.map((filter) => `<button type="button" class="category-chip ${activeFilter === filter.id ? "active" : ""}" data-action="set-stores-filter" data-filter="${escapeHtml(filter.id)}"><span class="category-chip-icon ${filter.dot}" aria-hidden="true">${icon(filter.icon, 22)}</span>${escapeHtml(filter.label)}</button>`).join("")}</div>
     </div>
     ${choreBoardSection(state.storesQuery)}
-    <div class="section-header" style="margin-top: 12px"><span class="result-count">${plural(filtered.length, "store")} · SDSU</span><span class="small muted">Sorted by followers</span></div>
-    ${filtered.length ? `<div class="store-grid">${filtered.map(storeCard).join("")}</div>` : emptyFollowing
-      ? `<div class="empty-state"><div class="empty-shape">♡</div><h3>You are not following any stores yet.</h3><p class="muted">Tap Follow on a store page and it will show up here.</p><button class="primary-button" data-action="set-stores-filter" data-filter="All">Browse all stores ${icon("arrow")}</button></div>`
-      : `<div class="empty-state"><div class="empty-shape">⌁</div><h3>No stores match yet.</h3><p class="muted">Try another filter or search for something else.</p><button class="ghost-button" data-action="clear-stores-filters">Clear filters</button></div>`}`;
+    <div class="section-header" style="margin-top: 12px"><span class="result-count">${plural(filtered.length, "store")} · SDSU</span></div>
+    ${filtered.length ? `<div class="store-grid">${filtered.map(storeCard).join("")}</div>` : `<div class="empty-state"><div class="empty-shape">⌁</div><h3>No stores match yet.</h3><p class="muted">Try another filter or search for something else.</p><button class="ghost-button" data-action="clear-stores-filters">Clear filters</button></div>`}`;
 }
 
 /* ---------- Job Board and Housing ---------- */
@@ -1096,67 +990,12 @@ function inboxView() {
   return `${header}<div class="inbox-layout"><aside class="conversation-list"><div class="conversation-header"><h2>Messages</h2></div>${rows}</aside><section class="chat-panel"><div class="chat-header"><div class="chat-person"><span class="mini-avatar" style="background:var(--${active.accent})">${escapeHtml(active.initials)}</span><div><strong>${escapeHtml(active.name)}</strong><span>${escapeHtml(active.context)}</span></div></div><div class="button-row"><button class="icon-button" data-action="open-report" aria-label="Report conversation">${icon("shield")}</button><button class="icon-button" data-action="open-help" aria-label="Get help">${icon("help")}</button></div></div><div class="chat-messages">${messageBubbles(active.messages, `This is the start of your conversation with ${active.name}.`)}</div><form class="chat-composer" data-form="send-message"><textarea name="message" placeholder="Write a message…" aria-label="Write a message" rows="1"></textarea><button class="primary-button" type="submit" aria-label="Send message">${icon("arrow")}</button></form></section></div>`;
 }
 
-/* ---------- Lists ---------- */
-
-function openSaveToListModal(listingId) {
-  const listing = getListing(listingId);
-  if (!listing) return;
-  const rows = data.lists.map((list) => {
-    const inList = list.listingIds.includes(listingId);
-    return `<button type="button" class="activity-row" data-action="toggle-listing-in-list" data-list-id="${list.id}" data-id="${listingId}"><span class="activity-main"><span class="activity-thumb lilac">📋</span><span><span class="activity-title">${escapeHtml(list.name)}</span><span class="activity-sub">${plural(list.listingIds.length, "item")}</span></span></span><span class="list-save-state ${inList ? "in-list" : ""}">${inList ? "Saved" : "Add"}</span></button>`;
-  }).join("");
-  renderModal(`<div class="eyebrow">Save for later</div><h2>Add to a list</h2><p class="muted">${escapeHtml(listing.title)}</p><div class="notification-list">${rows}</div><div class="modal-actions"><button class="ghost-button" data-action="open-create-list">New list</button><button class="primary-button" data-action="close-modal">Done</button></div>`);
-}
-
-function openCreateListModal() {
-  renderModal(`<div class="eyebrow">My lists</div><h2>Create a new list</h2><p class="muted">Keep services and products organized for move-in, graduation or anything in between.</p><form data-form="create-list"><div class="field"><label for="list-name">List name</label><input id="list-name" name="name" required placeholder="e.g. Graduation plans" maxlength="48" /></div><div class="modal-actions"><button class="ghost-button" type="button" data-action="close-modal">Cancel</button><button class="primary-button" type="submit">Create list ${icon("arrow")}</button></div></form>`);
-}
-
-function openAddToListModal() {
-  const list = selectedList();
-  if (!list) return;
-  const available = allListings().filter((listing) => !list.listingIds.includes(listing.id));
-  const rows = available.length
-    ? available.map((listing) => `<button type="button" class="activity-row" data-action="add-listing-to-list" data-list-id="${list.id}" data-id="${listing.id}"><span class="activity-main"><span class="activity-thumb ${listing.accent}">${listing.emoji}</span><span><span class="activity-title">${escapeHtml(listing.title)}</span><span class="activity-sub">${escapeHtml(listing.category)} · ${escapeHtml(listing.seller)} · ${money(listing.price)}</span></span></span><span class="list-save-state">Add</span></button>`).join("")
-    : `<p class="muted" style="margin: 8px 0 0">Everything on campus is already in this list.</p>`;
-  renderModal(`<div class="eyebrow">${escapeHtml(list.name)}</div><h2>Add to this list</h2><p class="muted">Pick a service or product from the marketplace.</p><div class="notification-list list-picker">${rows}</div><div class="modal-actions"><button class="primary-button" data-action="close-modal">Done</button></div>`);
-}
-
-function myListsView() {
-  const list = selectedList();
-  if (!list) {
-    return `<div class="page-top-row"><div><div class="eyebrow">Saved for later</div><h1 style="margin-bottom: 6px">My lists</h1><p class="muted" style="margin:0">Create a list to keep campus finds in one place.</p></div></div><div class="empty-state"><div class="empty-shape">♡</div><h3>Start your first list.</h3><p class="muted">Save services and products while you browse, or build a list from scratch.</p><button class="primary-button" data-action="open-create-list">Create a list ${icon("arrow")}</button></div>`;
-  }
-  const items = list.listingIds.map(getListing).filter(Boolean);
-  const sidebar = data.lists.map((entry) => `<button type="button" class="list-row ${entry.id === list.id ? "active" : ""}" data-action="select-list" data-id="${entry.id}"><span class="list-row-main"><span class="list-row-name">${escapeHtml(entry.name)}</span><span class="list-row-count muted">${plural(entry.listingIds.length, "item")}</span></span></button>`).join("");
-  const grid = items.length
-    ? `<div class="listing-grid">${items.map((listing) => listPageListingCard(listing, list.id)).join("")}</div>`
-    : `<div class="empty-state list-empty"><div class="empty-shape">♡</div><h3>This list is empty.</h3><p class="muted">Tap the heart on any listing while you browse, or add campus picks here.</p><button class="primary-button" data-action="open-add-to-list">Add items ${icon("arrow")}</button></div>`;
-  return `<div class="page-top-row"><div><div class="eyebrow">Saved for later</div><h1 style="margin-bottom: 6px">My lists</h1><p class="muted" style="margin:0">Private shortlists for services and products on campus.</p></div><button class="ghost-button" data-view="you">${icon("chevron-left")} Back to You</button></div>
-  <div class="lists-layout">
-    <aside class="lists-sidebar">
-      <div class="lists-sidebar-header"><h2>Your lists</h2><button type="button" class="text-button" data-action="open-create-list">${icon("plus")} New</button></div>
-      <div class="lists-sidebar-body">${sidebar}</div>
-    </aside>
-    <section class="lists-panel">
-      <div class="lists-panel-header">
-        <div><h2>${escapeHtml(list.name)}</h2><p class="muted small" style="margin:0">${plural(items.length, "item")}</p></div>
-        <div class="button-row">
-          <button type="button" class="primary-button" data-action="open-add-to-list">Add items ${icon("plus")}</button>
-          ${data.lists.length > 1 ? `<button type="button" class="ghost-button" data-action="delete-list" data-id="${list.id}">Delete list</button>` : ""}
-        </div>
-      </div>
-      ${grid}
-    </section>
-  </div>`;
-}
-
 /* ---------- You and settings ---------- */
 
 const SETTINGS_SECTIONS = [
   { id: "account", label: "Account", hint: "Name and campus", icon: "user" },
   { id: "payment", label: "Payment", hint: "Cards for checkout", icon: "wallet" },
-  { id: "notifications", label: "Notifications", hint: "Messages, orders, deals", icon: "bell" },
+  { id: "notifications", label: "Notifications", hint: "Messages and orders", icon: "bell" },
   { id: "privacy", label: "Privacy & safety", hint: "Who can see you", icon: "shield" }
 ];
 
@@ -1220,7 +1059,7 @@ function settingsNotificationsPanel() {
     <p class="muted small">These stay in the app for this prototype. Nothing is emailed.</p>
     ${accountRow("notifyMessages", "Messages", "When a seller replies about a listing or order.")}
     ${accountRow("notifyOrders", "Orders and bookings", "Pickup updates, confirmations and schedule changes.")}
-    ${accountRow("notifyDeals", "Housing & subleases", "New rooms and subleases near campus.")}
+    ${accountRow("notifyHousing", "Housing & subleases", "New rooms and subleases near campus.")}
   </div>`;
 }
 
@@ -1258,23 +1097,19 @@ function settingsView() {
 function youView() {
   const name = data.account.displayName;
   const unread = unreadCount(data.conversations);
-  const following = data.followedStoreIds.length;
   const orderRows = data.orders.map((order) => {
     const listing = getListing(order.listingId);
     return `<button class="activity-row" data-action="open-order" data-id="${order.id}"><span class="activity-main"><span class="activity-thumb ${order.accent || listing?.accent || "lilac"}">${order.emoji || listing?.emoji || "✦"}</span><span><span class="activity-title">${escapeHtml(order.title || listing?.title || "Campus Connect order")}</span><span class="activity-sub">${escapeHtml([buyerOrderStatus(order), buyerOrderWhen(order)].filter(Boolean).join(" · "))}</span></span></span>${icon("chevron-right")}</button>`;
   }).join("");
   return `<div class="page-top-row"><div><div class="eyebrow">Your campus activity</div><h1 style="margin-bottom: 6px">You</h1><p class="muted" style="margin:0">Keep track of bookings, purchases and messages.</p></div><button class="ghost-button" data-view="settings">${icon("settings")} Settings</button></div>
-  <section class="seller-hero profile-hero"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(initialsOf(name))}</div><div>${studentVerifiedPill()}<h2>${escapeHtml(name)}</h2>${data.account.showCampus ? `<p class="muted">SDSU</p>` : ""}<div class="seller-stats"><span><strong>${data.orders.length}</strong> orders</span><span><strong>${data.lists.length}</strong> lists</span><span><strong>${following}</strong> following</span></div></div></div></section>
+  <section class="seller-hero profile-hero"><div class="seller-hero-main"><div class="seller-avatar">${escapeHtml(initialsOf(name))}</div><div>${studentVerifiedPill()}<h2>${escapeHtml(name)}</h2>${data.account.showCampus ? `<p class="muted">SDSU</p>` : ""}<div class="seller-stats"><span><strong>${data.orders.length}</strong> orders</span><span><strong>${data.conversations.length}</strong> messages</span></div></div></div></section>
   <section class="profile-layout">
     <div class="profile-orders-panel">
       <div class="section-header profile-orders-header"><div><div class="eyebrow">Your activity</div><h2>Orders & bookings</h2></div></div>
       <div class="activity-list">${orderRows || `<p class="muted small">Nothing yet. Bookings and purchases show up here.</p>`}</div>
     </div>
     <div class="quick-actions profile-help-grid">
-      <button class="quick-action" data-view="lists"><span class="trust-icon">${icon("heart")}</span><strong>My lists</strong><span>${plural(data.lists.length, "list")} · ${savedListingCount()} saved</span></button>
-      <button class="quick-action" data-action="open-following"><span class="trust-icon">${icon("store")}</span><strong>Following</strong><span>${plural(following, "store")}</span></button>
       <button class="quick-action" data-action="open-chore-board"><span class="trust-icon">${icon("handshake")}</span><strong>Chore Board</strong><span>Post or pick up a chore</span></button>
-      <button class="quick-action" data-view="deals"><span class="trust-icon">${icon("sparkles")}</span><strong>Aztec Deals</strong><span>Discounts and campus pop-ups</span></button>
       <button class="quick-action" data-view="inbox"><span class="trust-icon">${icon("chat")}</span><strong>Inbox</strong><span>${unread ? plural(unread, "unread message") : "No unread messages"}</span></button>
       <button class="quick-action" data-action="open-help"><span class="trust-icon">${icon("help")}</span><strong>Get help</strong><span>Support and safety</span></button>
     </div>
@@ -1334,11 +1169,9 @@ Object.assign(VIEWS, {
   jobs: jobBoardView,
   housing: housingView,
   tickets: ticketsView,
-  deals: dealsView,
   "chore-board": choreBoardView,
   "chore-pay": () => chorePayView(data.chores.find((chore) => chore.id === state.selectedChoreId)),
   inbox: inboxView,
-  lists: myListsView,
   you: youView,
   settings: settingsView,
   sell: sellView
@@ -1347,7 +1180,6 @@ Object.assign(VIEWS, {
 /** Views without a navigation button of their own highlight one of these instead. */
 Object.assign(NAV_PARENTS, {
   search: "home",
-  deals: "home",
   settings: "you",
   "chore-board": () => state.boardReturn || "book",
   "school-service": () => (["search", "home"].includes(state.schoolServiceReturn) ? "home" : "book")

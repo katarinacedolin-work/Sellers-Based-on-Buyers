@@ -290,7 +290,7 @@ function sellerListingsView() {
 }
 
 function openDeleteListingModal(listing) {
-  renderModal(`<div class="eyebrow">Delete listing</div><h2>Delete “${escapeHtml(listing.title)}”?</h2><p class="muted">It disappears from your store and buyers' lists. Past orders stay in your history. Consider pausing it instead.</p><div class="modal-actions"><button class="ghost-button" data-action="close-modal">Keep it</button>${listingStatus(listing) === "active" ? `<button class="ghost-button" data-action="seller-toggle-listing-status" data-id="${listing.id}">${icon("pause")} Pause instead</button>` : ""}<button class="danger-button" data-action="seller-confirm-delete-listing" data-id="${listing.id}">${icon("trash")} Delete</button></div>`);
+  renderModal(`<div class="eyebrow">Delete listing</div><h2>Delete “${escapeHtml(listing.title)}”?</h2><p class="muted">It disappears from your store. Past orders stay in your history. Consider pausing it instead.</p><div class="modal-actions"><button class="ghost-button" data-action="close-modal">Keep it</button>${listingStatus(listing) === "active" ? `<button class="ghost-button" data-action="seller-toggle-listing-status" data-id="${listing.id}">${icon("pause")} Pause instead</button>` : ""}<button class="danger-button" data-action="seller-confirm-delete-listing" data-id="${listing.id}">${icon("trash")} Delete</button></div>`);
 }
 
 /** The listing in the editor with its unsaved changes applied, for the preview card beside the form. */
@@ -801,7 +801,7 @@ function storeManageCard(store) {
       <span class="store-card-name">${escapeHtml(store.name)}</span>
       <span class="store-card-owner">${escapeHtml(store.handle)}</span>
       <span class="store-card-tagline">${escapeHtml(store.tagline)}</span>
-      <div class="store-manage-stats"><span><strong>${formatNumber(store.followers)}</strong> followers</span><span><strong>${store.sales}</strong> sales</span><span><strong>${store.rating}</strong> ★</span><span><strong>${active}/${listings.length}</strong> live</span></div>
+      <div class="store-manage-stats"><span><strong>${store.sales}</strong> sales</span><span><strong>${store.rating}</strong> ★</span><span><strong>${active}/${listings.length}</strong> live</span></div>
       ${store.announcement ? `<div class="store-announcement compact"><span class="trust-icon">${icon("megaphone")}</span><span>${escapeHtml(store.announcement)}</span></div>` : ""}
       <div class="button-row"><button class="primary-button" data-action="seller-edit-store" data-id="${store.id}">${icon("edit")} Edit store</button><button class="ghost-button" data-action="seller-preview-store" data-id="${store.id}">${icon("eye")} Preview</button><button class="ghost-button" data-action="seller-post-announcement">${icon("megaphone")} Announcement</button><button class="icon-button" data-action="share" data-path="store/${store.id}" aria-label="Share ${escapeHtml(store.name)}">${icon("share")}</button></div>
     </div>
@@ -811,7 +811,7 @@ function storeManageCard(store) {
 function sellerStoresView() {
   const store = myStore();
   if (!store) return `${sellerHeader({ eyebrow: "Seller Hub", title: "Your store", sub: "A profile has one store." })}<div class="empty-state"><div class="empty-shape">⌁</div><h3>No store on this profile.</h3><p class="muted">Listings, collections and policies all belong to that one store.</p></div>`;
-  return `${sellerHeader({ eyebrow: "Seller Hub", title: "Your store", sub: "A profile has one store. Buyers follow it, and every listing lives here." })}
+  return `${sellerHeader({ eyebrow: "Seller Hub", title: "Your store", sub: "A profile has one store, and every listing lives here." })}
     <div class="store-manage-grid store-manage-single">${storeManageCard(store)}</div>`;
 }
 
@@ -829,7 +829,7 @@ function sellerStoreEditView() {
   const storeItems = everyListing().filter((listing) => listing.storeId === store.id);
   const swatches = ACCENTS.map((accent) => `<button type="button" class="swatch ${accent} ${draft.accent === accent ? "active" : ""}" data-action="seller-set-draft-accent" data-accent="${accent}" aria-label="${accent} theme"></button>`).join("");
   const collections = draft.collections.map((collection, index) => `<div class="collection-block"><div class="collection-head"><input aria-label="Collection name" data-collection-name="${index}" value="${escapeHtml(collection.name)}" /><button type="button" class="icon-button danger" data-action="seller-remove-collection" data-index="${index}" aria-label="Remove ${escapeHtml(collection.name)}">${icon("trash")}</button></div><div class="collection-items">${storeItems.map((listing) => `<label class="collection-item"><input type="checkbox" data-collection-index="${index}" value="${listing.id}" ${collection.listingIds.includes(listing.id) ? "checked" : ""} /> <span>${listing.emoji} ${escapeHtml(listing.title)}</span></label>`).join("") || `<span class="muted small">Add listings to this store first.</span>`}</div></div>`).join("");
-  return `${sellerHeader({ eyebrow: "Edit store", title: escapeHtml(store.name), sub: `${plural(storeItems.length, "listing")} · ${formatNumber(store.followers)} followers`, back: { view: "seller-stores", label: "Back to your store" }, actions: `<button class="ghost-button" data-action="seller-preview-store" data-id="${store.id}">${icon("eye")} Preview store</button>` })}
+  return `${sellerHeader({ eyebrow: "Edit store", title: escapeHtml(store.name), sub: plural(storeItems.length, "listing"), back: { view: "seller-stores", label: "Back to your store" }, actions: `<button class="ghost-button" data-action="seller-preview-store" data-id="${store.id}">${icon("eye")} Preview store</button>` })}
     <div class="editor-layout">
       <form class="form-card editor-form" data-form="seller-save-store">
         <h3>Look and feel</h3>
@@ -851,7 +851,6 @@ function sellerStoreEditView() {
         <h3 class="editor-section-title">Collections</h3>
         <p class="muted small">Collections are the chips buyers use to browse your store.</p>
         <div class="collection-editor">${collections || `<p class="muted small">No collections yet.</p>`}</div>
-        <div class="slot-add"><input id="seller-new-collection" maxlength="30" placeholder="New collection name" aria-label="New collection name" /><button type="button" class="ghost-button" data-action="seller-add-collection">${icon("plus")} Add collection</button></div>
         <div class="button-row" style="margin-top: 22px"><button class="primary-button" type="submit">Save store ${icon("check")}</button><button class="ghost-button" type="button" data-view="seller-stores">Cancel</button></div>
       </form>
       <aside class="editor-side"><div class="eyebrow">Card preview</div><div id="seller-store-preview" class="editor-preview">${storeCard(draftStore())}</div><div class="trust-note" style="margin-top:14px">Policies are shown to buyers again before checkout.</div></aside>
@@ -861,7 +860,7 @@ function sellerStoreEditView() {
 function openAnnouncementModal() {
   const store = myStore();
   if (!store) return;
-  renderModal(`<div class="eyebrow">Store announcement</div><h2>Tell followers of ${escapeHtml(store.name)} something.</h2><p class="muted">It shows at the top of your store page until you change it.</p><form data-form="seller-announcement"><div class="field"><label for="announce-text">Announcement</label><input id="announce-text" name="text" required maxlength="100" value="${escapeHtml(store.announcement || "")}" placeholder="e.g. Grad season weekends are filling up fast." /></div><div class="modal-actions"><button class="ghost-button" type="button" data-action="close-modal">Cancel</button><button class="primary-button" type="submit">Post ${icon("megaphone")}</button></div></form>`);
+  renderModal(`<div class="eyebrow">Store announcement</div><h2>Tell students visiting ${escapeHtml(store.name)} something.</h2><p class="muted">It shows at the top of your store page until you change it.</p><form data-form="seller-announcement"><div class="field"><label for="announce-text">Announcement</label><input id="announce-text" name="text" required maxlength="100" value="${escapeHtml(store.announcement || "")}" placeholder="e.g. Grad season weekends are filling up fast." /></div><div class="modal-actions"><button class="ghost-button" type="button" data-action="close-modal">Cancel</button><button class="primary-button" type="submit">Post ${icon("megaphone")}</button></div></form>`);
 }
 
 /* ---------- Reviews ---------- */

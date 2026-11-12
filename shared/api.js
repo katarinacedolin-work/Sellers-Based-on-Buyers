@@ -309,7 +309,6 @@ const api = (() => {
       myListing(id);
       db.listings = db.listings.filter((listing) => listing.id !== id);
       db.stores.forEach((store) => store.collections.forEach((collection) => { collection.listingIds = collection.listingIds.filter((entry) => entry !== id); }));
-      db.buyer.lists.forEach((list) => { list.listingIds = list.listingIds.filter((entry) => entry !== id); });
     },
 
     /* Boards */
@@ -318,8 +317,6 @@ const api = (() => {
     getHousing: () => db.housing,
     getChores: () => db.chores,
     getTicketPosts: () => db.ticketPosts,
-    /** Campus partner discounts, fundraisers and pop-ups shown on Aztec Deals. */
-    getDeals: () => ({ deals: db.deals, fundraisers: db.fundraisers, popups: db.popups }),
 
     postJob: (fields) => {
       requireAll(fields, ["title", "where", "schedule", "pay", "summary"], "Fill in the title, where, schedule, pay, and description.");
@@ -389,7 +386,7 @@ const api = (() => {
     getAccount: () => db.buyer.account,
 
     updateAccount: (changes) => {
-      const fields = pick(changes, ["displayName", "notifyMessages", "notifyOrders", "notifyDeals", "profileVisible", "showCampus"]);
+      const fields = pick(changes, ["displayName", "notifyMessages", "notifyOrders", "notifyHousing", "profileVisible", "showCampus"]);
       if ("displayName" in fields && !String(fields.displayName).trim()) fail("Add a display name.");
       Object.assign(db.buyer.account, fields);
       if ("displayName" in fields) renameSeller(db.buyer.id, fields.displayName);
@@ -419,44 +416,6 @@ const api = (() => {
     setDefaultPaymentMethod: (id) => {
       find(db.buyer.paymentMethods, id, "card");
       db.buyer.paymentMethods.forEach((method) => { method.isDefault = method.id === id; });
-    },
-
-    /* Lists and follows */
-
-    getLists: () => db.buyer.lists,
-
-    createList: (name) => {
-      if (!name) fail("Give the list a name.");
-      db.buyer.lists.push({ id: newId("list"), name, listingIds: [] });
-      return db.buyer.lists.at(-1);
-    },
-
-    deleteList: (id) => {
-      find(db.buyer.lists, id, "list");
-      if (db.buyer.lists.length < 2) fail("Keep at least one list.");
-      db.buyer.lists = db.buyer.lists.filter((list) => list.id !== id);
-    },
-
-    addToList: (listId, listingId) => {
-      const list = find(db.buyer.lists, listId, "list");
-      if (!list.listingIds.includes(listingId)) list.listingIds.push(listingId);
-      return list;
-    },
-
-    removeFromList: (listId, listingId) => {
-      const list = find(db.buyer.lists, listId, "list");
-      list.listingIds = list.listingIds.filter((id) => id !== listingId);
-      return list;
-    },
-
-    getFollowedStoreIds: () => db.buyer.followedStoreIds,
-
-    setStoreFollowed: (storeId, following) => {
-      const store = find(db.stores, storeId, "store");
-      const followed = db.buyer.followedStoreIds.includes(storeId);
-      if (following === followed) return;
-      db.buyer.followedStoreIds = following ? [...db.buyer.followedStoreIds, storeId] : db.buyer.followedStoreIds.filter((id) => id !== storeId);
-      store.followers += following ? 1 : -1;
     },
 
     /* Buying */

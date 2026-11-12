@@ -29,8 +29,28 @@ const services = [
     description: "A punchy social edit from your raw clips: captions, pacing, music and one revision included.", meeting: "Digital delivery", response: "Usually replies same day", slots: ["Tue · 2:00 PM", "Wed · 1:00 PM", "Thu · 4:00 PM"]
   },
   {
-    id: "leo-move", kind: "service", bookingType: "chore", category: "Help", title: "Move-out help", seller: "Leo Thompson", initials: "LT", sellerId: "leo-thompson", storeId: "leo-lifts", rating: "4.9", reviews: 7, completed: 12, price: 25, unit: "hour", accent: "butter", emoji: "📦", tag: "Useful now", availability: "Sat · 10:00 AM", campus: "SDSU", verified: true,
+    id: "leo-move", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Move-out help", seller: "Leo Thompson", initials: "LT", sellerId: "leo-thompson", storeId: "leo-lifts", rating: "4.9", reviews: 7, completed: 12, price: 25, unit: "hour", accent: "butter", emoji: "📦", tag: "Useful now", availability: "Sat · 10:00 AM", campus: "SDSU", verified: true,
     description: "One extra pair of hands for boxes, small furniture and a tidy move between campus housing.", meeting: "Your residence hall", response: "Usually replies within a few hours", slots: ["Sat · 10:00 AM", "Sat · 1:00 PM", "Sun · 10:00 AM"]
+  },
+  {
+    id: "leo-carry", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Furniture carry", seller: "Leo Thompson", initials: "LT", sellerId: "leo-thompson", storeId: "leo-lifts", rating: "4.8", reviews: 5, completed: 8, price: 30, unit: "hour", accent: "butter", emoji: "🪑", availability: "Sat · 1:00 PM", campus: "SDSU", verified: true,
+    description: "A second person for a desk, dresser or mini fridge. Leo meets you at the hall and carries it to the car or the new room.", meeting: "Your residence hall", response: "Usually replies within a few hours", slots: ["Sat · 1:00 PM", "Sun · 11:00 AM", "Sun · 2:00 PM"]
+  },
+  {
+    id: "leo-reset", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Dorm reset", seller: "Leo Thompson", initials: "LT", sellerId: "leo-thompson", storeId: "leo-lifts", rating: "5.0", reviews: 4, completed: 6, price: 40, unit: "2 hours", accent: "mint", emoji: "🧹", availability: "Sun · 12:00 PM", campus: "SDSU", verified: true,
+    description: "A two-hour reset before a tour or a parent visit: trash out, surfaces wiped, and the room put back together.", meeting: "Your residence hall", response: "Usually replies within a few hours", slots: ["Sun · 12:00 PM", "Fri · 4:00 PM"]
+  },
+  {
+    id: "taylor-laundry", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Laundry run", seller: "Taylor Brooks", initials: "TB", sellerId: "taylor-brooks", storeId: "dorm-drop", rating: "4.8", reviews: 9, completed: 14, price: 18, unit: "run", accent: "sky", emoji: "👕", availability: "Today · 5:00 PM", campus: "SDSU", verified: true,
+    description: "Pickup from your hall, a wash and dry, and the bag back at your door the same evening.", meeting: "Your residence hall", response: "Usually replies same day", slots: ["Today · 5:00 PM", "Tomorrow · 10:00 AM", "Thu · 6:00 PM"]
+  },
+  {
+    id: "taylor-grocery", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Grocery run", seller: "Taylor Brooks", initials: "TB", sellerId: "taylor-brooks", storeId: "dorm-drop", rating: "4.9", reviews: 11, completed: 16, price: 12, unit: "run", accent: "mint", emoji: "🛒", availability: "Today · 4:00 PM", campus: "SDSU", verified: true,
+    description: "Send a short list. Taylor shops Viejas or the market and drops the bags at your hall.", meeting: "Your residence hall", response: "Usually replies same day", slots: ["Today · 4:00 PM", "Tomorrow · 3:00 PM", "Sat · 11:00 AM"]
+  },
+  {
+    id: "jordan-boxes", kind: "service", bookingType: "service", choreFocus: true, category: "Help", title: "Boxes to the car", seller: "Jordan Lee", initials: "JL", sellerId: "jordan-lee", storeId: "dorm-reset", rating: "4.7", reviews: 6, completed: 9, price: 20, unit: "hour", accent: "coral", emoji: "📫", availability: "Sat · 9:00 AM", campus: "SDSU", verified: true,
+    description: "Load labeled boxes from your room out to a car at the hall loop. You book the hour and meet Jordan downstairs.", meeting: "Residence hall loop", response: "Usually replies same day", slots: ["Sat · 9:00 AM", "Sat · 12:00 PM", "Sun · 9:00 AM"]
   },
   {
     id: "mia-headshots", kind: "service", category: "Create", title: "LinkedIn headshots", seller: "Mia Torres", initials: "MT", sellerId: "mia-torres", storeId: "mia-torres-studio", rating: "4.7", reviews: 13, completed: 21, price: 50, unit: "30 min", accent: "sky", emoji: "🪪", tag: "Career ready", availability: "Thu · 12:00 PM", campus: "SDSU", verified: true,
@@ -83,6 +103,10 @@ const services = [
   {
     id: "mslc-tutoring", kind: "service", category: "Learn", title: "Undergraduate tutoring", seller: "Math & Science Learning Center", initials: "MS", sellerId: "mslc", storeId: "mslc", rating: "4.8", reviews: 28, completed: 65, price: 0, unit: "drop-in", accent: "sky", emoji: "📐", tag: "Free tutoring", availability: "Drop in today", campus: "SDSU", verified: true, schoolProvided: true,
     description: "Work with an undergraduate tutor at the Math & Science Learning Center. Free, drop-in help for math and science courses at Love Library Room 328.", meeting: "Love Library Room 328", response: "Drop in during posted hours", slots: ["Today · drop-in", "Tomorrow · drop-in", "Thu · drop-in"]
+  },
+  {
+    id: "cubbies-reserve", kind: "service", bookingType: "service", category: "Lifestyle", storeOnly: true, title: "Summer storage reservation", seller: "College Cubbies", initials: "CC", sellerId: "college-cubbies", storeId: "college-cubbies", rating: "4.9", reviews: 22, completed: 40, price: 49, unit: "reservation", accent: "butter", emoji: "📦", certification: "valet storage", tag: "5 boxes included", availability: "May 12–15 pickup", campus: "SDSU", verified: true,
+    description: "Hold a summer storage spot. The reservation includes five boxes, tape, door-to-door pickup on the May move-out dates, and $100 of coverage on each item. Storage after that is priced per item, per month.", meeting: "Your dorm, apartment, or house", response: "Usually replies the same day", slots: ["May 12 · morning", "May 13 · morning", "May 14 · afternoon", "May 15 · morning"]
   }
 ];
 
@@ -162,6 +186,55 @@ const products = [
   {
     id: "chris-crewneck", kind: "product", merchandiseType: "resale", category: "Clothing", title: "Faded Aztecs crewneck", seller: "Chris Nguyen", initials: "CN", sellerId: "chris-nguyen", storeId: "aztec-thrift", rating: "4.8", reviews: 5, completed: 6, price: 24, unit: "size L", accent: "lilac", emoji: "👕", condition: "Good condition", availability: "Pickup near Campanile", campus: "SDSU", verified: true, quantityAvailable: 1,
     description: "Early-2000s Aztecs crewneck with a cracked vintage print. Size L, boxy fit.", meeting: "Campanile walk", response: "Usually replies within an hour"
+  },
+  {
+    id: "cubbies-medium", kind: "product", merchandiseType: "storage", category: "Dorm", storeOnly: true, title: "Medium box", seller: "College Cubbies", initials: "CC", sellerId: "college-cubbies", storeId: "college-cubbies", rating: "4.9", reviews: 14, completed: 30, price: 25, unit: "month", accent: "butter", emoji: "📦", condition: "Summer storage", availability: "Picked up with your reservation", campus: "SDSU", verified: true, quantityAvailable: 40,
+    description: "One medium box in summer storage. College Cubbies prices it at $25 a month with a four-month minimum, picks it up with your reservation, and brings it back in August.", meeting: "Your dorm, apartment, or house", response: "Usually replies the same day"
+  },
+  {
+    id: "cubbies-large", kind: "product", merchandiseType: "storage", category: "Dorm", storeOnly: true, title: "Large box", seller: "College Cubbies", initials: "CC", sellerId: "college-cubbies", storeId: "college-cubbies", rating: "4.8", reviews: 9, completed: 18, price: 30, unit: "month", accent: "sky", emoji: "📫", condition: "Summer storage", availability: "Picked up with your reservation", campus: "SDSU", verified: true, quantityAvailable: 40,
+    description: "One large box in summer storage, $30 a month with a four-month minimum. It rides with your reservation and comes back for fall move-in.", meeting: "Your dorm, apartment, or house", response: "Usually replies the same day"
+  },
+  {
+    id: "cubbies-suitcase", kind: "product", merchandiseType: "storage", category: "Dorm", storeOnly: true, title: "Large suitcase", seller: "College Cubbies", initials: "CC", sellerId: "college-cubbies", storeId: "college-cubbies", rating: "4.9", reviews: 11, completed: 22, price: 30, unit: "month", accent: "lilac", emoji: "🧳", condition: "Summer storage", availability: "Picked up with your reservation", campus: "SDSU", verified: true, quantityAvailable: 40,
+    description: "One large suitcase in summer storage, $30 a month with a four-month minimum. Leave it packed. They pick it up and return it in the fall.", meeting: "Your dorm, apartment, or house", response: "Usually replies the same day"
+  },
+  {
+    id: "cubbies-desk", kind: "product", merchandiseType: "storage", category: "Furniture", storeOnly: true, title: "Desk", seller: "College Cubbies", initials: "CC", sellerId: "college-cubbies", storeId: "college-cubbies", rating: "4.8", reviews: 6, completed: 10, price: 40, unit: "month", accent: "coral", emoji: "🪑", condition: "Summer storage", availability: "Picked up with your reservation", campus: "SDSU", verified: true, quantityAvailable: 20,
+    description: "One desk in summer storage, $40 a month with a four-month minimum. Student movers load it at your place and deliver it back before fall.", meeting: "Your dorm, apartment, or house", response: "Usually replies the same day"
+  }
+];
+
+const tickets = [
+  {
+    id: "maya-open-studio", kind: "ticket", category: "Events", title: "Open studio night", host: "VisCom Collective", date: "Sat", time: "7:00 PM", location: "Art North studio", seller: "Maya Chen", initials: "MC", sellerId: "maya-chen", storeId: "maya-makes-photo", rating: "4.9", reviews: 18, completed: 28, price: 10, unit: "ticket", accent: "coral", emoji: "🎨", availability: "Sat · 7:00 PM", campus: "SDSU", verified: true, quantityAvailable: 40,
+    summary: "A Saturday studio night. Student price, mobile entry.",
+    description: "One admission to the VisCom Collective open studio. Photos on the wall, prints for sale, and the door list is this QR code.", meeting: "Art North studio", response: "Usually replies in under an hour"
+  },
+  {
+    id: "sam-film-night", kind: "ticket", category: "Events", title: "Slow Hours live", host: "Slow Hours", date: "Fri", time: "8:00 PM", location: "Student Union theatre", seller: "Sam Okafor", initials: "SO", sellerId: "sam-okafor", storeId: "film-and-frames", rating: "5.0", reviews: 19, completed: 35, price: 12, unit: "ticket", accent: "lilac", emoji: "🎸", availability: "Fri · 8:00 PM", campus: "SDSU", verified: true, quantityAvailable: 60,
+    summary: "A student-band set. One admission, mobile entry.",
+    description: "Slow Hours plays a full set in the Student Union theatre. Buy it from the store and bring the QR code to the door.", meeting: "Student Union theatre", response: "Usually replies in under two hours"
+  },
+  {
+    id: "ticket-aztecs", kind: "ticket", category: "Events", title: "Aztecs vs. Boise State", host: "Snapdragon Stadium", date: "Sat", time: "7:30 PM", location: "Student section", seller: "Chris Nguyen", initials: "CN", sellerId: "chris-nguyen", storeId: "aztec-thrift", rating: "4.9", reviews: 12, completed: 15, price: 25, unit: "ticket", accent: "coral", emoji: "🏈", availability: "Sat · 7:30 PM", campus: "SDSU", verified: true, quantityAvailable: 40,
+    summary: "Student-section seats for Saturday's game. Digital ticket transfers in the app.",
+    description: "Student-section seats for Saturday's game. Your QR code is the ticket at the gate.", meeting: "Student section", response: "Usually replies within an hour"
+  },
+  {
+    id: "ticket-show", kind: "ticket", category: "Events", title: "Open Air concert", host: "Cal Coast Credit Union Open Air", date: "Fri", time: "8:00 PM", location: "Lawn", seller: "Maya Chen", initials: "MC", sellerId: "maya-chen", storeId: "maya-makes-photo", rating: "4.9", reviews: 18, completed: 28, price: 40, unit: "ticket", accent: "lilac", emoji: "🎤", availability: "Fri · 8:00 PM", campus: "SDSU", verified: true, quantityAvailable: 80,
+    summary: "A Friday lawn ticket. Student price, mobile entry.",
+    description: "A Friday lawn ticket for the Open Air concert. Student price, and the QR code is your mobile entry.", meeting: "Lawn", response: "Usually replies in under an hour"
+  },
+  {
+    id: "ticket-formal", kind: "ticket", category: "Events", title: "Org formal guest ticket", host: "Delta Gamma", date: "Sat", time: "6:00 PM", location: "Downtown", seller: "Zoe Rivera", initials: "ZR", sellerId: "zoe-rivera", storeId: "zoe-nail-studio", rating: "4.8", reviews: 26, completed: 34, price: 35, unit: "ticket", accent: "butter", emoji: "✨", availability: "Sat · 6:00 PM", campus: "SDSU", verified: true, quantityAvailable: 12,
+    summary: "One extra guest ticket for the spring formal. Includes dinner.",
+    description: "One extra guest ticket for the spring formal. Dinner is included, and the QR code gets you in.", meeting: "Downtown", response: "Usually replies in under two hours"
+  },
+  {
+    id: "ticket-comedy", kind: "ticket", category: "Events", title: "Comedy night", host: "Conrad Prebys Aztec Student Union", date: "Thu", time: "8:00 PM", location: "General admission", seller: "Ari Patel", initials: "AP", sellerId: "ari-patel", storeId: "ari-edits", rating: "4.9", reviews: 15, completed: 23, price: 12, unit: "ticket", accent: "mint", emoji: "😂", availability: "Thu · 8:00 PM", campus: "SDSU", verified: true, quantityAvailable: 50,
+    summary: "Campus comedy showcase. General admission, doors at 7:30.",
+    description: "Campus comedy showcase at the Aztec Student Union. General admission, doors at 7:30, and the QR code is your ticket.", meeting: "General admission", response: "Usually replies the same day"
   }
 ];
 
@@ -180,7 +253,8 @@ const sellers = {
   "taylor-brooks": { id: "taylor-brooks", name: "Taylor Brooks", initials: "TB", handle: "@taylordorm", campus: "SDSU · Sophomore · Biology", verified: true, bio: "Small dorm essentials I no longer need, priced to move.", rating: "4.7", reviews: 3, completed: 4, response: "same day", accent: "sky", storeIds: ["dorm-drop"] },
   "sdsu-safe-ride": { id: "sdsu-safe-ride", name: "SDSU Safe Ride", initials: "SR", handle: "@sdsusafe", campus: "SDSU · School-provided", verified: true, schoolProvided: true, bio: "Free late-night rides for SDSU students, faculty and staff from more than 30 campus locations.", rating: "4.9", reviews: 42, completed: 86, response: "in the SDSU Safe app", accent: "coral", storeIds: [] },
   "as-career-advantage": { id: "as-career-advantage", name: "A.S. Career Advantage", initials: "AS", handle: "@ascareers", campus: "SDSU · Associated Students", verified: true, schoolProvided: true, bio: "Free professional headshots and career support for current SDSU students.", rating: "4.8", reviews: 24, completed: 61, response: "walk-in hours", accent: "sky", storeIds: [] },
-  "mslc": { id: "mslc", name: "Math & Science Learning Center", initials: "MS", handle: "@sdsu.mslc", campus: "SDSU · Love Library 328", verified: true, schoolProvided: true, bio: "A free, drop-in tutoring center for math and science courses. No appointment needed.", rating: "4.9", reviews: 38, completed: 120, response: "during drop-in hours", accent: "mint", storeIds: ["mslc"] }
+  "mslc": { id: "mslc", name: "Math & Science Learning Center", initials: "MS", handle: "@sdsu.mslc", campus: "SDSU · Love Library 328", verified: true, schoolProvided: true, bio: "A free, drop-in tutoring center for math and science courses. No appointment needed.", rating: "4.9", reviews: 38, completed: 120, response: "during drop-in hours", accent: "mint", storeIds: ["mslc"] },
+  "college-cubbies": { id: "college-cubbies", name: "College Cubbies", initials: "CC", handle: "@collegecubbies", campus: "SDSU · Student-run", verified: true, bio: "Valet summer storage started by SDSU students. They pick up from your place, store it, and bring it back in the fall.", rating: "4.9", reviews: 48, completed: 500, response: "the same day", accent: "butter", storeIds: ["college-cubbies"] }
 };
 
 const stores = [
@@ -194,7 +268,8 @@ const stores = [
     collections: [
       { name: "Featured", listingIds: ["maya-portraits", "maya-events", "maya-presets"] },
       { name: "Sessions", listingIds: ["maya-portraits", "maya-mini", "maya-events"] },
-      { name: "Prints & presets", listingIds: ["maya-prints", "maya-presets"] }
+      { name: "Prints & presets", listingIds: ["maya-prints", "maya-presets"] },
+      { name: "Tickets", listingIds: ["maya-open-studio", "ticket-show"] }
     ],
     reviewsSample: [
       { author: "Priya S.", rating: 5, text: "Maya made the session feel easy. The photos looked like me, not a stock photo.", listingId: "maya-portraits" },
@@ -245,7 +320,8 @@ const stores = [
     policies: { cancellation: "Free cancellation up to 24 hours before. Late cancellations lose the deposit.", pickup: "Press-ons pick up at the beauty studio.", hours: "Thursday through Sunday" },
     collections: [
       { name: "Appointments", listingIds: ["zoe-nails", "zoe-art"] },
-      { name: "Take-home", listingIds: ["zoe-pressons"] }
+      { name: "Take-home", listingIds: ["zoe-pressons"] },
+      { name: "Tickets", listingIds: ["ticket-formal"] }
     ],
     reviewsSample: [
       { author: "Ava C.", rating: 5, text: "Lasted three weeks with zero lifting. Booking again.", listingId: "zoe-nails" },
@@ -295,7 +371,8 @@ const stores = [
     collections: [
       { name: "Cameras", listingIds: ["film-camera"] },
       { name: "Film", listingIds: ["sam-film"] },
-      { name: "Lab", listingIds: ["sam-scans"] }
+      { name: "Lab", listingIds: ["sam-scans"] },
+      { name: "Tickets", listingIds: ["sam-film-night"] }
     ],
     reviewsSample: [
       { author: "Kai D.", rating: 5, text: "Camera works great and Sam showed me how to load it.", listingId: "film-camera" },
@@ -311,7 +388,8 @@ const stores = [
     policies: { cancellation: "Full refund before editing starts.", pickup: "All work is delivered in the app.", hours: "Replies weekdays" },
     collections: [
       { name: "Video", listingIds: ["ari-video"] },
-      { name: "Design", listingIds: ["ari-thumbnails"] }
+      { name: "Design", listingIds: ["ari-thumbnails"] },
+      { name: "Tickets", listingIds: ["ticket-comedy"] }
     ],
     reviewsSample: [
       { author: "SDSU Dance Club", rating: 5, text: "Our recruitment reel got 3x our usual views.", listingId: "ari-video" }
@@ -361,7 +439,8 @@ const stores = [
     rating: "4.9", reviews: 17, sales: 21, followers: 205,
     policies: { cancellation: "Cancel any time before pickup.", pickup: "Pickup along the Campanile walk.", hours: "Afternoons" },
     collections: [
-      { name: "Sweats", listingIds: ["vintage-hoodie", "chris-crewneck"] }
+      { name: "Sweats", listingIds: ["vintage-hoodie", "chris-crewneck"] },
+      { name: "Tickets", listingIds: ["ticket-aztecs"] }
     ],
     reviewsSample: [
       { author: "Jay R.", rating: 5, text: "Hoodie is so soft. Chris had it ready right on time.", listingId: "vintage-hoodie" }
@@ -394,6 +473,22 @@ const stores = [
       { author: "Priya S.", rating: 5, text: "Showed up between classes and actually understood the worksheet after.", listingId: "mslc-tutoring" },
       { author: "Luis M.", rating: 5, text: "Office hours in Love Library 328 saved my Chem exam.", listingId: "mslc-office-hours" }
     ]
+  },
+  {
+    id: "college-cubbies", sellerId: "college-cubbies", name: "College Cubbies", handle: "@collegecubbies", emoji: "📦", accent: "butter",
+    tagline: "Valet summer storage, picked up at your door",
+    about: "College Cubbies is student-run storage for SDSU. They drop off packing supplies, pick up from your dorm or apartment, keep everything in climate-controlled storage for the summer, and deliver it back in the fall. You pay per item, per month, with a four-month minimum. Each item includes $100 of coverage.",
+    announcement: "Complimentary pickup is May 12–15. Fall delivery is Aug 8 and Aug 18–22.",
+    rating: "4.9", reviews: 48, sales: 500, followers: 70,
+    policies: { cancellation: "The reservation holds your pickup window. Message them if your move-out date changes.", pickup: "Door-to-door at your dorm, apartment, or house. Complimentary on May 12–15. Other dates add a convenience fee.", hours: "Fall delivery on Aug 8 and Aug 18–22" },
+    collections: [
+      { name: "Reserve", listingIds: ["cubbies-reserve"] },
+      { name: "What you store", listingIds: ["cubbies-medium", "cubbies-large", "cubbies-suitcase", "cubbies-desk"] }
+    ],
+    reviewsSample: [
+      { author: "Mina L.", rating: 5, text: "The boxes showed up before finals, and pickup was at my apartment.", listingId: "cubbies-reserve" },
+      { author: "Jordan P.", rating: 5, text: "My desk and boxes were back the day I moved into the new place.", listingId: "cubbies-desk" }
+    ]
   }
 ];
 
@@ -420,6 +515,47 @@ const aztecPopups = [
   { id: "grad-caps", host: "A.S. Campus Events", title: "Grad cap decorating", when: "Sat · 12–3 PM", where: "Aztec Student Union", detail: "Free supplies while they last. Students only.", emoji: "🎓", accent: "sky" }
 ];
 
+const campusJobs = [
+  { id: "job-arc", title: "Lifeguard", kicker: "Aztec Recreation Center", meta: "Evenings and weekends · On campus", price: "$17.50/hr", accent: "sky", emoji: "🏊", poster: "Sam Ortiz", initials: "SO", summary: "Watch the ARC pool during open swims and intramurals. Current certification required, or ARC will schedule the class.", facts: [["Schedule", "Evenings and weekends"], ["Where", "Aztec Recreation Center"], ["Type", "On-campus job"]] },
+  { id: "job-library", title: "Library desk assistant", kicker: "Love Library", meta: "10–15 hrs/week · Student assistant", price: "$16.75/hr", accent: "lilac", emoji: "📚", poster: "Elena Park", initials: "EP", summary: "Check out materials, answer desk questions, and shelve returns between classes.", facts: [["Schedule", "10–15 hours a week"], ["Where", "Love Library"], ["Type", "Student assistant"]] },
+  { id: "job-research", title: "Research assistant", kicker: "Psychology lab", meta: "Spring semester · Flexible hours", price: "$18/hr", accent: "mint", emoji: "🧪", poster: "Avery Cole", initials: "AC", summary: "Help run study sessions and keep participant notes organized. Psychology coursework is a plus.", facts: [["Schedule", "Flexible, about 8 hours a week"], ["Where", "Life Sciences"], ["Type", "Research"]] },
+  { id: "job-cafe", title: "Opening barista", kicker: "Aztec Cafe", meta: "Weekday mornings · Food service", price: "$16.50/hr", accent: "butter", emoji: "☕", poster: "Chris Nguyen", initials: "CN", summary: "Open the cafe before the first class rush. Training is paid.", facts: [["Schedule", "Weekday mornings"], ["Where", "Student Union"], ["Type", "Campus dining"]] },
+  { id: "job-events", title: "Event staff", kicker: "Associated Students", meta: "Game days and org nights", price: "$16/hr", accent: "coral", emoji: "🎟️", poster: "Jordan Hale", initials: "JH", summary: "Set up, scan tickets, and reset rooms for campus events. Shifts are posted a week ahead.", facts: [["Schedule", "Nights and weekends"], ["Where", "Around campus"], ["Type", "Event staff"]] },
+  { id: "job-note", title: "Note taker", kicker: "Student Disability Services", meta: "One class · Semester long", price: "$200/class", accent: "sky", emoji: "📝", poster: "Taylor Brooks", initials: "TB", summary: "Share clear notes from a class you are already taking. SDS matches you with a student who needs them.", facts: [["Schedule", "Your current class"], ["Where", "Your classroom"], ["Type", "Semester role"]] }
+];
+
+const housingListings = [
+  { id: "home-college", title: "Private room in a 4-bedroom", kicker: "College Area", meta: "Jan–May · 8 minute walk", price: "$950/mo", accent: "butter", emoji: "🛏️", poster: "Riley Santos", initials: "RS", summary: "Furnished room in a student house. Utilities split four ways. Available when the current roommate studies abroad.", facts: [["Dates", "January through May"], ["Rent", "$950 a month"], ["Place", "College Area, 8 minute walk"]] },
+  { id: "home-studio", title: "Summer studio sublease", kicker: "South Campus Plaza", meta: "May 20–Aug 10 · Furnished", price: "$1,400/mo", accent: "sky", emoji: "🏢", poster: "Alex Kim", initials: "AK", summary: "A furnished studio for the summer, with the gym and a shuttle stop downstairs.", facts: [["Dates", "May 20 through August 10"], ["Rent", "$1,400 a month"], ["Place", "South Campus Plaza"]] },
+  { id: "home-shared", title: "Shared room, spring only", kicker: "University Towers", meta: "Jan–May · One roommate", price: "$720/mo", accent: "mint", emoji: "🪴", poster: "Jordan Ellis", initials: "JE", summary: "One side of a shared double. The roommate is a junior in business and is keeping the lease.", facts: [["Dates", "January through May"], ["Rent", "$720 a month"], ["Place", "University Towers"]] },
+  { id: "home-house", title: "Master bedroom sublease", kicker: "Rolando", meta: "Now–July · Private bath", price: "$1,100/mo", accent: "coral", emoji: "🏠", poster: "Noah Brooks", initials: "NB", summary: "Master bedroom with its own bathroom in a house of four students. Street parking and a short bus ride to campus.", facts: [["Dates", "Now through July"], ["Rent", "$1,100 a month"], ["Place", "Rolando"]] }
+];
+
+const campusChores = [
+  { id: "chore-dog", title: "Dog walker", meta: "Today · 3:30 PM · Campanile", price: "$15", amount: "$15", accent: "sky", emoji: "🐕", poster: "Sam Ortiz", initials: "SO", summary: "A 30-minute walk for a small dog. Leash and bags are by the door.", facts: [["When", "Today, 3:30 PM"], ["Where", "Campanile"], ["Pay", "$15"]], status: "open" },
+  { id: "chore-move", title: "Move-out help", meta: "Sat · 10:00 AM · Tenochca", price: "$25/hour", amount: "$25", accent: "butter", emoji: "📦", poster: "Alex Ruiz", initials: "AR", summary: "Need an extra pair of hands for boxes and a mini fridge from Tenochca out to a car.", facts: [["When", "Saturday, 10:00 AM"], ["Where", "Tenochca"], ["Pay", "$25 an hour"]], status: "open" },
+  { id: "chore-laundry", title: "Laundry pickup", meta: "Today · 5:00 PM · Zura", price: "$12/load", amount: "$12", accent: "sky", emoji: "🧺", poster: "Priya Shah", initials: "PS", summary: "One load to wash, dry, and fold. It will be in a bag at the Zura lobby.", facts: [["When", "Today, 5:00 PM"], ["Where", "Zura lobby"], ["Pay", "$12 a load"]], status: "open" },
+  { id: "chore-groceries", title: "Grocery run", meta: "Today · 4:00 PM · Viejas", price: "$8 + receipt", amount: "$8", accent: "mint", emoji: "🛒", poster: "Lena Brooks", initials: "LB", summary: "A short list from the campus market. The receipt is covered, plus $8 for the run.", facts: [["When", "Today, 4:00 PM"], ["Where", "Drop-off at Chapultepec"], ["Pay", "$8 plus the receipt"]], status: "open" },
+  { id: "chore-package", title: "Package drop", meta: "Today · 2:00 PM · Mailroom", price: "$10", amount: "$10", accent: "coral", emoji: "📬", poster: "Elena Park", initials: "EP", summary: "A small box that needs to reach the campus mailroom before it closes.", facts: [["When", "Today, 2:00 PM"], ["Where", "Campus mailroom"], ["Pay", "$10"]], status: "open" },
+  { id: "chore-plants", title: "Plant water", meta: "Fri · 6:00 PM · Maya Hall", price: "$12", amount: "$12", accent: "mint", emoji: "🪴", poster: "Avery Cole", initials: "AC", summary: "Three plants on the windowsill. A key is with the front desk.", facts: [["When", "Friday, 6:00 PM"], ["Where", "Maya Hall"], ["Pay", "$12"]], status: "open" },
+  { id: "chore-notes", title: "Notes pickup", meta: "Tomorrow · 11:00 AM · Library", price: "$8", amount: "$8", accent: "lilac", emoji: "📝", poster: "Jordan Hale", initials: "JH", summary: "A printed study packet at the Love Library hold shelf, name Hale.", facts: [["When", "Tomorrow, 11:00 AM"], ["Where", "Love Library"], ["Pay", "$8"]], status: "open" },
+  { id: "chore-bike", title: "Bike to class", meta: "Mon · 8:15 AM · PS12", price: "$10", amount: "$10", accent: "sky", emoji: "🚲", poster: "Chris Nguyen", initials: "CN", summary: "Roll a locked bike from Parking Structure 12 to the engineering steps.", facts: [["When", "Monday, 8:15 AM"], ["Where", "Parking Structure 12"], ["Pay", "$10"]], status: "open" },
+  { id: "chore-posters", title: "Poster hang", meta: "Thu · 1:00 PM · Union", price: "$15", amount: "$15", accent: "coral", emoji: "📌", poster: "Riley Santos", initials: "RS", summary: "Six club posters for the bulletin strips in the Student Union.", facts: [["When", "Thursday, 1:00 PM"], ["Where", "Student Union"], ["Pay", "$15"]], status: "open" },
+  { id: "chore-trash", title: "Trash run", meta: "Tonight · 9:00 PM · Tenochca", price: "$10", amount: "$10", accent: "butter", emoji: "🗑️", poster: "Noah Brooks", initials: "NB", summary: "Two bags from a third-floor room down to the dumpster.", facts: [["When", "Tonight, 9:00 PM"], ["Where", "Tenochca"], ["Pay", "$10"]], status: "open" },
+  { id: "chore-tidy", title: "Room reset", meta: "Sun · 1:00 PM · Cuicacalli", price: "$20/hour", amount: "$20", accent: "lilac", emoji: "🧹", poster: "Dana Kim", initials: "DK", summary: "Surfaces, floors, and a bag of trash out the door before a Sunday visitor.", facts: [["When", "Sunday, 1:00 PM"], ["Where", "Cuicacalli"], ["Pay", "$20 an hour"]], status: "open" },
+  { id: "chore-desk", title: "Desk carry", meta: "Sat · 12:00 PM · Art North", price: "$20", amount: "$20", accent: "butter", emoji: "🪑", poster: "Harper Diaz", initials: "HD", summary: "A small desk from Art North to a car at the curb. One other person is already helping.", facts: [["When", "Saturday, 12:00 PM"], ["Where", "Art North"], ["Pay", "$20"]], status: "open" }
+];
+
+const realEstateAgents = [
+  { id: "agent-camila", name: "Camila Reyes", initials: "CR", brokerage: "College Area Homes", focus: "College Area", summary: "Studios and shared houses a short walk from campus.", rating: "4.9", reviews: 18, accent: "coral" },
+  { id: "agent-owen", name: "Owen Blake", initials: "OB", brokerage: "Plaza Residential", focus: "South Campus Plaza", summary: "Furnished units by the trolley, gym, and shuttle stop.", rating: "4.8", reviews: 24, accent: "mint" },
+  { id: "agent-sofia", name: "Sofia Nguyen", initials: "SN", brokerage: "Rolando Homes", focus: "Rolando", summary: "Student houses with street parking and a short bus ride.", rating: "4.9", reviews: 15, accent: "sky" },
+  { id: "agent-malik", name: "Malik Johnson", initials: "MJ", brokerage: "Aztec Lease Co.", focus: "First leases", summary: "Help comparing rent, roommates, and move-in dates.", rating: "4.7", reviews: 21, accent: "butter" },
+  { id: "agent-harper", name: "Harper Diaz", initials: "HD", brokerage: "Campus Key Realty", focus: "Summer subleases", summary: "Short stays and summer takeovers near SDSU.", rating: "4.8", reviews: 12, accent: "lilac" },
+  { id: "agent-quinn", name: "Quinn Alvarez", initials: "QA", brokerage: "Trolley Line Living", focus: "A quick ride away", summary: "Places a bus or trolley ride from class, often for less.", rating: "4.9", reviews: 16, accent: "coral" },
+  { id: "agent-elise", name: "Elise Cho", initials: "EC", brokerage: "Mesa Realty", focus: "High-rise studios", summary: "Studios and shares with a front desk and a gym downstairs.", rating: "4.8", reviews: 19, accent: "sky" }
+];
+
 const notifications = [
   { id: "notif-maya-booking", unread: true, title: "Booking confirmed", body: "Grad portraits with Maya · Today · 4:00 PM", time: "2m ago", emoji: "📸", accent: "coral", action: "order", orderId: "order-maya" },
   { id: "notif-lamp-pickup", unread: true, title: "Ready for pickup", body: "Vintage desk lamp — Jordan marked your order ready.", time: "1h ago", emoji: "💡", accent: "butter", action: "order", orderId: "order-lamp" },
@@ -436,6 +572,30 @@ const conversations = [
 const state = {
   mode: "buyer",
   view: "home",
+  selectedJobId: null,
+  selectedHousingId: null,
+  selectedAgentId: null,
+  selectedTicketId: null,
+  jobFormOpen: false,
+  jobQuery: "",
+  postedJobs: [],
+  choreFormOpen: false,
+  postedChores: [
+    { id: "chore-your-drop", title: "Mailroom drop", meta: "Today · 4:00 PM · Zura", price: "$15", amount: "$15", accent: "coral", emoji: "📬", poster: "Katarina Cedolin", initials: "KC", summary: "A small box from Zura to the campus mailroom before it closes.", facts: [["When", "Today, 4:00 PM"], ["Where", "Zura to the mailroom"], ["Pay", "$15"]], mine: true, status: "requested", offerName: "Priya Shah", offerInitials: "PS" }
+  ],
+  selectedChoreId: null,
+  housingFormOpen: false,
+  postedHousing: [],
+  ticketPostKind: null,
+  ticketDmPostId: null,
+  ticketQuery: "",
+  ticketDms: {},
+  ticketPosts: [
+    { id: "tpost-alex", kind: "resell", event: "Boise State", price: "25", name: "Alex Ruiz", initials: "AR", accent: "coral", mine: false },
+    { id: "tpost-priya", kind: "request", event: "the Open Air concert", name: "Priya Shah", initials: "PS", accent: "lilac", mine: false },
+    { id: "tpost-lena", kind: "resell", event: "spring formal", price: "35", name: "Lena Brooks", initials: "LB", accent: "butter", mine: false },
+    { id: "tpost-dana", kind: "request", event: "Comedy night", name: "Dana Kim", initials: "DK", accent: "mint", mine: false }
+  ],
   activeKind: "all",
   category: "All",
   shopType: "all",
@@ -444,6 +604,7 @@ const state = {
   selectedListingId: null,
   selectedSellerId: null,
   selectedStoreId: null,
+  storeReturn: null,
   storeTab: "shop",
   storeCollection: "All",
   storeQuery: "",
@@ -492,7 +653,7 @@ const state = {
   paymentMethods: []
 };
 
-const everyListing = () => [...services, ...products, ...state.userListings];
+const everyListing = () => [...services, ...products, ...tickets, ...state.userListings];
 const isPublicListing = (listing) => !listing.status || listing.status === "active";
 const allListings = () => everyListing().filter(isPublicListing);
 const getListing = (id) => everyListing().find((listing) => listing.id === id);
@@ -529,7 +690,9 @@ function identityMark(entity, labeled = false) {
 }
 
 function identityPill(entity) {
-  return entity?.schoolProvided ? schoolBadgeHtml("pill") : studentVerifiedPill();
+  if (entity?.schoolProvided) return schoolBadgeHtml("pill");
+  if (!entity?.verified) return "";
+  return studentVerifiedPill();
 }
 const getStore = (id) => stores.find((store) => store.id === id);
 const storesForSeller = (sellerId) => stores.filter((store) => store.sellerId === sellerId);
@@ -546,7 +709,8 @@ const storeMatchesQuery = (store, query) => {
 const money = (amount) => Number(amount) === 0 ? "Free" : `$${Number(amount).toFixed(2)}`;
 
 function listingPriceHtml(listing) {
-  const unit = listing.kind === "service" && listing.price && listing.unit ? ` <small>/ ${escapeHtml(listing.unit)}</small>` : "";
+  const showUnit = listing.price && listing.unit && (listing.kind === "service" || listing.unit === "month");
+  const unit = showUnit ? ` <small>/ ${escapeHtml(listing.unit)}</small>` : "";
   return `<span class="price">${money(listing.price)}${unit}</span>`;
 }
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -643,13 +807,46 @@ function shortCardText(text, maxLength = 72) {
   return `${base}…`;
 }
 
+function ticketHost(listing) {
+  return listing.host || listing.seller || "Campus event";
+}
+
+function ticketSchedule(listing) {
+  if (listing.date || listing.time || listing.location) return [listing.date, listing.time, listing.location].filter(Boolean).join(" · ");
+  return [listing.availability, listing.meeting].filter(Boolean).join(" · ");
+}
+
+function ticketPriceLabel(amount) {
+  const value = Number(amount);
+  if (!value) return "Free";
+  return Number.isInteger(value) ? `$${value}` : `$${value.toFixed(2)}`;
+}
+
+function ticketListingCard(listing) {
+  const blurb = listing.summary || listing.description;
+  return `<article class="board-card ticket-card">
+    <button type="button" class="board-card-button" data-action="open-listing" data-id="${listing.id}">
+      <span class="board-card-visual ${listing.accent}"><span class="board-card-emoji" aria-hidden="true">${listing.emoji}</span></span>
+      <span class="board-card-body">
+        <span class="board-card-kicker">${escapeHtml(ticketHost(listing))}</span>
+        <span class="board-card-title">${escapeHtml(listing.title)}</span>
+        <span class="board-card-meta">${escapeHtml(ticketSchedule(listing))}</span>
+        ${blurb ? `<span class="board-card-summary">${escapeHtml(shortCardText(blurb, 90))}</span>` : ""}
+        <span class="board-card-price">${ticketPriceLabel(listing.price)}</span>
+      </span>
+    </button>
+  </article>`;
+}
+
 function listingCardMetaHtml(listing) {
   const meta =
     listing.kind === "product"
       ? listingProductMetaLine(listing)
-      : listing.kind === "service"
-        ? shortCardText(listing.description)
-        : "";
+      : listing.kind === "ticket"
+        ? [listing.availability, listing.meeting].filter(Boolean).join(" · ")
+        : listing.kind === "service"
+          ? shortCardText(listing.description)
+          : "";
   return meta ? `<div class="listing-meta-line muted small">${escapeHtml(meta)}</div>` : "";
 }
 
@@ -666,6 +863,7 @@ function listingVisual(listing, detail = false) {
 }
 
 function listingCard(listing) {
+  if (listing.kind === "ticket") return ticketListingCard(listing);
   return `<article class="listing-card">
     ${listingSaveButton(listing)}
     <button type="button" class="listing-card-button" data-action="open-listing" data-id="${listing.id}">
@@ -673,7 +871,7 @@ function listingCard(listing) {
       <div class="listing-body">
         <div class="listing-title">${escapeHtml(listing.title)}</div>
         ${listingCardMetaHtml(listing)}
-        <div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${identityMark(listing)}</div>
+        ${isChoreListing(listing) ? "" : `<div class="seller-line"><span class="mini-avatar">${escapeHtml(listing.initials)}</span><span class="seller-name">${escapeHtml(listing.seller)}</span>${identityMark(listing)}</div>`}
         <div class="listing-meta">${listingPriceHtml(listing)}<span class="rating">${icon("star", 14)} ${listing.rating} <span class="muted">(${listing.reviews})</span></span></div>
       </div>
     </button>
@@ -752,6 +950,273 @@ function aztecDealsView() {
   </div>`;
 }
 
+function boardCard(item, action, selected = false) {
+  return `<article class="board-card${selected ? " is-selected" : ""}">
+    <button type="button" class="board-card-button" data-action="${action}" data-id="${item.id}">
+      <span class="board-card-visual ${item.accent}"><span class="board-card-emoji" aria-hidden="true">${item.emoji}</span></span>
+      <span class="board-card-body">
+        <span class="board-card-kicker">${escapeHtml(item.kicker)}</span>
+        <span class="board-card-title">${escapeHtml(item.title)}</span>
+        <span class="board-card-meta">${escapeHtml(item.meta)}</span>
+        <span class="board-card-price">${escapeHtml(item.price)}</span>
+      </span>
+    </button>
+  </article>`;
+}
+
+function boardPage(eyebrow, title, lede, items, action) {
+  return `<div class="browse-header"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p class="lede">${lede}</p></div></div>
+    <div class="board-grid">${items.map((item) => boardCard(item, action)).join("")}</div>`;
+}
+
+function boardDetail(view, item, backLabel, buttonLabel) {
+  const facts = item.facts.map(([label, value]) => `<div class="board-fact"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("");
+  return `<div class="page-top-row"><button class="back-button" data-action="close-board-item" data-view-name="${view}">${icon("chevron-left")} Back to ${backLabel}</button></div>
+    <div class="board-detail">
+      <div class="board-detail-visual board-card-visual ${item.accent}"><span class="board-card-emoji" aria-hidden="true">${item.emoji}</span></div>
+      <div class="eyebrow">${escapeHtml(item.kicker)}</div>
+      <h1>${escapeHtml(item.title)}</h1>
+      <p class="lede">${escapeHtml(item.summary)}</p>
+      <div class="board-facts">${facts}<div class="board-fact"><span>Price</span><strong>${escapeHtml(item.price)}</strong></div></div>
+      <button class="primary-button" data-action="interest-board-item" data-title="${escapeHtml(item.title)}">${buttonLabel} ${icon("arrow")}</button>
+    </div>`;
+}
+
+function contentBoardCard(item, action) {
+  const face = `<span class="board-card-visual ${item.accent}"><span class="board-card-emoji" aria-hidden="true">${item.emoji}</span></span>
+      <span class="board-card-body">
+        <span class="board-card-kicker">${escapeHtml(item.kicker)}</span>
+        <span class="board-card-title">${escapeHtml(item.title)}</span>
+        <span class="board-card-meta">${escapeHtml(item.meta)}</span>
+        ${item.summary ? `<span class="board-card-summary">${escapeHtml(item.summary)}</span>` : ""}
+        <span class="board-card-price">${escapeHtml(item.price)}</span>
+      </span>`;
+  if (!action) {
+    return `<article class="board-card board-card-static"><div class="board-card-face">${face}</div></article>`;
+  }
+  return `<article class="board-card"><button type="button" class="board-card-button" data-action="${action}" data-id="${item.id}">${face}</button></article>`;
+}
+
+function boardItems(kind) {
+  return kind === "job" ? [...state.postedJobs, ...campusJobs] : [...state.postedHousing, ...housingListings];
+}
+
+function boardInquiryDetail(kind, item) {
+  const job = kind === "job";
+  const backLabel = job ? "Job Board" : "Housing";
+  const viewName = job ? "jobs" : "housing";
+  const openAction = job ? "open-job" : "open-housing";
+  const firstName = (item.poster || "them").split(" ")[0];
+  const facts = (item.facts || []).map(([label, value]) => `<div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(label)} · ${escapeHtml(value)}</strong></div>`).join("");
+  const messageAction = item.mine
+    ? `<p class="muted" style="margin: 23px 0">You posted this. Other students can message you about it.</p>`
+    : `<div class="detail-actions"><button class="primary-button" data-action="message-board-item" data-kind="${kind}" data-id="${item.id}">${icon("chat")} Message ${escapeHtml(firstName)}</button></div>`;
+  const others = boardItems(kind).filter((entry) => entry.id !== item.id).slice(0, 8);
+  const more = others.length
+    ? `<section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>${job ? "More jobs" : "More places"}</h2><button class="text-button" data-action="close-board-item" data-view-name="${viewName}">Back to ${backLabel} ${icon("arrow")}</button></div><div class="home-scroll-row listing-scroll-row">${others.map((entry) => contentBoardCard(entry, openAction)).join("")}</div></section>`
+    : "";
+  return `<div class="page-top-row"><button class="back-button" data-action="close-board-item" data-view-name="${viewName}">${icon("chevron-left")} Back to ${backLabel}</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button></div></div>
+    <div class="detail-layout"><div class="detail-gallery"><div class="detail-visual ${item.accent}"><span class="detail-figure" aria-hidden="true">${item.emoji}</span></div></div>
+      <div class="detail-copy"><div class="eyebrow">${escapeHtml(item.kicker)} · ${job ? "Job" : "Housing"}</div><h1>${escapeHtml(item.title)}</h1><span class="price">${escapeHtml(item.price)}</span>
+        ${messageAction}
+        <div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(item.initials || "•")}</div><div><div class="small muted">${item.mine ? "Posted by you" : job ? "Hiring contact" : "Posted by"}</div><div class="seller-name">${escapeHtml(item.poster || "Student")}</div><div class="seller-sub">${studentVerifiedPill()}</div></div></div></div>
+        <div class="detail-block board-role"><div class="board-description"><h3>Description</h3><p>${escapeHtml(item.summary || item.meta)}</p></div><div class="board-facts"><h3>${job ? "The role" : "The place"}</h3>${facts}<div class="trust-note">Keep the conversation in the app. ${job ? "Pay and the schedule get confirmed in messages." : "Rent, dates, and a tour get confirmed in messages."}</div></div></div>
+      </div>
+    </div>
+    ${more}`;
+}
+
+function jobPostForm() {
+  return `<form class="form-card job-post-form" data-form="post-job">
+    <div class="eyebrow">Post a job</div>
+    <h3>Put a job on the board.</h3>
+    <p class="muted small">Other students on campus can see it. This demo keeps the post for this session only.</p>
+    <div class="form-grid">
+      <div class="field"><label for="job-title">Job title</label><input id="job-title" name="title" required maxlength="60" placeholder="e.g. Move-in helper" /></div>
+      <div class="field"><label for="job-where">Where</label><input id="job-where" name="where" required maxlength="60" placeholder="e.g. Tenochca" /></div>
+      <div class="field"><label for="job-schedule">Schedule</label><input id="job-schedule" name="schedule" required maxlength="60" placeholder="e.g. Saturday morning" /></div>
+      <div class="field"><label for="job-pay">Pay</label><input id="job-pay" name="pay" required maxlength="24" placeholder="e.g. $20/hr" /></div>
+      <div class="field full"><label for="job-summary">What the job is</label><textarea id="job-summary" name="summary" required maxlength="240" placeholder="What should a student know before they take it?"></textarea></div>
+    </div>
+    <div class="button-row" style="margin-top: 16px"><button class="primary-button" type="submit">Post job ${icon("arrow")}</button><button class="ghost-button" type="button" data-action="toggle-job-form">Cancel</button></div>
+  </form>`;
+}
+
+function jobBoardView() {
+  const query = state.jobQuery.trim().toLowerCase();
+  const jobs = boardItems("job").filter((job) => !query || [job.title, job.kicker, job.meta, job.summary, job.poster, job.price].join(" ").toLowerCase().includes(query));
+  const selected = boardItems("job").find((job) => job.id === state.selectedJobId);
+  if (selected) return boardInquiryDetail("job", selected);
+  const grid = jobs.length
+    ? `<div class="board-grid">${jobs.map((job) => contentBoardCard(job, "open-job")).join("")}</div>`
+    : `<div class="empty-state"><div class="empty-shape">⌕</div><h3>No jobs match that.</h3><p class="muted">Try a role, a workplace, or part of the pay.</p></div>`;
+  return `<div class="browse-header"><div><div class="eyebrow">Campus work</div><h1>Job Board</h1><p class="lede">On-campus roles and jobs students post for each other.</p></div><button class="primary-button" data-action="toggle-job-form">${state.jobFormOpen ? "Close" : "Post a job"} ${state.jobFormOpen ? "" : icon("plus")}</button></div>
+    <form class="global-search browse-page-search" data-form="job-search">${icon("search")}<input id="job-search-input" name="query" type="search" value="${escapeHtml(state.jobQuery)}" placeholder="Search jobs" aria-label="Search jobs" autocomplete="off" /></form>
+    ${state.jobFormOpen ? jobPostForm() : ""}
+    ${grid}`;
+}
+
+function housingPostForm() {
+  return `<form class="form-card job-post-form" data-form="post-housing">
+    <div class="eyebrow">Post a place</div>
+    <h3>Put a room or sublease on the board.</h3>
+    <p class="muted small">Other students on campus can see it. This demo keeps the post for this session only.</p>
+    <div class="form-grid">
+      <div class="field"><label for="housing-title">What's available</label><input id="housing-title" name="title" required maxlength="60" placeholder="e.g. Private room in a 3-bedroom" /></div>
+      <div class="field"><label for="housing-place">Neighborhood</label><input id="housing-place" name="place" required maxlength="60" placeholder="e.g. College Area" /></div>
+      <div class="field"><label for="housing-dates">Dates</label><input id="housing-dates" name="dates" required maxlength="60" placeholder="e.g. Jan–May" /></div>
+      <div class="field"><label for="housing-rent">Rent</label><input id="housing-rent" name="rent" required maxlength="24" placeholder="e.g. $900/mo" /></div>
+      <div class="field full"><label for="housing-summary">Details</label><textarea id="housing-summary" name="summary" required maxlength="240" placeholder="Furnished? Roommates? How far from campus?"></textarea></div>
+    </div>
+    <div class="button-row" style="margin-top: 16px"><button class="primary-button" type="submit">Post place ${icon("arrow")}</button><button class="ghost-button" type="button" data-action="toggle-housing-form">Cancel</button></div>
+  </form>`;
+}
+
+function realEstateAgentCard(agent) {
+  return `<article class="listing-card">
+    <button type="button" class="listing-card-button" data-action="open-agent" data-id="${escapeHtml(agent.id)}">
+      <div class="listing-visual ${agent.accent}"><span class="agent-badge">${icon("home", 13)} Licensed agent</span></div>
+      <div class="listing-body">
+        <div class="listing-title">${escapeHtml(agent.name)}</div>
+        <div class="listing-meta-line muted small">${escapeHtml(shortCardText(agent.summary))}</div>
+        <div class="seller-line"><span class="mini-avatar">${escapeHtml(agent.initials)}</span><span class="seller-name">${escapeHtml(agent.brokerage)}</span></div>
+        <div class="listing-meta"><span class="price">Free <small>/ consult</small></span><span class="rating">${icon("star", 14)} ${escapeHtml(agent.rating)} <span class="muted">(${agent.reviews})</span></span></div>
+      </div>
+    </button>
+  </article>`;
+}
+
+function collegeCubbiesBand() {
+  const store = getStore("college-cubbies");
+  if (!store) return "";
+  return `<section class="section housing-partner"><button type="button" class="housing-partner-button" data-action="open-store" data-id="${store.id}">
+      <span class="housing-partner-copy">
+        <span class="eyebrow">Moving out</span>
+        <span class="housing-partner-name">${escapeHtml(store.name)}</span>
+        <span class="housing-partner-tagline">Student movers pick up from your dorm or apartment, keep it for the summer, and bring it back in the fall.</span>
+        <span class="housing-partner-steps"><span>${icon("package", 14)} 5 boxes included</span><span>${icon("home", 14)} Pickup at your door</span><span>${icon("arrow", 14)} Back before fall</span></span>
+      </span>
+      <span class="housing-partner-aside">
+        <span class="housing-partner-price">$49 <small>to reserve</small></span>
+        <span class="rating">${icon("star", 14)} ${escapeHtml(store.rating)} <span>(${store.reviews})</span></span>
+        <span class="housing-partner-go">Visit store ${icon("arrow")}</span>
+      </span>
+    </button></section>`;
+}
+
+function realEstateAgentSection(agents = realEstateAgents, title = "Real estate agents") {
+  if (!agents.length) return "";
+  return `<section class="section section-home-shelf section-browse-shelf"><div class="section-header section-header-shelf"><h2>${title}</h2></div><div class="home-scroll-row listing-scroll-row">${agents.map(realEstateAgentCard).join("")}</div></section>`;
+}
+
+function agentInquiryDetail(agent) {
+  const firstName = agent.name.split(" ")[0];
+  const facts = [
+    ["Focus", agent.focus],
+    ["Brokerage", agent.brokerage],
+    ["Consult", "Free"]
+  ].map(([label, value]) => `<div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(label)} · ${escapeHtml(value)}</strong></div>`).join("");
+  const others = realEstateAgents.filter((entry) => entry.id !== agent.id);
+  return `<div class="page-top-row"><button class="back-button" data-action="close-agent">${icon("chevron-left")} Back to Housing</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button></div></div>
+    <div class="detail-layout"><div class="detail-gallery"><div class="detail-visual ${agent.accent}"><span class="agent-badge agent-badge-detail">${icon("home", 13)} Licensed agent</span></div></div>
+      <div class="detail-copy"><div class="eyebrow">${escapeHtml(agent.brokerage)} · Agent</div><h1>${escapeHtml(agent.name)}</h1><span class="price">Free consult</span>
+        <div class="detail-actions"><button class="primary-button" data-action="message-agent" data-id="${escapeHtml(agent.id)}">${icon("chat")} Message ${escapeHtml(firstName)}</button></div>
+        <div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(agent.initials)}</div><div><div class="small muted">Real estate agent</div><div class="seller-name">${escapeHtml(agent.name)}</div><div class="seller-sub">${escapeHtml(agent.brokerage)}</div></div></div></div>
+        <div class="detail-block board-role"><div class="board-description"><h3>Description</h3><p>${escapeHtml(agent.summary)}</p></div><div class="board-facts"><h3>How they help</h3>${facts}<div class="trust-note">Keep the conversation in the app. Tours and next steps get confirmed in messages.</div></div></div>
+      </div>
+    </div>
+    ${realEstateAgentSection(others, "More agents")}`;
+}
+
+function housingView() {
+  const homes = boardItems("housing");
+  const selected = homes.find((home) => home.id === state.selectedHousingId);
+  if (selected) return boardInquiryDetail("housing", selected);
+  const agent = realEstateAgents.find((entry) => entry.id === state.selectedAgentId);
+  if (agent) return agentInquiryDetail(agent);
+  return `<div class="browse-header"><div><div class="eyebrow">Near SDSU</div><h1>Housing & subleases</h1><p class="lede">Rooms and subleases posted by students who already have the lease.</p></div><button class="primary-button" data-action="toggle-housing-form">${state.housingFormOpen ? "Close" : "Post a place"} ${state.housingFormOpen ? "" : icon("plus")}</button></div>
+    ${state.housingFormOpen ? housingPostForm() : ""}
+    ${realEstateAgentSection()}
+    ${collegeCubbiesBand()}
+    <section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>Posted by students</h2></div><div class="board-grid">${homes.map((home) => contentBoardCard(home, "open-housing")).join("")}</div></section>`;
+}
+
+function ticketPostLine(post) {
+  if (post.kind === "resell") return `Reselling a ${post.event} ticket for $${post.price}`;
+  return `Looking for a ticket for ${post.event}`;
+}
+
+function ticketPostForm(kind) {
+  if (kind === "resell") {
+    return `<form class="ticket-post-form" data-form="post-ticket-resell">
+      <div class="field"><label for="ticket-event">Event</label><input id="ticket-event" name="event" required maxlength="60" placeholder="e.g. Boise State" /></div>
+      <div class="field"><label for="ticket-price">Price</label><input id="ticket-price" name="price" required maxlength="8" inputmode="decimal" placeholder="25" /></div>
+      <div class="button-row"><button class="primary-button" type="submit">Post</button><button class="ghost-button" type="button" data-action="close-ticket-post">Cancel</button></div>
+    </form>`;
+  }
+  return `<form class="ticket-post-form" data-form="post-ticket-request">
+    <div class="field"><label for="ticket-event">Event</label><input id="ticket-event" name="event" required maxlength="60" placeholder="e.g. Open Air concert" /></div>
+    <div class="button-row"><button class="primary-button" type="submit">Post</button><button class="ghost-button" type="button" data-action="close-ticket-post">Cancel</button></div>
+  </form>`;
+}
+
+function ticketBubble(post) {
+  return `<div class="message ${post.mine ? "me" : "them"} ticket-post">
+    <span class="ticket-post-copy"><span class="ticket-post-name">${escapeHtml(post.name)}</span><span>${escapeHtml(ticketPostLine(post))}</span></span>
+    <button type="button" class="ticket-dm-button" data-action="open-ticket-dm" data-id="${escapeHtml(post.id)}" aria-label="Private message">${icon("send", 15)}</button>
+  </div>`;
+}
+
+function ticketDmView(post) {
+  const messages = state.ticketDms[post.id] || [];
+  const thread = messages.length ? messages.map((message) => `<div class="message ${message.who}">${escapeHtml(message.text)}<div class="message-meta">${escapeHtml(message.time)}</div></div>`).join("") : `<p class="muted small">This is a private message with ${escapeHtml(post.name)}.</p>`;
+  return `<section class="chat-panel ticket-chat">
+    <div class="chat-header"><button class="back-button" type="button" data-action="close-ticket-dm">${icon("chevron-left")} Back</button><div class="chat-person"><span class="mini-avatar" style="background:var(--${post.accent})">${escapeHtml(post.initials)}</span><div><strong>${escapeHtml(post.name)}</strong><span>${escapeHtml(ticketPostLine(post))}</span></div></div></div>
+    <div class="chat-messages">${thread}</div>
+    <form class="chat-composer" data-form="send-ticket-dm"><textarea name="message" placeholder="Private message…" aria-label="Private message" rows="1"></textarea><button class="primary-button" type="submit" aria-label="Send message">${icon("arrow")}</button></form>
+  </section>`;
+}
+
+function ticketChat() {
+  const dm = state.ticketPosts.find((post) => post.id === state.ticketDmPostId);
+  if (dm) return ticketDmView(dm);
+  const kind = state.ticketPostKind;
+  const query = state.ticketQuery.trim().toLowerCase();
+  const posts = state.ticketPosts.filter((post) => !query || `${post.name} ${ticketPostLine(post)}`.toLowerCase().includes(query));
+  const bubbles = posts.length ? posts.map(ticketBubble).join("") : `<p class="muted small">${query ? "No posts match that." : "No posts yet."}</p>`;
+  return `<section class="chat-panel ticket-chat">
+    <div class="chat-header ticket-chat-header">
+      <div class="ticket-chat-top">
+        <div class="chat-person"><span class="ticket-chat-mark">${icon("ticket", 22)}</span><strong>Ticket chat</strong></div>
+        <div class="button-row ticket-post-actions"><button type="button" class="ghost-button ticket-post-button ${kind === "resell" ? "is-open" : ""}" data-action="open-ticket-post" data-kind="resell">Resell</button><button type="button" class="ghost-button ticket-post-button ${kind === "request" ? "is-open" : ""}" data-action="open-ticket-post" data-kind="request">Request</button></div>
+      </div>
+      <form class="global-search ticket-chat-search" data-form="ticket-search">${icon("search")}<input id="ticket-search-input" name="query" type="search" value="${escapeHtml(state.ticketQuery)}" placeholder="Search tickets" aria-label="Search tickets" autocomplete="off" /></form>
+    </div>
+    ${kind ? ticketPostForm(kind) : ""}
+    <div class="chat-messages">${bubbles}</div>
+  </section>`;
+}
+
+function ticketsView() {
+  const storeTickets = allListings().filter((listing) => listing.kind === "ticket" && listing.quantityAvailable > 0);
+  const cards = storeTickets.length ? storeTickets.map(listingCard).join("") : `<p class="muted">No tickets are on sale right now.</p>`;
+  const mine = state.orders.filter((order) => order.kind === "ticket");
+  const owned = mine.length
+    ? `<section class="section"><div class="section-header"><h2>Your tickets</h2></div><div class="activity-list">${mine.map((order) => {
+      const listing = getListing(order.listingId);
+      return `<button class="activity-row" data-action="open-order" data-id="${order.id}"><span class="activity-main"><span class="activity-thumb ${listing?.accent || "coral"}">${listing?.emoji || "🎟️"}</span><span><span class="activity-title">${escapeHtml(listing?.title || "Ticket")}</span><span class="activity-sub">${order.ticketStatus === "used" ? "Used" : "Show QR code"} · ${escapeHtml(order.ticketCode)}</span></span></span>${icon("chevron-right")}</button>`;
+    }).join("")}</div></section>`
+    : "";
+  return `<div class="tickets-layout">
+    <div class="tickets-main">
+      <div class="browse-header"><div><div class="eyebrow">On campus stores</div><h1>Tickets</h1><p class="lede">Organizations and bands sell tickets from their store. You get a QR code, and they scan it once at the door.</p></div></div>
+      <div class="board-grid">${cards}</div>
+      ${owned}
+    </div>
+    ${ticketChat()}
+  </div>`;
+}
+
 function scrollSectionLink(link) {
   if (!link) return "";
   if (link.view) return `<button class="text-button" data-view="${link.view}">${escapeHtml(link.label)} ${icon("arrow")}</button>`;
@@ -759,6 +1224,250 @@ function scrollSectionLink(link) {
   if (link.id) attrs.push(`data-id="${escapeHtml(link.id)}"`);
   if (link.query !== undefined) attrs.push(`data-query="${escapeHtml(link.query)}"`);
   return `<button class="text-button" ${attrs.join(" ")}>${escapeHtml(link.label)} ${icon("arrow")}</button>`;
+}
+
+function isChoreListing(listing) {
+  if (listing.bookingType) return listing.bookingType === "chore";
+  if (listing.schoolProvided) return false;
+  return listing.category === "Help";
+}
+
+const CHORE_BOARD_TAGLINE = "Post a chore or pick one up. Open to every student.";
+
+function studentInitials(name) {
+  return String(name || "").split(" ").filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join("") || "KC";
+}
+
+function choreItems() {
+  return [...state.postedChores, ...campusChores];
+}
+
+function choreBoardBack() {
+  if (state.boardReturn === "stores") return { view: "stores", label: "Stores" };
+  if (state.boardReturn === "you") return { view: "you", label: "You" };
+  if (state.boardReturn === "home") return { view: "home", label: "Home" };
+  return { view: "book", label: "Book" };
+}
+
+function choreBoardCard() {
+  return `<article class="chore-board-card">
+    <button type="button" class="chore-board-button" data-action="open-chore-board" aria-label="Open Chore Board">
+      <span class="chore-board-banner" aria-hidden="true"></span>
+      <span class="chore-board-body">
+        <span class="chore-board-name">Chore Board</span>
+        <span class="chore-board-tagline">${CHORE_BOARD_TAGLINE}</span>
+      </span>
+    </button>
+  </article>`;
+}
+
+function choreBoardSection(query) {
+  const search = query.trim().toLowerCase();
+  const haystack = ["Chore Board", CHORE_BOARD_TAGLINE, ...choreItems().map((chore) => `${chore.title} ${chore.summary} ${chore.poster}`)].join(" ").toLowerCase();
+  if (search && !haystack.includes(search)) return "";
+  return `<section class="section section-home-shelf section-chore-board">${choreBoardCard()}</section>`;
+}
+
+function choreAmount(chore) {
+  if (chore.amount) return chore.amount;
+  const match = String(chore.price || "").match(/\$\d+(?:\.\d+)?/);
+  return match ? match[0] : (chore.price || "");
+}
+
+function choreSlipMeta(chore) {
+  if (chore.status === "paid") return `Paid on Campus Connect · ${chore.meta}`;
+  if (chore.status === "approved") return `Approved · pay on Campus Connect · ${chore.meta}`;
+  if (chore.status === "requested" && chore.mine) return `Needs your approval · ${chore.meta}`;
+  if (chore.status === "requested") return `Waiting on ${chore.poster.split(" ")[0]} · ${chore.meta}`;
+  if (chore.mine) return `Your post · ${chore.meta}`;
+  return chore.meta;
+}
+
+function choreSlip(chore) {
+  const quiet = chore.status && chore.status !== "open";
+  const label = `Open ${chore.title}, ${choreSlipMeta(chore)}`;
+  return `<button type="button" class="chore-slip${quiet ? " is-quiet" : ""}" data-action="open-chore" data-id="${escapeHtml(chore.id)}" aria-label="${escapeHtml(label)}">
+    <span class="chore-slip-price">${escapeHtml(choreAmount(chore))}</span>
+    <span class="chore-slip-copy">
+      <span class="chore-slip-title">${escapeHtml(chore.title)}</span>
+      <span class="chore-slip-meta">${escapeHtml(choreSlipMeta(chore))}</span>
+    </span>
+    <span class="chore-slip-go" aria-hidden="true">${icon("arrow", 26)}</span>
+  </button>`;
+}
+
+function chorePostForm() {
+  return `<form class="form-card job-post-form" data-form="post-chore">
+    <div class="eyebrow">Post a chore</div>
+    <h3>Ask another student to do it.</h3>
+    <p class="muted small">This post stays on your student account.</p>
+    <div class="form-grid">
+      <div class="field"><label for="chore-title">What you need</label><input id="chore-title" name="title" required maxlength="60" placeholder="e.g. Take a package to the mailroom" /></div>
+      <div class="field"><label for="chore-when">When</label><input id="chore-when" name="when" required maxlength="60" placeholder="e.g. Today after 4" /></div>
+      <div class="field"><label for="chore-where">Where</label><input id="chore-where" name="where" required maxlength="60" placeholder="e.g. Zura lobby" /></div>
+      <div class="field"><label for="chore-pay">Pay</label><input id="chore-pay" name="pay" required maxlength="24" placeholder="e.g. $15" /></div>
+      <div class="field full"><label for="chore-summary">Details</label><textarea id="chore-summary" name="summary" required maxlength="240" placeholder="What should a student know before they pick it up?"></textarea></div>
+    </div>
+    <div class="button-row" style="margin-top: 16px"><button class="primary-button" type="submit">Post chore ${icon("arrow")}</button><button class="ghost-button" type="button" data-action="toggle-chore-form">Cancel</button></div>
+  </form>`;
+}
+
+function choreSection(title, chores) {
+  if (!chores.length) return "";
+  return `<section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>${title}</h2></div><div class="chore-slip-grid">${chores.map(choreSlip).join("")}</div></section>`;
+}
+
+function chorePosterName(chore) {
+  return chore.mine ? state.settings.displayName : (chore.poster || "The poster");
+}
+
+function choreTakerName(chore) {
+  return chore.offerName || state.settings.displayName;
+}
+
+function choreOfferActions(chore) {
+  const poster = chorePosterName(chore);
+  const posterFirst = poster.split(" ")[0];
+  const taker = choreTakerName(chore);
+  const amount = choreAmount(chore);
+  if ((chore.status || "open") === "open" && !chore.mine) {
+    return `<div class="detail-actions"><button class="primary-button" data-action="offer-chore" data-id="${chore.id}">I can take this chore</button></div><p class="muted small">${escapeHtml(posterFirst)} approves you first. Then they pay ${escapeHtml(amount)} through Campus Connect.</p>`;
+  }
+  if ((chore.status || "open") === "open" && chore.mine) {
+    return `<p class="muted" style="margin: 23px 0">You posted this. When a student says they can take it, you approve them and pay ${escapeHtml(amount)} through Campus Connect.</p>`;
+  }
+  if (chore.status === "requested" && chore.mine) {
+    return `<p class="muted" style="margin: 23px 0 12px">${escapeHtml(taker)} says they can take this chore.</p><div class="detail-block chore-approval"><h3>Your approval</h3><p>You posted this chore. Approving opens a ${escapeHtml(amount)} payment through Campus Connect.</p><button class="primary-button" data-action="approve-chore" data-id="${chore.id}">Approve</button></div>`;
+  }
+  if (chore.status === "requested") {
+    return `<p class="muted" style="margin: 23px 0">You told ${escapeHtml(posterFirst)} you can take this chore. Waiting for ${escapeHtml(poster)} to approve. The ${escapeHtml(amount)} is paid through Campus Connect when they do.</p>`;
+  }
+  if (chore.status === "approved" && chore.mine) {
+    return `<div class="detail-actions"><button class="primary-button" data-action="open-chore-pay" data-id="${chore.id}">Pay ${escapeHtml(amount)} through Campus Connect ${icon("arrow")}</button></div><p class="muted small">You approved ${escapeHtml(taker)}. The money moves on Campus Connect.</p>`;
+  }
+  return `<p class="muted" style="margin: 23px 0">${escapeHtml(poster)} paid ${escapeHtml(taker)} ${escapeHtml(amount)} through Campus Connect.</p>`;
+}
+
+function choreDetail(chore) {
+  const poster = chorePosterName(chore);
+  const facts = (chore.facts || []).map(([label, value]) => `<div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(label)} · ${escapeHtml(value)}</strong></div>`).join("");
+  const actions = choreOfferActions(chore);
+  const others = choreItems().filter((entry) => entry.id !== chore.id && !entry.mine && (entry.status || "open") === "open").slice(0, 8);
+  const more = others.length
+    ? `<section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>More on the board</h2><button class="text-button" data-action="close-chore">Back to Chore Board ${icon("arrow")}</button></div><div class="chore-board"><div class="chore-slip-grid">${others.map(choreSlip).join("")}</div></div></section>`
+    : "";
+  return `<div class="page-top-row"><button class="back-button" data-action="close-chore">${icon("chevron-left")} Back to Chore Board</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button></div></div>
+    <div class="detail-layout"><div class="detail-gallery"><div class="detail-visual ${chore.accent}"><span class="detail-figure" aria-hidden="true">${chore.emoji}</span></div></div>
+      <div class="detail-copy"><div class="eyebrow">Chore Board · ${chore.mine ? "Your post" : "Student post"}</div><h1>${escapeHtml(chore.title)}</h1><span class="price">${escapeHtml(chore.price)}</span>
+        ${actions}
+        <div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(chore.mine ? studentInitials(state.settings.displayName) : chore.initials || "•")}</div><div><div class="small muted">${chore.mine ? "Posted by you" : "Posted by"}</div><div class="seller-name">${escapeHtml(poster)}</div><div class="seller-sub">${studentVerifiedPill()}</div></div></div></div>
+        <div class="detail-block board-role"><div class="board-description"><h3>Description</h3><p>${escapeHtml(chore.summary || chore.meta)}</p></div><div class="board-facts"><h3>The chore</h3>${facts}<div class="trust-note">The poster approves a student, then pays them through Campus Connect.</div></div></div>
+      </div>
+    </div>
+    ${more}`;
+}
+
+function choreBookings() {
+  return allListings().filter((listing) => listing.choreFocus && listing.kind === "service");
+}
+
+function yourChoreSections() {
+  const posted = choreItems().filter((chore) => chore.mine);
+  const waiting = choreItems().filter((chore) => chore.offeredByMe && chore.status !== "paid");
+  const paid = choreItems().filter((chore) => chore.offeredByMe && chore.status === "paid");
+  return `${choreSection("Chores you posted", posted)}${choreSection("Waiting on approval", waiting)}${choreSection("Paid through Campus Connect", paid)}`;
+}
+
+function choreBoardView() {
+  const selected = choreItems().find((chore) => chore.id === state.selectedChoreId);
+  if (selected) return choreDetail(selected);
+  const back = choreBoardBack();
+  const open = choreItems().filter((chore) => !chore.mine && (chore.status || "open") === "open");
+  const bookings = choreBookings();
+  const openGrid = open.length
+    ? `<div class="chore-slip-grid">${open.map(choreSlip).join("")}</div>`
+    : `<div class="empty-state"><div class="empty-shape">⌁</div><h3>Nothing is waiting on the board.</h3><p class="muted">Post a chore if you need something done.</p></div>`;
+  const bookingSection = bookings.length
+    ? `<section class="section section-home-shelf section-chore-bookings"><div class="section-header section-header-shelf"><h2>Book a chore</h2></div><p class="lede">Student sellers you can book for a chore. Pick a time and pay through Campus Connect.</p><div class="listing-grid listing-grid-recommended">${bookings.map(listingCard).join("")}</div></section>`
+    : "";
+  return `<div class="page-top-row"><button class="back-button" data-view="${back.view}">${icon("chevron-left")} Back to ${back.label}</button></div>
+    <div class="browse-header"><div><div class="eyebrow">${back.label}</div><h1>Chore Board</h1><p class="lede">Open a chore and say you can take it. The poster approves, then pays through Campus Connect.</p></div><button class="primary-button chore-post-button" data-action="toggle-chore-form">${state.choreFormOpen ? "Close" : "Post a chore"} ${state.choreFormOpen ? "" : icon("plus")}</button></div>
+    ${state.choreFormOpen ? chorePostForm() : ""}
+    <section class="chore-board" aria-label="Open chores">${openGrid}</section>
+    ${bookingSection}`;
+}
+
+function chorePayAmount(chore) {
+  const amount = Number(String(choreAmount(chore)).replace(/[^0-9.]/g, ""));
+  return Number.isFinite(amount) ? amount : 0;
+}
+
+function chorePayView(chore) {
+  if (!chore) return choreBoardView();
+  const poster = chorePosterName(chore);
+  const taker = choreTakerName(chore);
+  const total = chorePayAmount(chore);
+  return `<div class="page-top-row"><button class="back-button" data-action="back-from-chore-pay">${icon("chevron-left")} Back to chore</button><span class="small muted">Campus Connect payment · demo only</span></div>
+    <div class="checkout-layout"><section class="checkout-panel"><div class="eyebrow">Chore Board</div><h1>Pay through Campus Connect.</h1><p class="lede">${escapeHtml(poster.split(" ")[0])} approved ${escapeHtml(taker)}. This payment stays on the platform.</p>
+      <div class="step-list"><div class="step"><span class="step-number">1</span><div><strong>${escapeHtml(chore.title)}</strong><p>${escapeHtml(chore.meta)}</p></div></div><div class="step"><span class="step-number">2</span><div><strong>Pay ${escapeHtml(taker)}</strong><p>${escapeHtml(poster)} is paying the student who is taking the chore.</p></div></div><div class="step"><span class="step-number">3</span><div><strong>On Campus Connect</strong><p>The money does not move outside the app.</p></div></div></div>
+      <div class="button-row stretch"><button class="primary-button" data-action="confirm-chore-pay" data-id="${chore.id}">Confirm & pay ${money(total)} ${icon("arrow")}</button></div>
+    </section><aside class="summary-card"><div class="summary-visual"><div class="summary-thumb ${chore.accent}">${chore.emoji}</div><div><strong>${escapeHtml(chore.title)}</strong><div class="small muted">To ${escapeHtml(taker)}</div></div></div><div class="summary-line"><span>Chore</span><strong>${money(total)}</strong></div><div class="summary-line"><span>Platform fee</span><strong>$0.00</strong></div><div class="summary-line total"><span>Total</span><strong>${money(total)}</strong></div><p class="checkout-disclaimer">This is a prototype only. No real account, order or payment is created.</p></aside></div>`;
+}
+
+const chorePosterTimers = {};
+
+function recordChorePayment(chore) {
+  if (!chore || chore.status === "paid") return null;
+  chore.status = "paid";
+  if (chore.offeredByMe) chore.pickedByMe = true;
+  const payer = chorePosterName(chore);
+  const payee = choreTakerName(chore);
+  const order = { id: `order-${Date.now()}`, kind: "chore", choreId: chore.id, title: chore.title, emoji: chore.emoji, accent: chore.accent, status: "Paid on Campus Connect", date: chore.meta, amount: chorePayAmount(chore), payer, payee };
+  state.orders.unshift(order);
+  state.selectedOrderId = order.id;
+  const conversationId = `chore-${chore.id}`;
+  if (!chore.mine && state.messages[conversationId]) {
+    state.messages[conversationId].push({ who: "them", text: `Approved. I paid ${choreAmount(chore)} through Campus Connect.`, time: "now" });
+  }
+  return order;
+}
+
+function schedulePosterApproval(chore) {
+  if (chorePosterTimers[chore.id]) return;
+  chorePosterTimers[chore.id] = window.setTimeout(() => {
+    delete chorePosterTimers[chore.id];
+    if (!chore || chore.mine || chore.status !== "requested") return;
+    const order = recordChorePayment(chore);
+    if (!order) return;
+    const posterFirst = (chore.poster || "They").split(" ")[0];
+    showToast(`${posterFirst} approved you and paid through Campus Connect.`);
+    if (state.view === "chore-board" && state.selectedChoreId === chore.id) setView("order");
+    else if (state.view === "chore-board" || state.view === "you") render();
+  }, 1600);
+}
+
+function openChoreConversation(chore) {
+  if (!chore || chore.mine) return;
+  const conversationId = `chore-${chore.id}`;
+  if (!conversations.some((conversation) => conversation.id === conversationId)) {
+    conversations.unshift({
+      id: conversationId,
+      name: chore.poster,
+      initials: chore.initials,
+      context: chore.title,
+      time: "now",
+      preview: `Picked up ${chore.title}`,
+      unread: false,
+      accent: chore.accent
+    });
+  }
+  if (!state.messages[conversationId]) {
+    state.messages[conversationId] = [
+      { who: "me", text: `I can take ${chore.title}.`, time: "now" },
+      { who: "them", text: `Perfect — message me here and we can set the handoff for ${chore.title}.`, time: "now" }
+    ];
+  }
+  return setView("inbox", { selectedConversationId: conversationId });
 }
 
 function schoolProvidedSection() {
@@ -784,9 +1493,9 @@ function homeScrollSection(title, listings, view, linkText) {
   return listingScrollSection(title, listings, { view, label: linkText });
 }
 
-function storeScrollSection(title, storeList, link) {
-  if (!storeList.length) return "";
-  return `<section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>${title}</h2>${scrollSectionLink(link)}</div><div class="home-scroll-row store-scroll-row">${storeList.map(storeCard).join("")}</div></section>`;
+function storeScrollSection(title, storeList, link, lead = "") {
+  if (!storeList.length && !lead) return "";
+  return `<section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>${title}</h2>${scrollSectionLink(link)}</div>${lead}<div class="home-scroll-row store-scroll-row">${storeList.map(storeCard).join("")}</div></section>`;
 }
 
 function categoryChipIcon(category) {
@@ -799,19 +1508,20 @@ function categoryChips(kind = "all") {
 }
 
 function homeView() {
-  const popular = [...services, ...products].sort((a, b) => b.reviews + b.completed - (a.reviews + a.completed)).slice(0, 8);
+  const popular = [...services, ...products].filter((listing) => !isChoreListing(listing) && !listing.choreFocus && !listing.storeOnly).sort((a, b) => b.reviews + b.completed - (a.reviews + a.completed)).slice(0, 8);
   const bookedIds = new Set(state.orders.map((order) => order.listingId));
   const bookAgain = [...bookedIds].map(getListing).filter(Boolean);
   services.forEach((listing) => {
     if (bookAgain.length >= 8) return;
-    if (!bookedIds.has(listing.id)) bookAgain.push(listing);
+    if (isChoreListing(listing) || listing.choreFocus || listing.storeOnly || bookedIds.has(listing.id)) return;
+    bookAgain.push(listing);
   });
   const featuredStores = [...stores].sort((a, b) => b.followers - a.followers).slice(0, 8);
   const usedIds = new Set([...popular, ...bookAgain].map((listing) => listing.id));
-  const recommended = allListings().filter((listing) => !usedIds.has(listing.id)).slice(0, 9);
+  const recommended = allListings().filter((listing) => !usedIds.has(listing.id) && !isChoreListing(listing) && !listing.choreFocus && !listing.storeOnly).slice(0, 9);
   if (recommended.length < 9) {
     allListings().forEach((listing) => {
-      if (recommended.length >= 9 || recommended.some((item) => item.id === listing.id)) return;
+      if (recommended.length >= 9 || recommended.some((item) => item.id === listing.id) || isChoreListing(listing) || listing.choreFocus || listing.storeOnly) return;
       recommended.push(listing);
     });
   }
@@ -838,7 +1548,7 @@ function homeView() {
   </section>
 
   ${homeScrollSection("Popular on campus", popular, "search", "See all")}
-  ${storeScrollSection("Campus stores", featuredStores, { view: "stores", label: "All stores" })}
+  ${storeScrollSection("Campus stores", featuredStores, { view: "stores", label: "All stores" }, choreBoardCard())}
   ${homeScrollSection("Book again", bookAgain, "book", "View bookings")}
 
   <section class="section section-home-shelf"><div class="section-header section-header-shelf"><h2>Recommended</h2><button class="text-button" data-view="search">Browse more ${icon("arrow")}</button></div><div class="listing-grid listing-grid-recommended">${recommended.map(listingCard).join("")}</div></section>
@@ -854,13 +1564,12 @@ function browseView(kind = "all") {
       ? allListings().filter((listing) => listing.kind === "product")
       : allListings();
   const filtered = source.filter((listing) => {
-    const matchesCategory = state.category === "All" || listing.category === state.category;
-    const bookingType = listing.bookingType || (listing.category === "Help" ? "chore" : "service");
-    const matchesBookType = activeKind !== "service" || state.bookType === "all" || bookingType === state.bookType;
-    const matchesShopType = activeKind !== "product" || state.shopType === "all" || listing.merchandiseType === state.shopType;
     const search = state.query.trim().toLowerCase();
+    const matchesCategory = state.category === "All" || listing.category === state.category;
+    const matchesBookType = activeKind !== "service" || (!isChoreListing(listing) && (Boolean(search) || !listing.choreFocus));
+    const matchesShopType = activeKind !== "product" || state.shopType === "all" || listing.merchandiseType === state.shopType;
     const matchesQuery = !search || [listing.title, listing.seller, listing.category, listing.description, merchandiseTypeLabel(listing), getStore(listing.storeId)?.name || ""].join(" ").toLowerCase().includes(search);
-    return matchesCategory && matchesBookType && matchesShopType && matchesQuery;
+    return matchesCategory && matchesBookType && matchesShopType && matchesQuery && (!listing.storeOnly || Boolean(search));
   });
   const matchingStores = state.query.trim() ? stores.filter((store) => {
     const search = state.query.trim().toLowerCase();
@@ -868,11 +1577,11 @@ function browseView(kind = "all") {
   }) : [];
   const title = activeKind === "service" ? "Book something useful." : activeKind === "product" ? "Good stuff, already here." : state.query ? `Results for “${escapeHtml(state.query)}”` : "Find what you need.";
   const subtitle = activeKind === "service"
-    ? state.bookType === "chore" ? "Hands-on help for the stuff you'd rather not do alone." : state.bookType === "service" ? "Tutoring, beauty, creative work and other skilled bookings." : "See who is available, when it can happen and what it costs."
+    ? "See who is available, when it can happen and what it costs."
     : activeKind === "product"
       ? state.shopType === "new" ? "Originals, new goods and made-to-order items from students." : state.shopType === "resale" ? "Useful items getting a second life at your school." : "Shop new and student-made goods or find useful pre-owned items at your school."
       : "Browse services and products from students at your school.";
-  const professionalShelf = activeKind === "service" && state.bookType !== "chore" && !state.query.trim() && state.category === "All"
+  const professionalShelf = activeKind === "service" && !state.query.trim() && state.category === "All"
     ? schoolProvidedSection()
     : "";
   const resultsHeader = activeKind === "service"
@@ -891,19 +1600,17 @@ function browseView(kind = "all") {
   return `<div class="browse-header"><div><div class="eyebrow">${activeKind === "product" ? "Shop" : activeKind === "service" ? "Book" : "Search"}</div><h1>${title}</h1><p class="lede">${subtitle}</p></div></div>
     <div class="browse-filters">
       <form class="global-search browse-page-search" data-form="browse-search">${icon("search")}<input id="browse-search-input" name="query" type="search" value="${escapeHtml(state.query)}" placeholder="What do you need?" aria-label="Search the marketplace" autocomplete="off" /><kbd>⌘ K</kbd></form>
-      ${activeKind === "service" || activeKind === "product" ? `<div class="book-tabs">
-        <div class="book-tablist" role="tablist" aria-label="${activeKind === "service" ? "Booking type" : "Shop listing type"}">
-          ${activeKind === "service" ? `<button type="button" class="book-tab ${state.bookType === "all" ? "active" : ""}" role="tab" aria-selected="${state.bookType === "all"}" data-action="set-book-type" data-book-type="all">All</button>
-          <button type="button" class="book-tab ${state.bookType === "chore" ? "active" : ""}" role="tab" aria-selected="${state.bookType === "chore"}" data-action="set-book-type" data-book-type="chore">Chores</button>
-          <button type="button" class="book-tab ${state.bookType === "service" ? "active" : ""}" role="tab" aria-selected="${state.bookType === "service"}" data-action="set-book-type" data-book-type="service">Services</button>` : `<button type="button" class="book-tab ${state.shopType === "all" ? "active" : ""}" role="tab" aria-selected="${state.shopType === "all"}" data-action="set-shop-type" data-shop-type="all">All</button>
+      ${activeKind === "product" ? `<div class="book-tabs">
+        <div class="book-tablist" role="tablist" aria-label="Shop listing type">
+          <button type="button" class="book-tab ${state.shopType === "all" ? "active" : ""}" role="tab" aria-selected="${state.shopType === "all"}" data-action="set-shop-type" data-shop-type="all">All</button>
           <button type="button" class="book-tab ${state.shopType === "new" ? "active" : ""}" role="tab" aria-selected="${state.shopType === "new"}" data-action="set-shop-type" data-shop-type="new">New & student-made</button>
-          <button type="button" class="book-tab ${state.shopType === "resale" ? "active" : ""}" role="tab" aria-selected="${state.shopType === "resale"}" data-action="set-shop-type" data-shop-type="resale">Pre-owned</button>`}
+          <button type="button" class="book-tab ${state.shopType === "resale" ? "active" : ""}" role="tab" aria-selected="${state.shopType === "resale"}" data-action="set-shop-type" data-shop-type="resale">Pre-owned</button>
         </div>
         <div class="book-tab-panel" role="tabpanel">
           ${categoryBar}
           ${browseResults}
         </div>
-      </div>` : categoryBar}
+      </div>` : `${categoryBar}${activeKind === "service" ? `${choreBoardSection(state.query)}${browseResults}` : ""}`}
     </div>
     ${activeKind === "service" || activeKind === "product" ? "" : browseResults}`;
 }
@@ -939,22 +1646,36 @@ function trustBadges(entity, rating) {
 function listingDetailView(listing) {
   if (!listing) return homeView();
   const service = listing.kind === "service";
-  const seller = getSeller(listing.sellerId);
   const saved = isListingSaved(listing.id);
   const store = getStore(listing.storeId);
   const returnStore = getStore(state.detailReturn);
   const moreFromStore = store ? storeListings(store).filter((entry) => entry.id !== listing.id).slice(0, 8) : [];
-  const sellerCard = store
+  const onBoard = isChoreListing(listing);
+  const sellerCard = onBoard
+    ? `<div class="seller-card sold-by-card"><div class="seller-card-main"><div><div class="small muted">Listed on</div><div class="seller-name">Chore Board</div></div></div><button class="text-button visit-store-button" data-action="open-chore-board">Open Chore Board ${icon("arrow")}</button></div>`
+    : store
     ? `<div class="seller-card sold-by-card"><div class="seller-card-main"><div class="store-logo-small ${store.accent}" aria-hidden="true">${store.emoji}</div><div><div class="small muted">Sold by</div><div class="seller-name">${escapeHtml(store.name)}</div><div class="seller-sub">Run by <button type="button" class="inline-link" data-action="open-seller" data-id="${listing.sellerId}">${escapeHtml(listing.seller)}</button> ${trustBadges(listing, listing.rating)}</div></div></div><button class="text-button visit-store-button" data-action="open-store" data-id="${store.id}">Visit store ${icon("arrow")}</button></div>`
     : `<div class="seller-card"><div class="seller-card-main"><div class="seller-avatar">${escapeHtml(listing.initials)}</div><div><div class="seller-name">${escapeHtml(listing.seller)}</div><div class="seller-sub">${escapeHtml(listing.campus)}</div>${trustBadges(listing, listing.rating)}</div></div><button class="text-button" data-action="open-seller" data-id="${listing.sellerId}">View profile ${icon("arrow")}</button></div>`;
-  return `<div class="page-top-row"><button class="back-button" data-action="back-from-detail">${icon("chevron-left")} Back to ${returnStore ? escapeHtml(returnStore.name) : service ? "Book" : "Shop"}</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button><button class="ghost-button" data-action="toggle-save" data-id="${listing.id}">${icon("heart")} ${saved ? "In a list" : "Save"}</button></div></div>
+  const moreFromBoard = onBoard ? allListings().filter((entry) => isChoreListing(entry) && entry.id !== listing.id).slice(0, 8) : [];
+  const ticket = listing.kind === "ticket";
+  const soldOut = ticket && listing.quantityAvailable < 1;
+  const backLabel = state.detailReturn === "chore-board" || onBoard ? "Chore Board" : returnStore ? escapeHtml(returnStore.name) : ticket ? "Tickets" : service ? "Book" : "Shop";
+  const kindLabel = service ? "Service" : ticket ? escapeHtml(ticketHost(listing)) : escapeHtml(merchandiseTypeLabel(listing) || "Product");
+  const buyLabel = soldOut ? "Sold out" : service ? "Book this time" : ticket ? "Buy ticket" : "Buy now";
+  const detailBlock = service
+    ? `<div class="detail-block"><h3>When can it happen?</h3><p class="muted small">Pick a slot that works for you. The seller confirms the appointment after checkout.</p><div class="date-options">${["Today", "Tomorrow", "Sat", "Sun"].map((date, index) => `<button class="option-button date-button ${state.selectedDate === date ? "active" : ""}" data-action="select-date" data-date="${date}"><strong>${index === 0 ? "12" : index === 1 ? "13" : index === 2 ? "14" : "15"}</strong><span>${date}</span></button>`).join("")}</div>${slotPicker(listing)}</div>`
+    : ticket
+      ? `<div class="detail-block"><h3>At the door</h3><div class="info-row info-row-line"><span class="trust-icon">${icon("calendar")}</span><div><span class="small muted">Date and time</span><strong>${escapeHtml([listing.date, listing.time].filter(Boolean).join(" · ") || listing.availability)}</strong></div></div><div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><div><span class="small muted">Location</span><strong>${escapeHtml(listing.location || listing.meeting)}</strong></div></div><p class="ticket-detail-price">${ticketPriceLabel(listing.price)}</p><p class="muted small">Buying this gives you a QR code. ${escapeHtml(ticketHost(listing))} scans it once at the door, and that scan marks the ticket used.</p><span class="small muted">${listing.quantityAvailable} left</span></div>`
+      : `<div class="detail-block"><h3>Pickup details</h3><div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(listing.availability)}</strong></div><div class="info-row info-row-line"><span class="trust-icon">${icon("handshake")}</span><strong>Meet in public and message in the app</strong></div><div class="quantity-control"><button data-action="decrease-quantity" aria-label="Decrease quantity">${icon("minus")}</button><output>${state.quantity}</output><button data-action="increase-quantity" aria-label="Increase quantity">${icon("plus")}</button></div><span class="small muted" style="margin-left: 10px">${listing.quantityAvailable} available</span></div>`;
+  return `<div class="page-top-row"><button class="back-button" data-action="back-from-detail">${icon("chevron-left")} Back to ${backLabel}</button><div class="button-row"><button class="ghost-button" data-action="share-listing">${icon("share")} Share</button><button class="ghost-button" data-action="toggle-save" data-id="${listing.id}">${icon("heart")} ${saved ? "In a list" : "Save"}</button></div></div>
     <div class="detail-layout"><div class="detail-gallery">${listingVisual(listing, true)}<div class="small muted" style="margin-top: 10px">Demo imagery — the real product would use seller-approved portfolio or product photos.</div></div>
-      <div class="detail-copy"><div class="eyebrow">${escapeHtml(listing.category)} · ${service ? "Service" : escapeHtml(merchandiseTypeLabel(listing) || "Product")}</div><h1>${escapeHtml(listing.title)}</h1><p class="lede">${escapeHtml(listing.description)}</p>
-        <div class="detail-actions"><button class="primary-button" data-action="primary-listing-action" data-id="${listing.id}">${service ? "Book this time" : "Buy now"} ${icon("arrow")}</button><button class="icon-button" data-action="message-seller" data-seller="${listing.sellerId}" aria-label="Message seller">${icon("chat")}</button></div>
+      <div class="detail-copy"><div class="eyebrow">${ticket ? kindLabel : `${escapeHtml(listing.category)} · ${kindLabel}`}</div><h1>${escapeHtml(listing.title)}</h1>${ticket ? `<p class="ticket-detail-when">${escapeHtml(ticketSchedule(listing))}</p>` : ""}<p class="lede">${escapeHtml(listing.description)}</p>
+        <div class="detail-actions"><button class="primary-button" data-action="primary-listing-action" data-id="${listing.id}" ${soldOut ? "disabled" : ""}>${buyLabel} ${soldOut ? "" : icon("arrow")}</button>${onBoard ? "" : `<button class="icon-button" data-action="message-seller" data-seller="${listing.sellerId}" aria-label="Message seller">${icon("chat")}</button>`}</div>
         ${sellerCard}
-        ${service ? `<div class="detail-block"><h3>When can it happen?</h3><p class="muted small">Pick a slot that works for you. The seller confirms the appointment after checkout.</p><div class="date-options">${["Today", "Tomorrow", "Sat", "Sun"].map((date, index) => `<button class="option-button date-button ${state.selectedDate === date ? "active" : ""}" data-action="select-date" data-date="${date}"><strong>${index === 0 ? "12" : index === 1 ? "13" : index === 2 ? "14" : "15"}</strong><span>${date}</span></button>`).join("")}</div>${slotPicker(listing)}</div>` : `<div class="detail-block"><h3>Pickup details</h3><div class="info-row info-row-line"><span class="trust-icon">${icon("check")}</span><strong>${escapeHtml(listing.availability)}</strong></div><div class="info-row info-row-line"><span class="trust-icon">${icon("handshake")}</span><strong>Meet in public and message in the app</strong></div><div class="quantity-control"><button data-action="decrease-quantity" aria-label="Decrease quantity">${icon("minus")}</button><output>${state.quantity}</output><button data-action="increase-quantity" aria-label="Increase quantity">${icon("plus")}</button></div><span class="small muted" style="margin-left: 10px">${listing.quantityAvailable} available</span></div>`}
+        ${detailBlock}
       </div>
     </div>
+    ${moreFromBoard.length ? listingScrollSection("More on the Chore Board", moreFromBoard, { action: "open-chore-board", label: "Open Chore Board" }) : ""}
     ${moreFromStore.length ? listingScrollSection(`More from ${escapeHtml(store.name)}`, moreFromStore, { action: "open-store", id: store.id, label: "Visit store" }) : ""}`;
 }
 
@@ -973,7 +1694,7 @@ function sellerView(seller) {
 function storeKindChips(store) {
   if (store.chip === "shop") return `<span class="store-kind-chip">${icon("bag", 13)} Shop</span>`;
   const kinds = storeKinds(store);
-  return `${kinds.has("service") ? `<span class="store-kind-chip">${icon("calendar", 13)} Book</span>` : ""}${kinds.has("product") ? `<span class="store-kind-chip">${icon("bag", 13)} Shop</span>` : ""}`;
+  return `${kinds.has("service") ? `<span class="store-kind-chip">${icon("calendar", 13)} Book</span>` : ""}${kinds.has("product") ? `<span class="store-kind-chip">${icon("bag", 13)} Shop</span>` : ""}${kinds.has("ticket") ? `<span class="store-kind-chip">${icon("ticket", 13)} Tickets</span>` : ""}`;
 }
 
 function storePreviewEmojis(store, count = 3) {
@@ -1017,7 +1738,7 @@ function storeShopTab(store, listings) {
       ${store.collections.length ? `<div class="store-collections" aria-label="Store collections">${collectionChips}</div>` : ""}
       <div class="store-toolbar-row">
         <form class="global-search store-search" data-form="store-search">${icon("search")}<input id="store-search-input" name="query" type="search" value="${escapeHtml(state.storeQuery)}" placeholder="Search ${escapeHtml(store.name)}" aria-label="Search this store" autocomplete="off" /></form>
-        ${kinds.size > 1 ? `<div class="segmented"><button class="segment ${state.storeKind === "all" ? "active" : ""}" data-action="set-store-kind" data-kind="all">All</button><button class="segment ${state.storeKind === "service" ? "active" : ""}" data-action="set-store-kind" data-kind="service">Book</button><button class="segment ${state.storeKind === "product" ? "active" : ""}" data-action="set-store-kind" data-kind="product">Shop</button></div>` : ""}
+        ${kinds.size > 1 ? `<div class="segmented"><button class="segment ${state.storeKind === "all" ? "active" : ""}" data-action="set-store-kind" data-kind="all">All</button>${kinds.has("service") ? `<button class="segment ${state.storeKind === "service" ? "active" : ""}" data-action="set-store-kind" data-kind="service">Book</button>` : ""}${kinds.has("product") ? `<button class="segment ${state.storeKind === "product" ? "active" : ""}" data-action="set-store-kind" data-kind="product">Shop</button>` : ""}${kinds.has("ticket") ? `<button class="segment ${state.storeKind === "ticket" ? "active" : ""}" data-action="set-store-kind" data-kind="ticket">Tickets</button>` : ""}</div>` : ""}
       </div>
     </div>
     <div class="section-header" style="margin-top: 12px"><span class="result-count">${filtered.length} ${filtered.length === 1 ? "listing" : "listings"}${activeCollection ? ` in ${escapeHtml(activeCollection.name)}` : ""}</span>${hasFilters ? `<button class="text-button" data-action="clear-store-filters">Clear filters</button>` : ""}</div>
@@ -1067,7 +1788,8 @@ function storeView(store) {
     { id: "about", label: "About" }
   ];
   const tabContent = state.storeTab === "reviews" ? storeReviewsTab(store) : state.storeTab === "about" ? storeAboutTab(store, seller) : storeShopTab(store, listings);
-  return `<div class="page-top-row"><button class="back-button" data-action="back-from-store">${icon("chevron-left")} Back to Stores</button><button class="ghost-button" data-action="share-store">${icon("share")} Share store</button></div>
+  const backLabel = state.storeReturn === "housing" ? "Housing" : "Stores";
+  return `<div class="page-top-row"><button class="back-button" data-action="back-from-store">${icon("chevron-left")} Back to ${backLabel}</button><button class="ghost-button" data-action="share-store">${icon("share")} Share store</button></div>
     <section class="store-hero">
       <div class="store-hero-banner ${store.accent}"><span class="store-hero-previews" aria-hidden="true">${storePreviewEmojis(store, 4)}</span></div>
       <div class="store-hero-body">
@@ -1113,6 +1835,7 @@ function storesView() {
       <form class="global-search browse-page-search" data-form="stores-search">${icon("search")}<input id="stores-search-input" name="query" type="search" value="${escapeHtml(state.storesQuery)}" placeholder="Search stores, sellers or what they sell" aria-label="Search stores" autocomplete="off" /></form>
       <div class="filter-bar">${filters.map((filter) => `<button type="button" class="category-chip ${activeFilter === filter.id ? "active" : ""}" data-action="set-stores-filter" data-filter="${escapeHtml(filter.id)}"><span class="category-chip-icon ${filter.dot}" aria-hidden="true">${icon(filter.icon, 22)}</span>${escapeHtml(filter.label)}</button>`).join("")}</div>
     </div>
+    ${choreBoardSection(state.storesQuery)}
     <div class="section-header" style="margin-top: 12px"><span class="result-count">${filtered.length} ${filtered.length === 1 ? "store" : "stores"} · SDSU</span><span class="small muted">Sorted by followers</span></div>
     ${filtered.length ? `<div class="store-grid">${filtered.map(storeCard).join("")}</div>` : emptyFollowing
       ? `<div class="empty-state"><div class="empty-shape">♡</div><h3>You are not following any stores yet.</h3><p class="muted">Tap Follow on a store page and it will show up here.</p><button class="primary-button" data-action="set-stores-filter" data-filter="All">Browse all stores ${icon("arrow")}</button></div>`
@@ -1122,16 +1845,69 @@ function storesView() {
 function checkoutView(listing) {
   if (!listing) return homeView();
   const service = listing.kind === "service";
-  const total = listing.price * (service ? 1 : state.quantity);
+  const ticket = listing.kind === "ticket";
+  const total = listing.price * (service || ticket ? 1 : state.quantity);
+  const steps = service
+    ? `<div class="step"><span class="step-number">2</span><div><strong>${escapeHtml(state.selectedSlot || listing.slots[0])}</strong><p>${escapeHtml(listing.meeting)} · ${escapeHtml(listing.unit)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Cancellation terms</strong><p>Free cancellation up to 24 hours before the appointment. Support is available from your order page.</p></div></div>`
+    : ticket
+      ? `<div class="step"><span class="step-number">2</span><div><strong>${escapeHtml(ticketSchedule(listing))}</strong><p>${escapeHtml(ticketHost(listing))}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Your QR code</strong><p>It shows up as soon as you pay. They scan it once at the door.</p></div></div>`
+      : `<div class="step"><span class="step-number">2</span><div><strong>${state.quantity} ${state.quantity === 1 ? "item" : "items"}</strong><p>${escapeHtml(listing.availability)} · ${escapeHtml(listing.meeting)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Local handoff</strong><p>We will show the pickup details after the seller confirms the order.</p></div></div>`;
   return `<div class="page-top-row"><button class="back-button" data-action="back-from-checkout">${icon("chevron-left")} Back to listing</button><span class="small muted">Demo checkout · no payment is processed</span></div>
-    <div class="checkout-layout"><section class="checkout-panel"><div class="eyebrow">${service ? "Book" : "Shop"}</div><h1>${service ? "Review your booking." : "Review your order."}</h1><p class="lede">${service ? "Make sure the time, price and cancellation terms look right before you confirm." : "Make sure the seller, quantity and pickup details look right before you confirm."}</p>
-      <div class="step-list"><div class="step"><span class="step-number">1</span><div><strong>${escapeHtml(listing.title)}</strong><p>${escapeHtml(listing.seller)} · ${listing.price ? `${money(listing.price)}${service ? ` / ${escapeHtml(listing.unit)}` : " each"}` : "Free"}</p></div></div>${service ? `<div class="step"><span class="step-number">2</span><div><strong>${escapeHtml(state.selectedSlot || listing.slots[0])}</strong><p>${escapeHtml(listing.meeting)} · ${escapeHtml(listing.unit)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Cancellation terms</strong><p>Free cancellation up to 24 hours before the appointment. Support is available from your order page.</p></div></div>` : `<div class="step"><span class="step-number">2</span><div><strong>${state.quantity} ${state.quantity === 1 ? "item" : "items"}</strong><p>${escapeHtml(listing.availability)} · ${escapeHtml(listing.meeting)}</p></div></div><div class="step"><span class="step-number">3</span><div><strong>Local handoff</strong><p>We will show the pickup details after the seller confirms the order.</p></div></div>`}</div>
+    <div class="checkout-layout"><section class="checkout-panel"><div class="eyebrow">${ticket ? escapeHtml(ticketHost(listing)) : service ? "Book" : "Shop"}</div><h1>${ticket ? "Review your ticket." : service ? "Review your booking." : "Review your order."}</h1><p class="lede">${ticket ? "One purchase, one QR code. Bring it to the door." : service ? "Make sure the time, price and cancellation terms look right before you confirm." : "Make sure the seller, quantity and pickup details look right before you confirm."}</p>
+      <div class="step-list"><div class="step"><span class="step-number">1</span><div><strong>${escapeHtml(listing.title)}</strong><p>${escapeHtml(ticket ? ticketHost(listing) : listing.seller)} · ${listing.price ? `${ticket ? ticketPriceLabel(listing.price) : money(listing.price)}${service ? ` / ${escapeHtml(listing.unit)}` : ticket ? "" : " each"}` : "Free"}</p></div></div>${steps}</div>
       <div class="button-row stretch"><button class="primary-button" data-action="confirm-order" data-id="${listing.id}">${listing.price ? `Confirm & pay ${money(total)}` : "Confirm · Free"} ${icon("arrow")}</button><button class="ghost-button" data-action="open-help">Questions about this order?</button></div>
-    </section><aside class="summary-card"><div class="summary-visual"><div class="summary-thumb ${listing.accent}">${listing.emoji}</div><div><strong>${escapeHtml(listing.title)}</strong><div class="small muted">${escapeHtml(listing.seller)}</div></div></div><div class="summary-line"><span>${service ? "Service" : `Item × ${state.quantity}`}</span><strong>${money(total)}</strong></div><div class="summary-line"><span>Platform fee</span><strong>$0.00</strong></div><div class="summary-line total"><span>Total</span><strong>${money(total)}</strong></div><p class="checkout-disclaimer">This is a prototype only. No real account, order or payment is created.</p></aside></div>`;
+    </section><aside class="summary-card"><div class="summary-visual"><div class="summary-thumb ${listing.accent}">${listing.emoji}</div><div><strong>${escapeHtml(listing.title)}</strong><div class="small muted">${escapeHtml(ticket ? ticketSchedule(listing) : listing.seller)}</div></div></div><div class="summary-line"><span>${ticket ? "Ticket" : service ? "Service" : `Item × ${state.quantity}`}</span><strong>${money(total)}</strong></div><div class="summary-line"><span>Platform fee</span><strong>$0.00</strong></div><div class="summary-line total"><span>Total</span><strong>${money(total)}</strong></div><p class="checkout-disclaimer">This is a prototype only. No real account, order or payment is created.</p></aside></div>`;
+}
+
+function makeTicketCode() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "CC";
+  for (let i = 0; i < 6; i += 1) code += alphabet[Math.floor(Math.random() * alphabet.length)];
+  return code;
+}
+
+function markTicketUsed(raw) {
+  const code = String(raw || "").trim().toUpperCase();
+  const order = state.orders.find((entry) => entry.kind === "ticket" && entry.ticketCode === code);
+  if (!order) return { ok: false, title: "No ticket found", message: "That code is not a Campus Connect ticket." };
+  const listing = getListing(order.listingId);
+  if (listing?.sellerId !== SELLER_ID) return { ok: false, title: "Different event", message: `This ticket is for ${ticketHost(listing)}.` };
+  if (order.ticketStatus === "used") return { ok: false, title: "Already used", message: `${listing.title} was scanned ${order.usedAt || "earlier"}.` };
+  order.ticketStatus = "used";
+  order.status = "Used";
+  order.usedAt = "just now";
+  const sellerOrder = typeof sellerOrders !== "undefined" ? sellerOrders.find((entry) => entry.ticketCode === code) : null;
+  if (sellerOrder) {
+    sellerOrder.status = "completed";
+    sellerOrder.when = "Scanned at the door · Just now";
+  }
+  return { ok: true, title: "Marked used", message: `${listing.title} · ${order.ticketCode}` };
+}
+
+function ticketPass(order, listing) {
+  const used = order.ticketStatus === "used";
+  return `<div class="ticket-pass ${used ? "is-used" : ""}">
+    <div class="ticket-pass-copy">
+      <div class="eyebrow">${used ? "Used" : "Valid"}</div>
+      <h2>${escapeHtml(listing?.title || "Ticket")}</h2>
+      <p>${escapeHtml(listing?.availability || "")}${listing?.meeting ? ` · ${escapeHtml(listing.meeting)}` : ""}</p>
+      <p class="ticket-pass-code">${escapeHtml(order.ticketCode)}</p>
+      <p class="muted small">${used ? `Scanned ${escapeHtml(order.usedAt || "at the door")}. This code will not scan again.` : "Show this QR code at the door. One scan marks it used."}</p>
+    </div>
+    <div class="ticket-pass-qr">${typeof qrSvg === "function" ? qrSvg(order.ticketCode) : ""}</div>
+  </div>`;
 }
 
 function orderView(order) {
+  if (order?.kind === "chore") {
+    return `<div class="page-top-row"><button class="back-button" data-view="you">${icon("chevron-left")} Back to You</button><button class="ghost-button" data-action="open-chore-board">Chore Board</button></div>
+      <div class="order-success"><div class="success-mark">${icon("check")}</div><div class="eyebrow">Paid on Campus Connect</div><h1>${escapeHtml(order.payer)} paid ${escapeHtml(order.payee)}.</h1><p class="lede">${escapeHtml(money(order.amount))} for ${escapeHtml(order.title)} stayed on the platform.</p><div class="order-detail-card"><div class="order-detail-row"><span>Chore</span><strong>${escapeHtml(order.title)}</strong></div><div class="order-detail-row"><span>When</span><strong>${escapeHtml(order.date)}</strong></div><div class="order-detail-row"><span>Paid to</span><strong>${escapeHtml(order.payee)}</strong></div></div><div class="button-row"><button class="primary-button" data-view="you">View activity</button><button class="ghost-button" data-action="open-chore-board">Back to the board</button></div></div>`;
+  }
   const listing = getListing(order.listingId);
+  if (order?.kind === "ticket") {
+    return `<div class="page-top-row"><button class="back-button" data-view="you">${icon("chevron-left")} Back to You</button><button class="ghost-button" data-view="tickets">More tickets</button></div>
+      <div class="order-success ticket-order"><div class="eyebrow">Ticket</div><h1>${order.ticketStatus === "used" ? "This ticket has been used." : "Your ticket is ready."}</h1><p class="lede">${escapeHtml(listing?.seller || "The seller")} scans the code at the door.</p>${ticketPass(order, listing)}</div>`;
+  }
   return `<div class="page-top-row"><button class="back-button" data-view="you">${icon("chevron-left")} Back to You</button><button class="ghost-button" data-action="message-seller" data-seller="${listing?.sellerId || "maya-chen"}">${icon("chat")} Message seller</button></div><div class="order-success"><div class="success-mark">${icon("check")}</div><div class="eyebrow">${order.kind === "service" ? "Booking confirmed" : "Order placed"}</div><h1>${order.kind === "service" ? "You are on the calendar." : "That one is yours."}</h1><p class="lede">This demo order is saved in your prototype activity. In the real app, the seller and buyer would get an in-app notification.</p><div class="order-detail-card"><div class="order-detail-row"><span>${order.kind === "service" ? "Service" : "Product"}</span><strong>${escapeHtml(listing?.title || "Campus Connect listing")}</strong></div><div class="order-detail-row"><span>${order.kind === "service" ? "When" : "Status"}</span><strong>${escapeHtml(order.kind === "service" ? order.date : "Awaiting seller confirmation")}</strong></div><div class="order-detail-row"><span>Order reference</span><strong>CC-DEMO-${order.id.slice(-4).toUpperCase()}</strong></div></div><div class="button-row"><button class="primary-button" data-view="you">View activity</button><button class="ghost-button" data-view="home">Keep exploring</button></div></div>`;
 }
 
@@ -1279,7 +2055,7 @@ function settingsNotificationsPanel() {
     <p class="muted small">These stay in the app for this prototype. Nothing is emailed.</p>
     ${settingsRow("notifyMessages", "Messages", "When a seller replies about a listing or order.")}
     ${settingsRow("notifyOrders", "Orders and bookings", "Pickup updates, confirmations and schedule changes.")}
-    ${settingsRow("notifyDeals", "Aztec Deals", "New student discounts near campus.")}
+    ${settingsRow("notifyDeals", "Housing & subleases", "New rooms and subleases near campus.")}
   </div>`;
 }
 
@@ -1320,8 +2096,11 @@ function youView() {
   const savedLabel = listCount === 1 ? `1 list · ${itemCount} saved` : `${listCount} lists · ${itemCount} saved`;
   const campusLine = state.settings.showCampus ? `<p class="muted">SDSU</p>` : "";
   const orderRows = state.orders.map((order) => {
-    const listing = getListing(order.listingId);
-    return `<button class="activity-row" data-action="open-order" data-id="${order.id}"><span class="activity-main"><span class="activity-thumb ${listing?.accent || "lilac"}">${listing?.emoji || "✦"}</span><span><span class="activity-title">${escapeHtml(listing?.title || "Campus Connect order")}</span><span class="activity-sub">${escapeHtml(order.status)} · ${escapeHtml(order.date)}</span></span></span>${icon("chevron-right")}</button>`;
+    const listing = order.kind === "chore" ? null : getListing(order.listingId);
+    const title = order.title || listing?.title || "Campus Connect order";
+    const emoji = order.emoji || listing?.emoji || "✦";
+    const accent = order.accent || listing?.accent || "lilac";
+    return `<button class="activity-row" data-action="open-order" data-id="${order.id}"><span class="activity-main"><span class="activity-thumb ${accent}">${emoji}</span><span><span class="activity-title">${escapeHtml(title)}</span><span class="activity-sub">${escapeHtml(order.status)} · ${escapeHtml(order.date)}</span></span></span>${icon("chevron-right")}</button>`;
   }).join("");
   return `<div class="page-top-row"><div><div class="eyebrow">Your campus activity</div><h1 style="margin-bottom: 6px">You</h1><p class="muted" style="margin:0">Keep track of bookings, purchases and messages.</p></div><button class="ghost-button" data-view="settings">${icon("settings")} Settings</button></div>
   <section class="seller-hero profile-hero"><div class="seller-hero-main"><div class="seller-avatar">KC</div><div>${studentVerifiedPill()}<h2>${escapeHtml(state.settings.displayName)}</h2>${campusLine}<div class="seller-stats"><span><strong>${state.orders.length}</strong> orders</span><span><strong>${listCount}</strong> lists</span><span><strong>${state.followedStoreIds.length}</strong> following</span></div></div></div></section>
@@ -1333,10 +2112,12 @@ function youView() {
     <div class="quick-actions profile-help-grid">
       <button class="quick-action" data-view="lists"><span class="trust-icon">${icon("heart")}</span><strong>My lists</strong><span>${savedLabel}</span></button>
       <button class="quick-action" data-action="open-following"><span class="trust-icon">${icon("store")}</span><strong>Following</strong><span>${state.followedStoreIds.length} ${state.followedStoreIds.length === 1 ? "store" : "stores"}</span></button>
+      <button class="quick-action" data-action="open-chore-board"><span class="trust-icon">${icon("handshake")}</span><strong>Chore Board</strong><span>Post or pick up a chore</span></button>
       <button class="quick-action" data-view="inbox"><span class="trust-icon">${icon("chat")}</span><strong>Inbox</strong><span>2 unread messages</span></button>
       <button class="quick-action" data-action="open-help"><span class="trust-icon">${icon("help")}</span><strong>Get help</strong><span>Support and safety</span></button>
     </div>
   </section>
+  ${yourChoreSections()}
   <section class="section sell-hero profile-sell-hero"><div class="eyebrow">For student sellers</div><h2>Turn what you know into what you earn.</h2><p>List a service, sell something you are done with or build a reputation on campus. The Seller Hub demo opens as Maya Chen, an established campus seller.</p><div class="button-row"><button class="primary-button" data-action="switch-mode">Open Seller Hub ${icon("arrow")}</button><button class="ghost-button sell-hero-ghost" data-view="sell">List something quickly</button></div></section>`;
 }
 
@@ -1381,6 +2162,7 @@ function renderModal(content) {
 let searchCaret = null;
 
 function render() {
+  if (state.view !== "seller-scan" && typeof stopTicketScan === "function") stopTicketScan();
   const main = document.querySelector("#app-main");
   let markup = "";
   if (state.view === "home") markup = homeView();
@@ -1395,10 +2177,14 @@ function render() {
   if (state.view === "you") markup = youView();
   if (state.view === "settings") markup = settingsView();
   if (state.view === "sell") markup = sellView();
-  if (state.view === "deals") markup = aztecDealsView();
+  if (state.view === "deals" || state.view === "housing") markup = housingView();
+  if (state.view === "jobs") markup = jobBoardView();
+  if (state.view === "tickets") markup = ticketsView();
   if (state.view === "lists") markup = myListsView();
   if (state.view === "stores") markup = storesView();
   if (state.view === "store") markup = storeView(getStore(state.selectedStoreId));
+  if (state.view === "chore-board") markup = choreBoardView();
+  if (state.view === "chore-pay") markup = chorePayView(choreItems().find((chore) => chore.id === state.selectedChoreId));
   if (state.view.startsWith("seller-")) markup = renderSellerView();
   else if (state.mode === "seller") markup = sellerPreviewBanner() + markup;
   main.innerHTML = markup;
@@ -1483,7 +2269,8 @@ function updateNavigation() {
   const sellerNavTarget = state.mode === "seller" ? sellerNavView(state.view) : null;
   document.querySelectorAll("[data-view]").forEach((button) => {
     const view = button.dataset.view;
-    const active = view === state.view || view === sellerNavTarget || (state.view === "search" && view === "home") || (state.view === "store" && view === "stores") || (state.view === "settings" && view === "you" && button.classList.contains("profile-nav-button"));
+    const choreNav = state.boardReturn === "stores" ? "stores" : state.boardReturn === "you" ? "you" : state.boardReturn === "home" ? "home" : "book";
+    const active = view === state.view || view === sellerNavTarget || (state.view === "search" && view === "home") || (state.view === "store" && view === "stores") || (state.view === "chore-board" && view === choreNav) || (state.view === "settings" && view === "you" && button.classList.contains("profile-nav-button"));
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
   });
@@ -1505,6 +2292,50 @@ function openVerified() {
 function openSellerConversation(sellerId = "maya-chen") {
   const conversation = conversations.find((item) => item.name === getSeller(sellerId).name) || conversations[0];
   return setView("inbox", { selectedConversationId: conversation.id });
+}
+
+function openAgentConversation(id) {
+  const agent = realEstateAgents.find((entry) => entry.id === id);
+  if (!agent) return;
+  const conversationId = `agent-${agent.id}`;
+  if (!conversations.some((conversation) => conversation.id === conversationId)) {
+    conversations.unshift({
+      id: conversationId,
+      name: agent.name,
+      initials: agent.initials,
+      context: agent.brokerage,
+      time: "now",
+      preview: "Ask about housing near campus",
+      unread: false,
+      accent: agent.accent
+    });
+  }
+  state.messages[conversationId] = state.messages[conversationId] || [
+    { who: "them", text: `Hey — I can help with places around ${agent.focus}. What are you looking for?`, time: "now" }
+  ];
+  return setView("inbox", { selectedConversationId: conversationId });
+}
+
+function openBoardConversation(kind, id) {
+  const item = boardItems(kind).find((entry) => entry.id === id);
+  if (!item || item.mine) return;
+  const conversationId = `board-${item.id}`;
+  if (!conversations.some((conversation) => conversation.id === conversationId)) {
+    conversations.unshift({
+      id: conversationId,
+      name: item.poster,
+      initials: item.initials,
+      context: item.title,
+      time: "now",
+      preview: kind === "job" ? "Ask about this job" : "Ask about this place",
+      unread: false,
+      accent: item.accent
+    });
+  }
+  state.messages[conversationId] = state.messages[conversationId] || [
+    { who: "them", text: kind === "job" ? `Hey — happy to answer questions about the ${item.title} role.` : `Hey — happy to answer questions about ${item.title}.`, time: "now" }
+  ];
+  return setView("inbox", { selectedConversationId: conversationId });
 }
 
 function syncModeChrome() {
@@ -1550,6 +2381,9 @@ document.addEventListener("click", (event) => {
     if (view === "shop") state.shopType = "all";
     if (view === "sell" || view === "seller-new") { state.sellKind = null; state.sellMerchandiseType = null; }
     if (view === "stores") { state.storesFilter = "All"; state.storesQuery = ""; }
+    if (view === "jobs") { state.selectedJobId = null; state.jobQuery = ""; }
+    if (view === "housing" || view === "deals") { state.selectedHousingId = null; state.selectedAgentId = null; }
+    if (view === "tickets") { state.selectedTicketId = null; state.ticketQuery = ""; }
     setView(view);
     return;
   }
@@ -1657,15 +2491,111 @@ document.addEventListener("click", (event) => {
   }
   if (action === "open-listing") {
     document.querySelector("#modal-root").innerHTML = "";
-    const detailReturn = state.view === "store" ? state.selectedStoreId : state.view === "listing" ? state.detailReturn : null;
+    const detailReturn = state.view === "store" ? state.selectedStoreId : state.view === "chore-board" ? "chore-board" : state.view === "tickets" ? "tickets" : state.view === "listing" ? state.detailReturn : null;
     return setView("listing", { selectedListingId: target.dataset.id, selectedDate: "Today", showAllSlots: false, detailReturn });
   }
   if (action === "open-seller") return setView("seller", { selectedSellerId: target.dataset.id });
+  if (action === "toggle-job-form") { state.jobFormOpen = !state.jobFormOpen; return render(); }
+  if (action === "toggle-chore-form") { state.choreFormOpen = !state.choreFormOpen; return render(); }
+  if (action === "open-chore") {
+    state.selectedChoreId = target.dataset.id;
+    state.choreFormOpen = false;
+    if (state.view !== "chore-board") {
+      const returnViews = ["stores", "book", "you", "home"];
+      const boardReturn = returnViews.includes(state.view) ? state.view : (state.boardReturn || "book");
+      return setView("chore-board", { boardReturn, selectedChoreId: state.selectedChoreId, choreFormOpen: false });
+    }
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  if (action === "close-chore") { state.selectedChoreId = null; return render(); }
+  if (action === "offer-chore") {
+    const chore = choreItems().find((item) => item.id === target.dataset.id);
+    if (!chore || chore.mine || (chore.status || "open") !== "open") return;
+    chore.status = "requested";
+    chore.offeredByMe = true;
+    chore.offerName = state.settings.displayName;
+    chore.offerInitials = studentInitials(chore.offerName);
+    const conversationId = `chore-${chore.id}`;
+    if (!conversations.some((conversation) => conversation.id === conversationId)) {
+      conversations.unshift({ id: conversationId, name: chore.poster, initials: chore.initials, context: chore.title, time: "now", preview: "I can take this chore.", unread: false, accent: chore.accent });
+    }
+    state.messages[conversationId] = state.messages[conversationId] || [];
+    state.messages[conversationId].push({ who: "me", text: "I can take this chore.", time: "now" });
+    showToast(`Offer sent to ${chore.poster.split(" ")[0]}. They approve before anyone is paid.`);
+    schedulePosterApproval(chore);
+    return render();
+  }
+  if (action === "approve-chore" || action === "open-chore-pay") {
+    const chore = choreItems().find((item) => item.id === target.dataset.id || item.id === state.selectedChoreId);
+    if (!chore || !chore.mine || (chore.status !== "requested" && chore.status !== "approved")) return;
+    chore.status = "approved";
+    state.selectedChoreId = chore.id;
+    return setView("chore-pay");
+  }
+  if (action === "back-from-chore-pay") return setView("chore-board");
+  if (action === "confirm-chore-pay") {
+    const chore = choreItems().find((item) => item.id === target.dataset.id);
+    if (!chore || !chore.mine || chore.status === "paid") return;
+    const order = recordChorePayment(chore);
+    if (!order) return;
+    showToast(`You paid ${order.payee.split(" ")[0]} through Campus Connect.`);
+    return setView("order");
+  }
+  if (action === "message-chore") {
+    const chore = choreItems().find((item) => item.id === target.dataset.id);
+    return openChoreConversation(chore);
+  }
+  if (action === "toggle-housing-form") { state.housingFormOpen = !state.housingFormOpen; return render(); }
+  if (action === "open-job") {
+    state.selectedJobId = target.dataset.id;
+    state.jobFormOpen = false;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  if (action === "open-housing") {
+    state.selectedHousingId = target.dataset.id;
+    state.selectedAgentId = null;
+    state.housingFormOpen = false;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  if (action === "open-agent") {
+    state.selectedAgentId = target.dataset.id;
+    state.selectedHousingId = null;
+    state.housingFormOpen = false;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  if (action === "close-agent") { state.selectedAgentId = null; return render(); }
+  if (action === "message-agent") return openAgentConversation(target.dataset.id);
+  if (action === "message-board-item") return openBoardConversation(target.dataset.kind, target.dataset.id);
+  if (action === "open-ticket") { state.selectedTicketId = target.dataset.id; return render(); }
+  if (action === "open-ticket-post") {
+    state.ticketDmPostId = null;
+    state.ticketPostKind = state.ticketPostKind === target.dataset.kind ? null : target.dataset.kind;
+    return render();
+  }
+  if (action === "close-ticket-post") { state.ticketPostKind = null; return render(); }
+  if (action === "open-ticket-dm") { state.ticketPostKind = null; state.ticketDmPostId = target.dataset.id; return render(); }
+  if (action === "close-ticket-dm") { state.ticketDmPostId = null; return render(); }
+  if (action === "close-board-item") {
+    if (target.dataset.viewName === "jobs") state.selectedJobId = null;
+    if (target.dataset.viewName === "housing") state.selectedHousingId = null;
+    if (target.dataset.viewName === "tickets") state.selectedTicketId = null;
+    return render();
+  }
+  if (action === "interest-board-item") { showToast(`Saved your interest in ${target.dataset.title}. This demo does not message anyone.`); return; }
   if (action === "open-store") {
     document.querySelector("#modal-root").innerHTML = "";
-    return setView("store", { selectedStoreId: target.dataset.id, storeTab: "shop", storeCollection: "All", storeQuery: "", storeKind: "all" });
+    const storeReturn = state.view === "housing" ? "housing" : state.view === "store" ? state.storeReturn : null;
+    return setView("store", { selectedStoreId: target.dataset.id, storeTab: "shop", storeCollection: "All", storeQuery: "", storeKind: "all", storeReturn });
   }
-  if (action === "back-from-store") return setView("stores");
+  if (action === "back-from-store") return setView(state.storeReturn === "housing" ? "housing" : "stores", { storeReturn: null });
   if (action === "set-store-tab") { state.storeTab = target.dataset.tab; return render(); }
   if (action === "set-store-collection") { state.storeCollection = target.dataset.collection; return render(); }
   if (action === "set-store-kind") { state.storeKind = target.dataset.kind; return render(); }
@@ -1688,16 +2618,23 @@ document.addEventListener("click", (event) => {
   }
   if (action === "message-store") { const store = getStore(target.dataset.id); return openSellerConversation(store?.sellerId); }
   if (action === "share-store") { showToast("Store link copied — demo only."); return; }
-  if (action === "primary-listing-action") { const listing = getListing(target.dataset.id); return setView("checkout", { selectedListingId: target.dataset.id, quantity: listing?.kind === "product" ? state.quantity : 1 }); }
+  if (action === "primary-listing-action") { const listing = getListing(target.dataset.id); if (listing?.kind === "ticket" && listing.quantityAvailable < 1) return; return setView("checkout", { selectedListingId: target.dataset.id, quantity: listing?.kind === "product" ? state.quantity : 1 }); }
   if (action === "select-date") { const listing = getListing(state.selectedListingId); state.selectedDate = target.dataset.date; state.selectedSlot = listingTimeSlots(listing).find((slot) => slot.startsWith(target.dataset.date)) || listingTimeSlots(listing)[0] || ""; return render(); }
   if (action === "select-slot") { state.selectedSlot = target.dataset.slot; return render(); }
   if (action === "toggle-more-slots") { state.showAllSlots = !state.showAllSlots; return render(); }
   if (action === "increase-quantity") { const listing = getListing(state.selectedListingId); state.quantity = Math.min(listing?.quantityAvailable || 1, state.quantity + 1); return render(); }
   if (action === "decrease-quantity") { state.quantity = Math.max(1, state.quantity - 1); return render(); }
+  if (action === "open-chore-board") {
+    const returnViews = ["stores", "book", "you", "home"];
+    const boardReturn = returnViews.includes(state.view) ? state.view : (state.boardReturn || "book");
+    return setView("chore-board", { boardReturn, selectedChoreId: null, choreFormOpen: false });
+  }
   if (action === "back-from-detail") {
+    if (state.detailReturn === "chore-board" || isChoreListing(getListing(state.selectedListingId))) return setView("chore-board", { detailReturn: null });
     if (getStore(state.detailReturn)) return setView("store", { selectedStoreId: state.detailReturn, detailReturn: null });
+    if (state.detailReturn === "tickets") return setView("tickets", { detailReturn: null });
     const listing = getListing(state.selectedListingId);
-    return setView(listing?.kind === "product" ? "shop" : "book");
+    return setView(listing?.kind === "ticket" ? "tickets" : listing?.kind === "product" ? "shop" : "book");
   }
   if (action === "back-from-checkout") return setView("listing", { selectedListingId: state.selectedListingId });
   if (action === "message-seller") return openSellerConversation(target.dataset.seller || getListing(state.selectedListingId)?.sellerId);
@@ -1705,7 +2642,14 @@ document.addEventListener("click", (event) => {
   if (action === "seller-reviews") { renderModal(`<div class="eyebrow">Completed transactions</div><h2>What students say</h2><div class="notification-list"><div class="notification-item"><span class="trust-icon">${icon("star")}</span><div><strong>“Maya made the session feel easy.”</strong><p>★★★★★ · Completed booking</p></div></div><div class="notification-item"><span class="trust-icon">${icon("star")}</span><div><strong>“The photos looked like me, not a stock photo.”</strong><p>★★★★★ · Completed booking</p></div></div><div class="notification-item"><span class="trust-icon">${icon("star")}</span><div><strong>“Clear communication and right on time.”</strong><p>★★★★☆ · Completed booking</p></div></div></div><div class="modal-actions"><button class="primary-button" data-action="close-modal">Done</button></div>`); return; }
   if (action === "confirm-order") {
     const listing = getListing(target.dataset.id);
-    const order = { id: `order-${Date.now()}`, listingId: listing.id, status: listing.kind === "service" ? "Upcoming" : "Awaiting confirmation", date: listing.kind === "service" ? state.selectedSlot || listing.slots[0] : "Pickup details coming next", kind: listing.kind };
+    const ticket = listing.kind === "ticket";
+    if (ticket && listing.quantityAvailable < 1) { showToast("That ticket is sold out.", "error"); return; }
+    const order = { id: `order-${Date.now()}`, listingId: listing.id, status: ticket ? "Valid" : listing.kind === "service" ? "Upcoming" : "Awaiting confirmation", date: listing.kind === "service" ? state.selectedSlot || listing.slots[0] : ticket ? listing.availability : "Pickup details coming next", kind: listing.kind };
+    if (ticket) {
+      order.ticketCode = makeTicketCode();
+      order.ticketStatus = "valid";
+      listing.quantityAvailable -= 1;
+    }
     state.orders.unshift(order);
     sellerReceiveBuyerOrder(order, listing);
     state.selectedOrderId = order.id;
@@ -1728,7 +2672,7 @@ document.addEventListener("click", (event) => {
     const key = target.dataset.key;
     if (!key || !(key in state.settings)) return;
     state.settings[key] = !state.settings[key];
-    const labels = { notifyMessages: "Message notifications", notifyOrders: "Order notifications", notifyDeals: "Aztec Deals", profileVisible: "Profile visibility", showCampus: "Campus on your profile" };
+    const labels = { notifyMessages: "Message notifications", notifyOrders: "Order notifications", notifyDeals: "Housing & subleases", profileVisible: "Profile visibility", showCampus: "Campus on your profile" };
     showToast(`${labels[key] || "Setting"} ${state.settings[key] ? "on" : "off"}.`);
     return render();
   }
@@ -1761,11 +2705,19 @@ document.addEventListener("submit", (event) => {
   const form = event.target;
   event.preventDefault();
   if (state.mode === "seller" && handleSellerSubmit(form, event)) return;
+  if (form.dataset.form === "ticket-search") {
+    state.ticketQuery = new FormData(form).get("query")?.toString() || "";
+    return render();
+  }
   if (form.dataset.form === "global-search") {
     const query = new FormData(form).get("query")?.toString().trim() || "";
     state.query = query;
     state.category = "All";
     return setView("search");
+  }
+  if (form.dataset.form === "job-search") {
+    state.jobQuery = new FormData(form).get("query")?.toString() || "";
+    return render();
   }
   if (form.dataset.form === "browse-search") {
     state.query = new FormData(form).get("query")?.toString() || "";
@@ -1779,6 +2731,43 @@ document.addEventListener("submit", (event) => {
     state.storesQuery = new FormData(form).get("query")?.toString() || "";
     return render();
   }
+  if (form.dataset.form === "post-ticket-resell" || form.dataset.form === "post-ticket-request") {
+    const data = new FormData(form);
+    const eventName = data.get("event")?.toString().trim() || "";
+    const price = (data.get("price")?.toString() || "").replace(/[^0-9.]/g, "");
+    const amount = Number(price);
+    if (!eventName || (form.dataset.form === "post-ticket-resell" && (!price || !Number.isFinite(amount) || amount <= 0))) {
+      showToast(form.dataset.form === "post-ticket-resell" ? "Add the event and a price." : "Add the event.", "error");
+      return;
+    }
+    const name = state.settings.displayName;
+    const initials = name.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join("");
+    const shown = Number.isInteger(amount) ? String(amount) : String(Math.round(amount * 100) / 100);
+    state.ticketPosts.push({
+      id: `tpost-${Date.now()}`,
+      kind: form.dataset.form === "post-ticket-resell" ? "resell" : "request",
+      event: eventName,
+      price: shown,
+      name,
+      initials,
+      accent: "sky",
+      mine: true
+    });
+    state.ticketPostKind = null;
+    showToast("Posted in the ticket chat.");
+    return render();
+  }
+  if (form.dataset.form === "send-ticket-dm") {
+    const post = state.ticketPosts.find((item) => item.id === state.ticketDmPostId);
+    const input = form.querySelector("textarea[name=message]");
+    const text = input?.value.trim() || "";
+    if (!post || !text) return;
+    state.ticketDms[post.id] = state.ticketDms[post.id] || [];
+    state.ticketDms[post.id].push({ who: "me", text, time: "now" });
+    render();
+    showToast("Private message sent in the demo.");
+    return;
+  }
   if (form.dataset.form === "send-message") {
     const input = form.querySelector("textarea[name=message]");
     const text = input.value.trim();
@@ -1791,6 +2780,96 @@ document.addEventListener("submit", (event) => {
     render();
     showToast("Message sent in the demo.");
     return;
+  }
+  if (form.dataset.form === "post-job") {
+    const data = new FormData(form);
+    const title = data.get("title")?.toString().trim() || "";
+    const where = data.get("where")?.toString().trim() || "";
+    const schedule = data.get("schedule")?.toString().trim() || "";
+    const pay = data.get("pay")?.toString().trim() || "";
+    const summary = data.get("summary")?.toString().trim() || "";
+    if (!title || !where || !schedule || !pay || !summary) {
+      showToast("Fill in the title, where, schedule, pay, and description.", "error");
+      return;
+    }
+    const poster = state.settings.displayName;
+    state.postedJobs.unshift({
+      id: `job-${Date.now()}`,
+      title,
+      kicker: "Posted by you",
+      meta: `${schedule} · ${where}`,
+      price: pay,
+      accent: "coral",
+      emoji: "📌",
+      summary,
+      poster,
+      initials: poster.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join("") || "KC",
+      mine: true,
+      facts: [["Schedule", schedule], ["Where", where], ["Pay", pay]]
+    });
+    state.jobFormOpen = false;
+    showToast("Your job is on the board.");
+    return render();
+  }
+  if (form.dataset.form === "post-chore") {
+    const data = new FormData(form);
+    const title = data.get("title")?.toString().trim() || "";
+    const when = data.get("when")?.toString().trim() || "";
+    const where = data.get("where")?.toString().trim() || "";
+    const pay = data.get("pay")?.toString().trim() || "";
+    const summary = data.get("summary")?.toString().trim() || "";
+    if (!title || !when || !where || !pay || !summary) {
+      showToast("Fill in the chore, when, where, pay, and details.", "error");
+      return;
+    }
+    const poster = state.settings.displayName;
+    state.postedChores.unshift({
+      id: `chore-${Date.now()}`,
+      title,
+      meta: `${when} · ${where}`,
+      price: pay,
+      accent: "coral",
+      emoji: "📌",
+      summary,
+      poster,
+      initials: studentInitials(poster),
+      mine: true,
+      status: "open",
+      facts: [["When", when], ["Where", where], ["Pay", pay]]
+    });
+    state.choreFormOpen = false;
+    showToast("Your chore is on the board.");
+    return render();
+  }
+  if (form.dataset.form === "post-housing") {
+    const data = new FormData(form);
+    const title = data.get("title")?.toString().trim() || "";
+    const place = data.get("place")?.toString().trim() || "";
+    const dates = data.get("dates")?.toString().trim() || "";
+    const rent = data.get("rent")?.toString().trim() || "";
+    const summary = data.get("summary")?.toString().trim() || "";
+    if (!title || !place || !dates || !rent || !summary) {
+      showToast("Fill in the place, neighborhood, dates, rent, and details.", "error");
+      return;
+    }
+    const poster = state.settings.displayName;
+    state.postedHousing.unshift({
+      id: `home-${Date.now()}`,
+      title,
+      kicker: "Posted by you",
+      meta: `${dates} · ${place}`,
+      price: rent,
+      accent: "butter",
+      emoji: "🏠",
+      summary,
+      poster,
+      initials: poster.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join("") || "KC",
+      mine: true,
+      facts: [["Dates", dates], ["Place", place], ["Rent", rent]]
+    });
+    state.housingFormOpen = false;
+    showToast("Your place is on the board.");
+    return render();
   }
   if (form.dataset.form === "create-list") {
     const name = new FormData(form).get("name")?.toString().trim() || "";
@@ -1859,7 +2938,7 @@ document.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("input", (event) => {
-  const liveSearchFields = { "browse-search-input": "query", "store-search-input": "storeQuery", "stores-search-input": "storesQuery" };
+  const liveSearchFields = { "browse-search-input": "query", "store-search-input": "storeQuery", "stores-search-input": "storesQuery", "ticket-search-input": "ticketQuery", "job-search-input": "jobQuery" };
   const stateKey = liveSearchFields[event.target.id];
   if (stateKey) {
     searchCaret = { id: event.target.id, position: event.target.selectionStart };

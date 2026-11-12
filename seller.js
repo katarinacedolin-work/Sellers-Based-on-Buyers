@@ -134,6 +134,7 @@ state.seller = {
   notificationsFilter: "all",
   profileSection: "public",
   reviewsFilter: "all",
+  scanResult: null,
   messages: {
     "sc-ava": [
       { who: "them", text: "Hi Maya! I just sent a booking request for our spring formal.", time: "1:21 PM" },
@@ -419,9 +420,10 @@ function sellerReceiveBuyerMessage(buyerConversationId, text) {
 function sellerReceiveBuyerOrder(order, listing) {
   if (listing?.sellerId !== SELLER_ID) return;
   const slot = listing.kind === "service" ? parseSlot(order.date) : null;
+  const ticket = listing.kind === "ticket";
   const id = `so-${Date.now()}`;
-  sellerOrders.unshift({ id, listingId: listing.id, kind: listing.kind, buyer: "Katarina Cedolin", initials: "KC", accent: "lilac", status: "requested", day: slot?.day, time: slot?.time, qty: listing.kind === "product" ? state.quantity : 1, amount: listing.price * (listing.kind === "product" ? state.quantity : 1), when: listing.kind === "product" ? "Pickup once you accept" : undefined, placed: "Just now", note: "", conversationId: "sc-katarina" });
-  sellerNotifications.unshift({ id: `sn-${id}`, unread: true, category: "orders", title: listing.kind === "service" ? "New booking request" : "New order", body: `Katarina Cedolin · ${listing.title}`, time: "now", emoji: listing.emoji, accent: listing.accent, action: "order", orderId: id });
+  sellerOrders.unshift({ id, listingId: listing.id, kind: listing.kind, buyer: "Katarina Cedolin", initials: "KC", accent: "lilac", status: ticket ? "confirmed" : "requested", day: slot?.day, time: slot?.time, qty: listing.kind === "product" ? state.quantity : 1, amount: listing.price * (listing.kind === "product" ? state.quantity : 1), when: ticket ? `${listing.availability} · ${listing.meeting}` : listing.kind === "product" ? "Pickup once you accept" : undefined, placed: "Just now", note: "", conversationId: "sc-katarina", ticketCode: order.ticketCode || "" });
+  sellerNotifications.unshift({ id: `sn-${id}`, unread: true, category: "orders", title: ticket ? "Ticket sold" : listing.kind === "service" ? "New booking request" : "New order", body: `Katarina Cedolin · ${listing.title}`, time: "now", emoji: listing.emoji, accent: listing.accent, action: "order", orderId: id });
 }
 
 function conversationMessages(conversation) {
@@ -535,8 +537,8 @@ function sellerDashboardView() {
   const previous = sumWindow(analyticsWindow(30, "all", 30));
   const change = pctChange(month.earnings, previous.earnings);
   const active = myListings().filter((listing) => listingStatus(listing) === "active");
-  const kinds = [...new Set(active.map((listing) => listing.kind === "service" ? "Book" : "Shop"))];
-  return `${sellerHeader({ title: `${greeting}, ${escapeHtml(seller.name.split(" ")[0])}.`, sub: "Your storefront is live. Here is what needs your attention today." })}
+  const kinds = [...new Set(active.map((listing) => listing.kind === "service" ? "Book" : listing.kind === "ticket" ? "Tickets" : "Shop"))];
+  return `${sellerHeader({ title: `${greeting}, ${escapeHtml(seller.name.split(" ")[0])}.`, sub: "Your storefront is live. Here is what needs your attention today.", actions: `<button class="primary-button" data-view="seller-scan">${icon("ticket")} Scan at the door</button>` })}
     <div class="snapshot-grid">
       ${snapshotCard({ tone: "coral", label: "This month", value: `$${fmt(month.earnings)}`, hint: `${change >= 0 ? "↑" : "↓"} ${Math.abs(change)}% from last month` })}
       ${snapshotCard({ tone: "lilac", label: "Active listings", value: String(active.length), hint: `${plural(kinds.length, "type", "types")}: ${escapeHtml(kinds.join(" + "))}` })}
@@ -861,8 +863,10 @@ function sellerOrdersView() {
 
 function orderTimeline(order) {
   if (order.status === "cancelled") return `<div class="order-cancelled">${icon("close")} <div><strong>Cancelled</strong><span class="muted small">${escapeHtml(order.cancelReason || "This order was cancelled.")}</span></div></div>`;
-  const steps = order.kind === "service" ? ["Requested", "Confirmed", "Completed"] : ["Ordered", "Accepted", "Ready for pickup", "Picked up"];
-  const progress = order.kind === "service"
+  const steps = order.kind === "ticket" ? ["Sold", "Valid", "Used at the door"] : order.kind === "service" ? ["Requested", "Confirmed", "Completed"] : ["Ordered", "Accepted", "Ready for pickup", "Picked up"];
+  const progress = order.kind === "ticket"
+    ? { confirmed: 1, completed: 2 }[order.status]
+    : order.kind === "service"
     ? { requested: 0, confirmed: 1, completed: 2 }[order.status]
     : { requested: 0, confirmed: 1, ready: 2, completed: 3 }[order.status];
   return `<ol class="order-timeline">${steps.map((step, index) => `<li class="${index < progress || order.status === "completed" ? "done" : index === progress ? "current" : ""}"><span class="timeline-dot">${index < progress || order.status === "completed" ? icon("check", 12) : ""}</span><span>${step}</span></li>`).join("")}</ol>`;
@@ -870,6 +874,8 @@ function orderTimeline(order) {
 
 function orderActions(order) {
   const id = order.id;
+  if (order.kind === "ticket" && order.status !== "completed") return `<button class="primary-button" data-view="seller-scan">${icon("ticket")} Scan at the door</button>`;
+  if (order.kind === "ticket") return `<p class="muted small">Scanned. This ticket cannot be used again.</p>`;
   if (order.status === "requested") return `<button class="primary-button" data-action="seller-order-accept" data-id="${id}">${icon("check")} Accept ${order.kind === "service" ? "booking" : "order"}</button><button class="ghost-button" data-action="seller-order-decline" data-id="${id}">Decline</button>`;
   if (order.status === "confirmed" && order.kind === "service") return `<button class="primary-button" data-action="seller-order-complete" data-id="${id}">${icon("check")} Mark session completed</button><button class="ghost-button" data-action="seller-order-reschedule" data-id="${id}">${icon("calendar")} Reschedule</button><button class="danger-button" data-action="seller-order-cancel" data-id="${id}">Cancel & refund</button>`;
   if (order.status === "confirmed") return `<button class="primary-button" data-action="seller-order-ready" data-id="${id}">${icon("package")} Mark ready for pickup</button><button class="danger-button" data-action="seller-order-cancel" data-id="${id}">Cancel & refund</button>`;
@@ -894,6 +900,7 @@ function sellerOrderView() {
           <div class="order-detail-row"><span>${order.kind === "service" ? "Where" : "Handoff spot"}</span><strong>${escapeHtml(listing?.meeting || "Campus")}</strong></div>
           <div class="order-detail-row"><span>${order.kind === "service" ? "Length" : "Quantity"}</span><strong>${order.kind === "service" ? escapeHtml(listing?.unit || "") : order.qty}</strong></div>
           <div class="order-detail-row"><span>Buyer</span><strong>${escapeHtml(order.buyer)} · Student verified</strong></div>
+          ${order.ticketCode ? `<div class="order-detail-row"><span>Ticket code</span><strong>${escapeHtml(order.ticketCode)}</strong></div>` : ""}
         </div>
         ${order.note ? `<div class="buyer-note"><span class="small muted">Note from ${escapeHtml(order.buyer.split(" ")[0])}</span><p>“${escapeHtml(order.note)}”</p></div>` : ""}
         <div class="button-row order-actions">${orderActions(order)}</div>
@@ -1242,6 +1249,74 @@ function openWithdrawModal() {
   renderModal(`<div class="eyebrow">Withdraw</div><h2>Send money to ${escapeHtml(sellerPayouts.method)}.</h2><p class="muted">${money(sellerPayouts.available)} is available. Demo only, so no money moves.</p><form data-form="seller-withdraw"><div class="field"><label for="withdraw-amount">Amount ($)</label><input id="withdraw-amount" name="amount" type="number" min="1" step="0.01" max="${sellerPayouts.available.toFixed(2)}" value="${sellerPayouts.available.toFixed(2)}" required /></div><div class="modal-actions"><button class="ghost-button" type="button" data-action="close-modal">Cancel</button><button class="primary-button" type="submit">Withdraw ${icon("arrow")}</button></div></form>`);
 }
 
+let ticketScanStream = null;
+
+function stopTicketScan() {
+  ticketScanStream?.getTracks().forEach((track) => track.stop());
+  ticketScanStream = null;
+}
+
+function applyTicketScan(code) {
+  const result = markTicketUsed(code);
+  state.seller.scanResult = result;
+  stopTicketScan();
+  showToast(result.ok ? "Ticket marked used." : result.title, result.ok ? undefined : "error");
+  render();
+}
+
+async function startTicketCamera() {
+  const video = document.querySelector("#ticket-scan-video");
+  const note = document.querySelector("#ticket-scan-note");
+  if (!video || !navigator.mediaDevices?.getUserMedia) {
+    if (note) note.textContent = "This browser cannot open the camera. Enter the code under the QR instead.";
+    return;
+  }
+  try {
+    stopTicketScan();
+    ticketScanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+    video.srcObject = ticketScanStream;
+    video.hidden = false;
+    await video.play();
+    if (!("BarcodeDetector" in window)) {
+      if (note) note.textContent = "Camera is on, but this browser cannot read QR codes. Enter the code under the buyer's QR.";
+      return;
+    }
+    const detector = new BarcodeDetector({ formats: ["qr_code"] });
+    const watch = async () => {
+      if (!ticketScanStream || state.view !== "seller-scan") return;
+      try {
+        const codes = await detector.detect(video);
+        const value = codes[0]?.rawValue;
+        if (value) return applyTicketScan(value);
+      } catch { /* keep watching */ }
+      requestAnimationFrame(watch);
+    };
+    watch();
+    if (note) note.textContent = "Point the camera at the buyer's QR code.";
+  } catch {
+    if (note) note.textContent = "Camera permission was blocked. Enter the code under the QR instead.";
+  }
+}
+
+function sellerScanView() {
+  const result = state.seller.scanResult;
+  const banner = result ? `<div class="scan-result ${result.ok ? "is-valid" : "is-used"}"><strong>${escapeHtml(result.title)}</strong><p>${escapeHtml(result.message)}</p></div>` : "";
+  return `${sellerHeader({ eyebrow: "At the door", title: "Scan a ticket", sub: "A valid code is marked used. A second scan will not let them in.", back: { view: "seller-orders", label: "Back to orders" } })}
+    <div class="scan-layout">
+      <section class="scan-stage">
+        <video id="ticket-scan-video" class="scan-video" hidden playsinline muted></video>
+        <div class="scan-frame" aria-hidden="true"></div>
+        <p id="ticket-scan-note" class="muted small">Start the camera, or type the code printed under the QR.</p>
+        <button class="primary-button" type="button" data-action="seller-start-scan">${icon("ticket")} Start camera</button>
+      </section>
+      <form class="form-card" data-form="seller-scan-code">
+        <div class="field"><label for="ticket-code">Ticket code</label><input id="ticket-code" name="code" required maxlength="12" placeholder="e.g. CC7K3M9Q" autocomplete="off" /></div>
+        <button class="primary-button" type="submit">Mark used ${icon("check")}</button>
+        ${banner}
+      </form>
+    </div>`;
+}
+
 /* ---------- Routing ---------- */
 
 const SELLER_VIEWS = {
@@ -1251,6 +1326,7 @@ const SELLER_VIEWS = {
   "seller-new": sellerNewListingView,
   "seller-orders": sellerOrdersView,
   "seller-order": sellerOrderView,
+  "seller-scan": sellerScanView,
   "seller-analytics": sellerAnalyticsView,
   "seller-inbox": sellerInboxView,
   "seller-notifications": sellerNotificationsView,
@@ -1351,6 +1427,7 @@ function handleSellerAction(action, target) {
     "seller-order-reschedule": () => openRescheduleModal(getSellerOrder(id)),
     "seller-order-thanks": () => showToast("Review request sent to the buyer (demo)."),
     "seller-message-buyer": () => openOrderConversation(getSellerOrder(id)),
+    "seller-start-scan": () => startTicketCamera(),
 
     "seller-set-range": () => { ui.analyticsRange = Number(target.dataset.range); render(); },
     "seller-set-analytics-store": () => { ui.analyticsStore = id; render(); },
@@ -1493,6 +1570,10 @@ function handleSellerSubmit(form, event) {
     review.reply = data.get("reply").toString().trim();
     showToast("Reply posted publicly.");
     render();
+    return true;
+  }
+  if (name === "seller-scan-code") {
+    applyTicketScan(data.get("code"));
     return true;
   }
   if (name === "seller-withdraw") {

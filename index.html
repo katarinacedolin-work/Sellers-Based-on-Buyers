@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#3157ff" />
     <title>Campus Connect — Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=aztec-sections" />
+    <link rel="stylesheet" href="styles.css?v=housing-cubbies" />
   </head>
   <body data-mode="buyer">
     <div class="app-shell">
@@ -13,12 +13,9 @@
 
       <header class="desktop-header">
         <button class="brand-button" data-action="go-home" aria-label="Campus Connect home, SDSU">
-          <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
-          <span class="brand-wordmark-group">
-            <span class="brand-wordmark">campus connect</span>
-            <span class="brand-campus-separator" aria-hidden="true">·</span>
-            <img class="brand-campus-logo" src="sdsu-logo.svg" alt="SDSU" width="56" height="19" />
-          </span>
+          <img class="brand-logo" src="campus-connect-logo.png" alt="" />
+          <span class="brand-campus-separator" aria-hidden="true">·</span>
+          <img class="brand-campus-logo" src="sdsu-logo.svg" alt="SDSU" width="120" height="40" />
           <span class="seller-hub-tag seller-only">Seller Hub</span>
         </button>
 
@@ -35,8 +32,9 @@
             <button class="nav-link" data-view="home">Home</button>
             <button class="nav-link" data-view="book">Book</button>
             <button class="nav-link" data-view="shop">Shop</button>
-            <button class="nav-link" data-view="stores">Stores</button>
-            <button class="nav-link" data-view="deals">Aztec Deals</button>
+            <button class="nav-link" data-view="jobs">Job Board</button>
+            <button class="nav-link" data-view="housing">Housing</button>
+            <button class="nav-link" data-view="tickets">Tickets</button>
           </nav>
         </div>
 
@@ -63,14 +61,16 @@
         <button class="mobile-nav-link" data-view="home"><span class="icon" data-icon="home" aria-hidden="true"></span><span>Home</span></button>
         <button class="mobile-nav-link" data-view="book"><span class="icon" data-icon="calendar" aria-hidden="true"></span><span>Book</span></button>
         <button class="mobile-nav-link" data-view="shop"><span class="icon" data-icon="bag" aria-hidden="true"></span><span>Shop</span></button>
-        <button class="mobile-nav-link" data-view="stores"><span class="icon" data-icon="store" aria-hidden="true"></span><span>Stores</span></button>
-        <button class="mobile-nav-link" data-view="deals"><span class="icon" data-icon="ticket" aria-hidden="true"></span><span>Deals</span></button>
+        <button class="mobile-nav-link" data-view="jobs"><span class="icon" data-icon="briefcase" aria-hidden="true"></span><span>Jobs</span></button>
+        <button class="mobile-nav-link" data-view="housing"><span class="icon" data-icon="bed" aria-hidden="true"></span><span>Housing</span></button>
+        <button class="mobile-nav-link" data-view="tickets"><span class="icon" data-icon="ticket" aria-hidden="true"></span><span>Tickets</span></button>
       </nav>
     </div>
 
     <div id="modal-root"></div>
-    <script src="icons.js?v=handshake2"></script>
-    <script src="app.js?v=aztec-sections"></script>
-    <script src="seller.js?v=order-panel"></script>
+    <script src="qr.js?v=ticket-qr"></script>
+    <script src="icons.js?v=ticket-plane"></script>
+    <script src="app.js?v=housing-cubbies"></script>
+    <script src="seller.js?v=ticket-pass"></script>
   </body>
 </html>

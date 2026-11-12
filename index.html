@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#3157ff" />
     <title>Campus Connect — Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=housing-cubbies" />
+    <link rel="stylesheet" href="shared/base.css" />
+    <link rel="stylesheet" href="buyer/buyer.css" />
   </head>
   <body data-mode="buyer">
     <div class="app-shell">
@@ -16,19 +17,10 @@
           <img class="brand-logo" src="campus-connect-logo.png" alt="" />
           <span class="brand-campus-separator" aria-hidden="true">·</span>
           <img class="brand-campus-logo" src="sdsu-logo.svg" alt="SDSU" width="120" height="40" />
-          <span class="seller-hub-tag seller-only">Seller Hub</span>
         </button>
 
         <div class="header-navs">
-          <nav class="desktop-nav seller-only" aria-label="Seller navigation">
-            <button class="nav-link" data-view="seller-dashboard">Dashboard</button>
-            <button class="nav-link nav-link-with-badge" data-view="seller-orders">Orders<span class="nav-badge seller-orders-badge"></span></button>
-            <button class="nav-link" data-view="seller-listings">Listings</button>
-            <button class="nav-link" data-view="seller-stores">Stores</button>
-            <button class="nav-link" data-view="seller-analytics">Analytics</button>
-          </nav>
-
-          <nav class="desktop-nav buyer-only" aria-label="Primary navigation">
+          <nav class="desktop-nav" aria-label="Primary navigation">
             <button class="nav-link" data-view="home">Home</button>
             <button class="nav-link" data-view="book">Book</button>
             <button class="nav-link" data-view="shop">Shop</button>
@@ -43,21 +35,21 @@
             <span class="icon" data-icon="repeat" aria-hidden="true"></span><span class="mode-switch-label">Switch to selling</span>
           </button>
           <div class="header-popover-anchor">
-            <button type="button" class="icon-button notifications-nav-button" data-action="toggle-notifications" aria-label="Notifications, 2 unread" aria-expanded="false" aria-controls="notification-popover">
-              <span class="icon" data-icon="bell" aria-hidden="true"></span><span class="header-badge notification-badge">2</span>
+            <button type="button" class="icon-button notifications-nav-button" data-action="toggle-notifications" aria-label="Notifications" aria-expanded="false" aria-controls="notification-popover">
+              <span class="icon" data-icon="bell" aria-hidden="true"></span><span class="header-badge notification-badge" hidden></span>
             </button>
             <div id="notification-popover" class="notification-popover" role="dialog" aria-label="Notifications" hidden></div>
           </div>
-          <button type="button" class="icon-button inbox-nav-button messages-nav-button" data-view="inbox" aria-label="Messages, 2 unread">
-            <span class="icon" data-icon="chat" aria-hidden="true"></span><span class="header-badge inbox-badge">2</span>
+          <button type="button" class="icon-button inbox-nav-button messages-nav-button" data-view="inbox" aria-label="Messages">
+            <span class="icon" data-icon="chat" aria-hidden="true"></span><span class="header-badge inbox-badge" hidden></span>
           </button>
-          <button class="avatar avatar-small profile-nav-button" data-view="you" aria-label="Your profile">KC</button>
+          <button class="avatar avatar-small profile-nav-button" data-view="you" aria-label="Your profile"></button>
         </div>
       </header>
 
       <main id="app-main" tabindex="-1"></main>
 
-      <nav class="mobile-bottom-nav buyer-only" aria-label="Mobile navigation">
+      <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
         <button class="mobile-nav-link" data-view="home"><span class="icon" data-icon="home" aria-hidden="true"></span><span>Home</span></button>
         <button class="mobile-nav-link" data-view="book"><span class="icon" data-icon="calendar" aria-hidden="true"></span><span>Book</span></button>
         <button class="mobile-nav-link" data-view="shop"><span class="icon" data-icon="bag" aria-hidden="true"></span><span>Shop</span></button>
@@ -68,9 +60,15 @@
     </div>
 
     <div id="modal-root"></div>
-    <script src="qr.js?v=ticket-qr"></script>
-    <script src="icons.js?v=ticket-plane"></script>
-    <script src="app.js?v=housing-cubbies"></script>
-    <script src="seller.js?v=ticket-pass"></script>
+    <script src="shared/qr.js"></script>
+    <script src="shared/icons.js"></script>
+    <script src="shared/utils.js"></script>
+    <script src="shared/mock-data.js"></script>
+    <script src="shared/api.js"></script>
+    <script src="shared/store.js"></script>
+    <script src="shared/ui.js"></script>
+    <script src="buyer/views.js"></script>
+    <script src="buyer/actions.js"></script>
+    <script src="shared/app.js"></script>
   </body>
 </html>
